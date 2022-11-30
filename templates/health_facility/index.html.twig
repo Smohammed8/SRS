@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HealthFacility index{% endblock %}
+
+{% block body %}
+    <h4>HealthFacility index</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                 <th>Location</th>
+                  <th> Ownership </th>
+                    <th> Type </th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for health_facility in health_facilities %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ health_facility.name }}</td>
+                 <td>{{ health_facility.woreda  }}</td>
+                  <td> {{ health_facility.Ownership  }} </td>
+                     <td> {{ health_facility.type  }} </td>
+                <td>
+                    <a  class="btn btn-sm btn-primary btn-info btn-round" href="{{ path('health_facility_show', {'id': health_facility.id}) }}">
+                    
+                    <i class="ace-icon fa fa-eye bigger-120"></i> Show</a>
+                    
+                   
+                    <a  class="btn btn-sm btn-primary btn-warning btn-round" href="{{ path('health_facility_edit', {'id': health_facility.id}) }}">
+                    
+                    <i class="ace-icon fa fa-edit bigger-120"></i> Edit</a>
+              
+                      <a class="btn btn-xs btn-danger" href="{{ path('health_facility_delete', {'id': health_facility.id}) }}" title="Delete">
+						<i class="ace-icon fa fa-trash bigger-120"></i> Delete
+				   </a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(health_facilities) }}</div>
+
+    <a href="{{ path('health_facility_new') }}">Create new</a>
+{% endblock %}

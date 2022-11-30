@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Bed{% endblock %}
+
+{% block body %}
+
+ <h4>Add Bed in <u> <a href="#"> {{ room.unit.ward}}</u>  >> <u>{{ room.unit}}</u>  >>  <u>{{ room}} </a> </u> </h4>
+    {{ include('bed/_form.html.twig') }}
+
+    <a href="{{ path('bed_index',{id:room.id}) }}">Back to list</a>
+{% endblock %}

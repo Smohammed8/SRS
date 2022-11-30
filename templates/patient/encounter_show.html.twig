@@ -1,0 +1,383 @@
+{% extends 'base.html.twig' %}
+{% block title %} Encounter {% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-xs-12">
+<br>
+        <div>
+            <div id="user-profile-1" class="user-profile row">
+                <div class="col-xs-12 col-sm-3 center" style="font-size:15px;">
+                   
+                   
+                    <div>
+                        <span class="profile-picture">
+                            <img id="avatar" class="editable img-responsive" wi alt="User Photo"
+                                src="{{ asset('assets/images/avatars/profile-pic.jpg')}}" />
+                        </span>
+
+                        <div class="space-4"></div>
+
+                        <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                            <div class="inline position-relative">
+                                <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                  
+                                
+                                    <span title="Click here to see more.." class="white">{{ patient.fname }}
+                                        {{patient.mname  }}
+                                        {{patient.lname}}</span>
+                                </a>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="space-6"></div>
+
+                    <div class="profile-contact-info">
+                        <div class="profile-contact-links align-left">
+
+
+                            <center>
+                                Card Number: {{ patient.mrn }}
+                            </center>
+                       
+
+                        </div>
+
+                        <div class="space-6"></div>
+
+
+                    </div>
+
+                    <div class="hr hr12 dotted"></div>
+
+                    <div class="clearfix">
+                        <div class="grid2">
+                            <span class="bigger-120 blue">M
+                            </span>
+
+                            <br />
+                            Patient Gender
+                        </div>
+                  {% set age = date().diff(date(patient.dob)).y  %}
+                        <div class="grid2">
+                            <span class="bigger-120 blue">
+                                {{ age }}
+                            </span>
+
+                            <br />
+                            Current Age
+                        </div>
+                    </div>
+
+                    <div class="hr hr16 dotted"></div>
+                    
+                </div>
+                <div class="col-xs-12 col-sm-9" style="font-size:15px;" >
+                   
+                    <div id="patient_action_toolbar" class="pull-left tableTools-container">
+ 
+
+                       <a  href="" class="btn btn-sm btn-primary btn-blue btn-round"  style="color:red;" title="Patient location">
+                            <i class="ace-icon fa fa-list bigger-120"></i>
+                     
+                        </a> 
+
+                     
+                       <a href="#" role="button" class=" btn btn-sm btn-primary btn-white btn-round"  data-toggle="modal">
+                                        <i class="ace-icon fa fa-user bigger-120"></i>
+                                        Patient Information
+                                    </a>
+
+      
+                    </div>
+                  
+                  
+                    <div id="patient_action_toolbar" class="pull-right tableTools-container">
+
+                     <!-- <a  href="{{ path('visitor_new', {'id':patient.id}) }}" class="btn btn-sm btn-primary btn-white btn-round"  style="color:red;" title="Patient location">
+                            <i class="ace-icon fa fa-plus bigger-120"></i>
+                         Add Vistor
+                        </a> -->
+                        
+                           <a href="#my-encounter" onclick="event.preventDefault();setAdmissionType('none');" role="button" class=" btn btn-sm btn-primary btn-white btn-round"  data-toggle="modal">
+                                        <i class="ace-icon fa fa-plus bigger-120"></i>
+                                       Create new encounter
+                                    </a>    
+                    </div>
+                  
+                  
+                   <div class="profile-user-info profile-user-info-striped" style="border-top:3px solid #438EB9; ">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Full Name</div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="username">
+                                    {{ patient.fname |capitalize}}
+                                    {{ patient.mname |capitalize}}
+                                    {{ patient.lname |capitalize}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Address
+                            </div>
+                            <div class="profile-info-value">
+                                <!--  <i class="fa fa-map-marker light-orange bigger-110"></i> -->
+                                <span class="editable" id="address">{{ patient.address}}</span>
+
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Gender
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="sex">{{ patient.gender }}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Date of Birth
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="dob">{{ patient.dob ? patient.dob| eth_date }}</span>
+                            </div>
+                        </div>
+                       
+                       
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Phone
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">{{ patient.phone }}</span>
+                            </div>
+                        </div>
+
+                             <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Origin
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">{{ patient.region }}/{{ patient.zone }}/{{ patient.woreda }}</span>
+                            </div>
+                        </div>
+
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Registered at
+                            </div>
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                    {{ patient.createdAt ? patient.createdAt|date('Y-m-d') : '' }}
+                                    (
+                                    {{ patient.createdAt|ago }})</span>
+                            </div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Registered by
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">{{ patient.user }}</span>
+                            </div>
+                        </div>
+
+                    
+                                 <div class="profile-info-row">
+                            <div class="profile-info-name">
+                               No of addmissions
+                            </div>
+
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                   
+                                             {{ patient.admimssions |length }} 
+                                         
+                                             
+                                   </span>
+                                   
+                            </div>
+                        </div>
+
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Appointments
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                         {{ patient.appointments |length }}  </span>
+                            </div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Initially Referred from
+                            </div>
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                    {{ patient.referredfrom }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-20"></div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="hr hr10 hr-double" ></div>
+        <table id="dynamic-table" style="border-top:3px solid #438EB9; "  class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr style="font-size:15px;">
+                    <th colspan="7">
+                        <b>
+                       <i class="fa fa-user"></i>
+                        Encounter Information</b>
+                    </th>
+                </tr>
+                    <tr style="background-color:lightblue;" >
+                    <th style="font-size:15px;"> #</th>
+                    <th style="font-size:15px;"> Date of visiting</th>
+                    <th style="font-size:15px;"> Type  </th>
+                    <th style="font-size:15px;"> Department </th>
+                    <th style="font-size:15px;"> User </th>
+                    <th style="font-size:15px;"> Referr out</th>
+                    <th style="font-size:15px;"> Action</th>
+    
+                </tr>
+            </thead>
+            <tbody>
+                {% for encounter in encounters %}
+                <tr style="font-size:15px;">
+                    <td>{{ loop.index }}</td>
+                
+                    <td>
+                        {{ encounter.createdAt ? encounter.createdAt |eth_date : '' }}
+                    </td>
+                  
+                     <td> {{ encounter.type }}</td>
+                    <td>{{ encounter.destination }} </td>
+                    <td>{{ encounter.createdBy }} </td>
+                    <td> {% if encounter.referout is null %} 
+                    
+                        -
+                         {% else %}
+                             {{ encounter.referout }}
+                         {% endif  %}
+                    </td>
+                 
+                
+                            </div>
+                    
+                <td>
+                    <a class="btn btn-xs btn-success" href="" title="Show">
+					<i class="ace-icon fa fa-eye bigger-120"></i>  View
+				   </a>
+
+                   	<a class="btn btn-xs btn-warning" href="" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a>
+                </td>
+                </tr>
+            </tbody>
+            </tbody>
+            </tr>
+
+            {% else %}
+          
+            <tr>
+                <td colspan="11" style="color:red;">No active encounter found !</td>
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <div class="pull-right" style="margin-right:10px;">{{ knp_pagination_render(encounters) }}
+        </div>
+  </div>
+
+
+   <!-- ////////////////////////////-->
+<div id="my-encounter" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="smaller lighter blue no-margin">New check in</h3>
+            </div>
+            <div class="modal-body">
+            				<input type="hidden" name="patient_id" value="{{patient.id}}">
+							
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ patient.id) }}">
+                <div>
+                    <form id="formEncounter" method="POST" action="{{path('app_encounter_new',{patient:patient.id})}}">
+                        <div class="row">
+                            <div>
+                                <input type="hidden" name="patient_id" value="{{patient.id}}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ patient.id) }}">
+                            </div>
+                         
+                            <div class="col-md-12">
+                                <label>Encounter Type</label>
+                                <select class="select2 form-control" required name="type" id="encounterType" style="width:100%;">
+                                     {% for encounter_type in encounter_types %}
+                                        <option value="{{encounter_type.id}}">{{encounter_type.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <br><br><br><br>
+						<div class="col-md-12">
+						<label> Which department the patient go?</label>
+						 <select class="select2 form-control" required name="dept" id="dept" style="width:100%;">
+                                     {% for department in departments %}
+                                        <option value="{{department.id}}">{{department.name}}</option>
+                                    {% endfor %}
+                                </select>
+						</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-info pull-right" data-dismiss="modal"> <i class="ace-icon fa fa-times"></i>
+                    Close
+                </button>
+                <button class="btn btn-sm btn-success pull-right" onclick="submitEncounterForm()">
+                    <i class="ace-icon fa fa-save"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/////////////-->
+
+<script>
+   function submitEncounterForm(){
+       if ($('#encounterType').val()) {
+            $('#formEncounter').addClass('fade');
+            $('#formEncounter').removeClass('show');
+            document.getElementById('formEncounter').submit();
+         }
+    }
+    </script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Slip index{% endblock %}
+
+{% block body %}
+    <h4> List of adminssion Slip-<a href="{{ path('patient_show', {'id': patient.id }) }}"> {{ patient }}  </a> </h4>
+ 	<div class="pull-right tableTools-container">
+     <a href="{{ path('slip_new', {'id': patient.id}) }}" class="btn btn-success btn-sm float-right">  <i class="fa fa-file"></i> Add slip </a>             
+    <a href="{{ path('patient_show', {'id': patient.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-user"></i> Back </a>             
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                 <th>Patient </th>
+                <th>Seen Date</th>
+                <th>Diagnosis</th>
+                <th>Admitting Team</th>
+                <th>Evaluating Resident</th>
+                <th>Senior Surgeon</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for slip in slips %}
+            <tr>
+                <td>{{  loop.index }}</td>
+                  <td> <a href="{{ path('patient_show', {'id': slip.patient.id}) }}"> {{ slip.patient  }} </a></td>
+                <td>{{ slip.seenDate ? slip.seenDate| eth_date  }} ( {{ slip.seenDate ? slip.seenDate| ago }} ) </td>
+                <td>{{ slip.diagnosis }}</td>
+                <td>{{ slip.admittingTeam }}</td>
+                <td>{{ slip.evaluatingResident }}</td>
+                <td>{{ slip.seniorSurgeon }}</td>
+                <td>
+                  <a class="btn btn-xs btn-info" href="{{ path('slip_show', {'id': slip.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-eye bigger-120"></i> 
+				    </a>
+
+                    <a class="btn btn-xs btn-warning" href="{{ path('slip_edit', {'id': slip.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> 
+				    </a>
+                    <a class="btn btn-xs btn-success" href="" title="Print out">
+						<i class="ace-icon fa fa-print bigger-120"></i> 
+				    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No patien's slip found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(slips) }}</div>
+
+
+{% endblock %}

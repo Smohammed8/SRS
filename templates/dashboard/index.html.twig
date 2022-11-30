@@ -1,0 +1,710 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Dashboard{% endblock %}
+
+{% block body %}
+
+
+
+<style>
+.card-box {
+    position: relative;
+    color: #fff;
+    padding: 20px 10px 40px;
+    margin: 20px 0px;
+}
+.card-box:hover {
+    text-decoration: none;
+    color: #f1f1f1;
+}
+.card-box:hover .icon i {
+    font-size: 100px;
+    transition: 1s;
+    -webkit-transition: 1s;
+}
+.card-box .inner {
+    padding: 5px 10px 0 10px;
+}
+.card-box h3 {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    white-space: nowrap;
+    padding: 0;
+    text-align: left;
+}
+.card-box p {
+    font-size: 15px;
+}
+.card-box .icon {
+    position: absolute;
+    top: auto;
+    bottom: 5px;
+    right: 5px;
+    z-index: 0;
+    font-size: 72px;
+    color: rgba(0, 0, 0, 0.15);
+}
+.card-box .card-box-footer {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    text-align: center;
+    padding: 3px 0;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-decoration: none;
+}
+.card-box:hover .card-box-footer {
+    background: rgba(0, 0, 0, 0.3);
+}
+.bg-blue {
+    background-color: #00c0ef !important;
+}
+.bg-green {
+    background-color: #00a65a !important;
+}
+.bg-orange {
+    background-color: #f39c12 !important;
+}
+.bg-red {
+    background-color: #d9534f !important;
+}
+</style>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+        <div class="row">
+			<div class="alert alert-block alert-success">
+									<button type="button" class="close" data-dismiss="alert">
+										<i class="ace-icon fa fa-times"></i>
+									</button>
+
+									{# <i class="ace-icon fa fa-check green"></i> #}
+									<i class="ace-icon fa fa-list green"></i>
+
+									Welcome to
+									<strong class="green">
+										Dashboard
+										<small>(IMS)</small>
+									</strong> Inpatient Managment System
+								</div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-blue">
+                    <div class="inner">
+                        <h3> {{ total_patinets }} </h3>
+                        <p> Patients </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <a href="{{ path('patient_index')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-green">
+                    <div class="inner">
+                        <h3> {{ total_admimssions }} </h3>
+                        <p> Total Admissions  </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-bed" aria-hidden="true"></i>
+                    </div>
+                    <a href="{{ path('admimssion_index')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-orange">
+                    <div class="inner">
+                        <h3>{{new_admimssions }}  </h3>
+                        <p> New Admissions </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </div>
+                    <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+			         <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-red">
+                    <div class="inner">
+                        <h3> {{ total_wards }}</h3>
+                        <p> Total wards </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-institution"></i>
+                    </div>
+                    <a href="{{ path('ward_index')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+			
+								<div class="hr hr32 hr-dotted"></div>
+			         <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-green">
+                    <div class="inner">
+                        <h3> {{ total_units }} </h3>
+                        <p> Total Units </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-list"></i>
+                    </div>
+                    <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+			         <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-blue">
+                    <div class="inner">
+                        <h3> {{ free_beds}} </h3>
+                        <p> Free Beds </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-bed"></i>
+                    </div>
+                    <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-red">
+                    <div class="inner">
+                        <h3> {{ total_beds }} </h3>
+                        <p> Total Beds
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-bed"></i>
+                    </div>
+                    <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+			    <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-primary"> 
+                    <div class="inner">
+                        <h3> {{ total_users }}</h3>
+                        <p> Total Users
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <a href="{{ path('user_index')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+	<div class="hr hr32 hr-dotted"></div>
+		
+        
+        
+                             <div class="col-sm-12">
+										<div class="widget-box">
+											<div class="widget-header widget-header-flat widget-header-small">
+												<h5 class="widget-title">
+													<i class="ace-icon fa fa-signal"></i>
+													Outcome stastices
+												</h5>
+
+												<div class="widget-toolbar no-border">
+													<div class="inline dropdown-hover">
+														<button class="btn btn-minier btn-primary">
+															Outcome report
+															<i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+														</button>
+
+														<ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
+														
+                                                        
+                                                        	<li class="active">
+																<a href="#" class="blue">
+																	<i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>
+																	All times
+																</a>
+															</li>
+
+															<li>
+																<a href="#">
+																	<i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
+																	Last Week
+																</a>
+															</li>
+
+															<li>
+																<a href="#">
+																	<i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
+																	This Month
+																</a>
+															</li>
+
+															<li>
+																<a href="#">
+																	<i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
+																	Last Month
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+
+
+
+
+      
+
+
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<div id="piechart-placeholder"></div>
+
+													<div class="hr hr8 hr-double"></div>
+
+													<div class="clearfix">
+														<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-users fa-2x red"></i>
+																&nbsp;Deaths
+															</span>
+															<h4 class="bigger pull-right">{{ total_deaths }}</h4>
+														</div>
+
+														<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-users fa-2x green"></i>
+																&nbsp;Improves
+															</span>
+															<h4 class="bigger pull-right">{{ total_improves}}</h4>
+														</div>
+
+														<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-users fa-2x blue"></i>
+																&nbsp;Referrals
+															</span>
+															<h4 class="bigger pull-right">{{ total_referrals }}</h4>
+														</div>
+
+
+                                                        	<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-users fa-2x blue"></i>
+																&nbsp;Transfers
+															</span>
+															<h4 class="bigger pull-right"> {{total_transfers }}</h4>
+														</div>
+	                                                     
+                                                         <div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-users fa-2x blue"></i>
+																&nbsp; No changes
+															</span>
+															<h4 class="bigger pull-right"> {{ total_nochangs }}</h4>
+														</div>
+
+                                                        	<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-users fa-2x blue"></i>
+																&nbsp;Absoconds
+															</span>
+															<h4 class="bigger pull-right"> {{ total_absoconds }}</h4>
+														</div>
+
+
+                                                        	<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-users fa-2x blue"></i>
+																&nbsp;Self-discharges
+															</span>
+															<h4 class="bigger pull-right"> {{ total_self_discharges }}</h4>
+														</div>
+
+													</div>
+												</div><!-- /.widget-main -->
+											</div><!-- /.widget-body -->
+										</div><!-- /.widget-box -->
+									</div><!-- /.col -->
+
+       
+
+                                       <div class="col-sm-12">
+										<div class="widget-box">
+											<div class="widget-header widget-header-flat widget-header-small">
+												<h5 class="widget-title">
+													<i class="ace-icon fa fa-signal"></i>
+													 Ward Information
+												</h5>
+
+												<div class="widget-toolbar no-border">
+												
+                                            
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<div id="piechart-placeholder"></div>
+
+													<div class="hr hr8 hr-double"></div>
+
+													<div class="clearfix">
+														<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x blue"></i>
+																&nbsp; Meducal Ward :
+															</span>
+															<h5 class="pull-right">	<span class="grey"> {{units_in_surgical_ward}} Units,&nbsp;{{beds_in_surgical_ward}} Beds </span></h5>
+														</div>
+
+														<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x purple"></i>
+																&nbsp; Surgical Ward :
+															</span>
+															<h5 class="pull-right"> <span class="grey"> {{units_in_surgical_ward}} Units,&nbsp;{{beds_in_surgical_ward}} Beds	</span> </h5>
+														</div>
+                                                        <div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x red"></i>
+																&nbsp; Matharnity Ward :
+															</span>
+															<h5 class="pull-right"> <span class="grey"> {{units_in_mathernity_ward}} Units,&nbsp;{{beds_in_mathernity_ward}} Beds 	</span></h5>
+														</div>
+
+
+	                                                   <div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x red"></i>
+																&nbsp; Pediatrices Ward :
+															</span>
+															<h5 class="pull-right"> <span class="grey"> {{units_in_pediatrics_ward}} Units,&nbsp; {{beds_in_pediatrics_ward}}  Beds 	</span></h5>
+														</div>
+
+														<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x red"></i>
+																&nbsp; Gynaecology Ward :
+															</span>
+															<h5 class=" pull-right"> <span class="grey"> {{ units_in_gyne_ward }} Units,&nbsp;{{ beds_in_gyne_ward }}  Beds </span> </h5>
+                                                        
+														</div>
+
+
+                                                        <div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x red"></i>
+																&nbsp;  Psychiatric Ward :
+
+                                                                
+															</span>
+															<h5 class=" pull-right"> <span class="grey"> {{ units_in_psychiatric_ward}} Units,&nbsp; {{ beds_in_psychiatric_ward }} Beds </span> </h5>
+                                                        
+														</div>
+
+                                                        		<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x red"></i>
+																&nbsp; Ophthalmology ward :
+															</span>
+															<h5 class=" pull-right"> <span class="grey"> {{ units_in_ophtha_ward }} Units,&nbsp;  {{ beds_in_ophtha_ward }} Beds </span> </h5>
+                                                        
+														</div>
+
+
+
+
+                                                   	<div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x red"></i>
+																&nbsp; NICU Ward :
+															</span>
+															<h5 class=" pull-right"> <span class="grey"> {{ units_in_nicu_ward }} Units,&nbsp; {{ beds_in_nicu_ward }}Beds </span> </h5>
+                                                        
+														</div>
+
+
+     	                                                 <div class="grid3">
+															<span class="grey">
+																<i class="ace-icon fa fa-institution fa-2x red"></i>
+																&nbsp; Orthopedics Ward :
+															</span>
+															<h5 class=" pull-right"> <span class="grey"> {{units_in_orthopedics_ward }} Units,&nbsp;  {{ beds_in_orthopedics_ward }} Beds </span> </h5>
+                                                        
+														</div>
+
+
+
+
+
+
+													</div>
+												</div><!-- /.widget-main -->
+											</div><!-- /.widget-body -->
+										</div><!-- /.widget-box -->
+									</div><!-- /.col -->
+			
+        </div>
+
+
+		    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        jQuery(function($) {
+            $('.easy-pie-chart.percentage').each(function() {
+                var $box = $(this).closest('.infobox');
+                var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+                var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+                var size = parseInt($(this).data('size')) || 50;
+                $(this).easyPieChart({
+                    barColor: barColor,
+                    trackColor: trackColor,
+                    scaleColor: false,
+                    lineCap: 'butt',
+                    lineWidth: parseInt(size / 10),
+                    animate: ace.vars['old_ie'] ? false : 1000,
+                    size: size
+                });
+            })
+
+            $('.sparkline').each(function() {
+                var $box = $(this).closest('.infobox');
+                var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+                $(this).sparkline('html', {
+                    tagValuesAttribute: 'data-values',
+                    type: 'bar',
+                    barColor: barColor,
+                    chartRangeMin: $(this).data('min') || 0
+                });
+            });
+
+
+            //flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
+            //but sometimes it brings up errors with normal resize event handlers
+            $.resize.throttleWindow = false;
+
+            var placeholder = $('#piechart-placeholder').css({
+                'width': '90%',
+                'min-height': '150px'
+            });
+            var data = [{
+                label: "social networks",
+                data: 38.7,
+                color: "#68BC31"
+            }, {
+                label: "search engines",
+                data: 24.5,
+                color: "#2091CF"
+            }, {
+                label: "ad campaigns",
+                data: 8.2,
+                color: "#AF4E96"
+            }, {
+                label: "direct traffic",
+                data: 18.6,
+                color: "#DA5430"
+            }, {
+                label: "other",
+                data: 10,
+                color: "#FEE074"
+            }]
+
+            function drawPieChart(placeholder, data, position) {
+                $.plot(placeholder, data, {
+                    series: {
+                        pie: {
+                            show: true,
+                            tilt: 0.8,
+                            highlight: {
+                                opacity: 0.25
+                            },
+                            stroke: {
+                                color: '#fff',
+                                width: 2
+                            },
+                            startAngle: 2
+                        }
+                    },
+                    legend: {
+                        show: true,
+                        position: position || "ne",
+                        labelBoxBorderColor: null,
+                        margin: [-30, 15]
+                    },
+                    grid: {
+                        hoverable: true,
+                        clickable: true
+                    }
+                })
+            }
+            drawPieChart(placeholder, data);
+
+            /**
+            we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+            so that's not needed actually.
+            */
+            placeholder.data('chart', data);
+            placeholder.data('draw', drawPieChart);
+
+
+            //pie chart tooltip example
+            var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+            var previousPoint = null;
+
+            placeholder.on('plothover', function(event, pos, item) {
+                if (item) {
+                    if (previousPoint != item.seriesIndex) {
+                        previousPoint = item.seriesIndex;
+                        var tip = item.series['label'] + " : " + item.series['percent'] + '%';
+                        $tooltip.show().children(0).text(tip);
+                    }
+                    $tooltip.css({
+                        top: pos.pageY + 10,
+                        left: pos.pageX + 10
+                    });
+                } else {
+                    $tooltip.hide();
+                    previousPoint = null;
+                }
+
+            });
+
+            /////////////////////////////////////
+            $(document).one('ajaxloadstart.page', function(e) {
+                $tooltip.remove();
+            });
+
+
+
+
+            var d1 = [];
+            for (var i = 0; i < Math.PI * 2; i += 0.5) {
+                d1.push([i, Math.sin(i)]);
+            }
+
+            var d2 = [];
+            for (var i = 0; i < Math.PI * 2; i += 0.5) {
+                d2.push([i, Math.cos(i)]);
+            }
+
+            var d3 = [];
+            for (var i = 0; i < Math.PI * 2; i += 0.2) {
+                d3.push([i, Math.tan(i)]);
+            }
+
+
+            var sales_charts = $('#sales-charts').css({
+                'width': '100%',
+                'height': '220px'
+            });
+            $.plot("#sales-charts", [{
+                label: "Domains",
+                data: d1
+            }, {
+                label: "Hosting",
+                data: d2
+            }, {
+                label: "Services",
+                data: d3
+            }], {
+                hoverable: true,
+                shadowSize: 0,
+                series: {
+                    lines: {
+                        show: true
+                    },
+                    points: {
+                        show: true
+                    }
+                },
+                xaxis: {
+                    tickLength: 0
+                },
+                yaxis: {
+                    ticks: 10,
+                    min: -2,
+                    max: 2,
+                    tickDecimals: 3
+                },
+                grid: {
+                    backgroundColor: {
+                        colors: ["#fff", "#fff"]
+                    },
+                    borderWidth: 1,
+                    borderColor: '#555'
+                }
+            });
+
+
+            $('#recent-box [data-rel="tooltip"]').tooltip({
+                placement: tooltip_placement
+            });
+
+            function tooltip_placement(context, source) {
+                var $source = $(source);
+                var $parent = $source.closest('.tab-content')
+                var off1 = $parent.offset();
+                var w1 = $parent.width();
+
+                var off2 = $source.offset();
+                //var w2 = $source.width();
+
+                if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+                return 'left';
+            }
+
+
+            $('.dialogs,.comments').ace_scroll({
+                size: 300
+            });
+
+
+            //Android's default browser somehow is confused when tapping on label which will lead to dragging the task
+            //so disable dragging when clicking on label
+            var agent = navigator.userAgent.toLowerCase();
+            if (ace.vars['touch'] && ace.vars['android']) {
+                $('#tasks').on('touchstart', function(e) {
+                    var li = $(e.target).closest('#tasks li');
+                    if (li.length == 0) return;
+                    var label = li.find('label.inline').get(0);
+                    if (label == e.target || $.contains(label, e.target)) e.stopImmediatePropagation();
+                });
+            }
+
+            $('#tasks').sortable({
+                opacity: 0.8,
+                revert: true,
+                forceHelperSize: true,
+                placeholder: 'draggable-placeholder',
+                forcePlaceholderSize: true,
+                tolerance: 'pointer',
+                stop: function(event, ui) {
+                    //just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
+                    $(ui.item).css('z-index', 'auto');
+                }
+            });
+            $('#tasks').disableSelection();
+            $('#tasks input:checkbox').removeAttr('checked').on('click', function() {
+                if (this.checked) $(this).closest('li').addClass('selected');
+                else $(this).closest('li').removeClass('selected');
+            });
+
+
+            //show the dropdowns on top or bottom depending on window height and menu position
+            $('#task-tab .dropdown-hover').on('mouseenter', function(e) {
+                var offset = $(this).offset();
+
+                var $w = $(window)
+                if (offset.top > $w.scrollTop() + $w.innerHeight() - 100)
+                    $(this).addClass('dropup');
+                else $(this).removeClass('dropup');
+            });
+
+        })
+    </script>
+  
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% endblock %}

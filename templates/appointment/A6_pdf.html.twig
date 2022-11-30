@@ -1,0 +1,67 @@
+
+
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" href="{{asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ asset("assets/css/shared/style.css") }}">
+		
+
+	</head>
+	<body style="font-size:13px;">
+
+		
+		<div style="display:block; width:100%;">
+		
+			<span> <img src="{{ asset('public/uploads/logo.jpg') }}" width="60" height="60" >  
+		<center> <strong>Jimma Medcial Center </strong>
+
+					<p> Patient Appointment Card </p>
+				</center> </span>
+                  <hr/>
+			      <span style="float: right;">Print Date :
+			<u>	{{ 'now'|date('Y-m-d') }}</u><span><br/>
+					
+				</div>
+			
+			
+				<div style="display:block; width:100%">
+					<br>
+					 Name :
+					<u>{{ appointment.patient.fname }}  {{ appointment.patient.mname }}  {{ appointment.patient.lname }}</u>
+					<br>	<br>
+				
+	             	 Medical Record Number:
+					<u>{{ appointment.patient.mrn }}</u>
+					 <br> 	<br>
+					
+					 Admission Date :
+					<u>{{ appointment.createdAt ? appointment.createdAt|date('l, M d, Y') : '' }}</u>
+					 <br>	<br>
+					
+					Date of Appointed :
+					<u> {{ appointment.appointedAt ? appointment.appointedAt|date('l, M d, Y') : '' }}</u>
+					<br>	<br>
+                
+					Reason Appointment :
+					<u>{{ appointment.appointedReason ? appointment.appointedReason: 'No reason of appointment note' }}</u>
+					<br>	<br>
+                  
+					Appointment after :
+					<u>{{' 2 weeks' }}</u>
+                       <br>	<br>
+					 
+
+					User :
+					<u>{{ appointment.createdBy }}</u>
+					
+				</div>
+            
+			  
+					<br>
+	           <span style="float: right;">Sign __________<span>
+				<br>
+
+		
+	</body>
+</html>

@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of beds {% endblock %}
+
+{% block body %}
+ <div class="col-xs-12">
+                            
+
+<div class="widget-header widget-header-blue widget-header-flat">
+	 <i class="fa fa-bed"></i>
+<u> {{ room.unit.ward}}</u>  >> <u>{{ room.unit}}</u>  >>  <u>{{ room }} </u> 
+		<div class="pull-right tableTools-container">
+              	<div class="pull-right tableTools-container">
+                              <a href=" {{ path('bed_new',{id:room.id}) }}" class="btn btn-info btn-sm float-right"> <i class="fa fa-plus"></i> Add new Entry </a>
+
+					     	<a href="{{ path('home') }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Close </a>
+	
+	                        </div>
+                            
+	   </div>
+		</div>
+
+
+    <table class="table" style="border-top:3px solid #438EB9; ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Code </th>
+                <th>Room </th>
+                <th> Unit </th>
+                <th> Ward </th>
+                 <th>Is functional ?</th>
+                 <th>Accessibility</th>
+                 <th>Current Status </th>
+                  <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bed in beds %}
+
+				    {% if bed.isFunctional== true %}
+
+				    <tr>
+				  {% else %}
+                   <tr style="background-color:rgb(255,99,71,0.5);">
+	               
+					{% endif %}
+
+
+        
+                <td>{{ loop.index }}</td>
+
+                   {% if bed.currentStatus==1 or bed.currentStatus==2 %}
+                   <td> <a href="{{ path('bed_show', {'id': bed.id}) }}" >  {{ bed.name }} </a></td>
+                   {% else %}
+				   <td>  {{ bed.name }} </td>
+               
+				   {% endif %}
+
+                  <td>{{ bed.room }}</td>
+                  <td>{{ bed.room.unit }}</td>
+                  <td>{{ bed.room.unit.ward }}</td>
+
+				    {% if bed.isFunctional== 1 %}
+
+				  <td>{{ bed.isFunctional ? 'Yes' : 'No' }}</td>
+				  {% else %}
+
+	               <td style="color:red;" >{{ bed.isFunctional ? 'Yes' : 'No' }}</td>
+					{% endif %}
+
+
+              
+             
+                {% if bed.Accessibility ==0 %}
+
+				  <td> Free </td>
+				  {% else %}
+
+	                <td> Occupied </td>
+					{% endif %}
+
+	
+                {% if bed.currentStatus==1 %}
+
+				  <td> Impending </td>
+				  {% else %}
+
+	                <td> Non-Impending </td>
+					{% endif %}
+                
+                <td>
+               
+          {%  if  is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN')  or is_granted('ROLE_LIAISON') %}
+                    <a class="btn btn-sm btn-info btn-white btn-round" href="{{ path('bed_show', {'id': bed.id}) }}" title="Show Bed">
+					<i class="ace-icon fa fa-bed bigger-120"></i>  Adminssions
+				   </a>
+
+                   	<a class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('bed_edit', {'id': bed.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a>
+
+         {% else %}  
+               <a class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('bed_show', {'id': bed.id}) }}" title="Show Bed">
+			  		<i class="ace-icon fa fa-eye bigger-120"></i> View 
+				     </a>
+
+          	<a class="btn btn-sm btn-warning btn-white btn-round" href="" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> <del> Edit </del>
+				   </a>
+       
+
+            {% endif %}
+                   
+
+                
+                
+													<div class="inline dropdown-hover">
+														<button class="btn btn-sm btn-info btn-white btn-round">
+                                                        
+														<b>		<i class="ace-icon fa fa-list bigger-120"></i>&nbsp; More</b>
+															<i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+														</button>
+
+														<ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">													
+                                                     {% if  bed.accessibility ==1 %}
+															<li>
+																<a href="#">
+																	<i class="ace-icon fa fa-bed bigger-110">&nbsp;</i>
+																	Who is occupied now?
+																</a>
+														</li>
+															{% endif %}	
+
+	                                                     	<li>
+																<a href="{{ path('bed_show', {'id': bed.id}) }}">
+																	<i class="ace-icon fa fa-bed bigger-110 ">&nbsp;</i>
+																Adminssions
+																</a>
+															</li>
+
+
+																<li>
+																<a href="{{ path('bed_edit', {'id': bed.id}) }}">
+																	<i class="ace-icon fa fa-file bigger-110 ">&nbsp;</i>
+																	Edit 
+																</a>
+															</li>
+
+														
+
+                                                   {% if bed.currentStatus !=1 %}
+															<li>
+															 {%  if  is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN')  or is_granted('ROLE_LIAISON') %}
+																<a href="{{ path('bed_delete', {'id': bed.id}) }}">
+																	<i class="ace-icon fa fa-trash bigger-110 ">&nbsp;</i>
+																	Delete 
+																</a>
+															      {% else %}  
+	                                                             <a href="#">
+																	<i class="ace-icon fa fa-trash bigger-110 ">&nbsp;</i>
+																<del> Delete  </del>
+																</a>
+															   {% endif %}	
+
+															</li>
+                                                	{% endif %}	
+													
+														</ul>
+													</div>
+												
+                </td>
+
+                 
+
+            
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No beds found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(beds) }}</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Referrals{% endblock %}
+
+{% block body %}
+    <h1>Create new Referrals</h1>
+
+    {{ include('referrals/_form.html.twig') }}
+
+    <a href="{{ path('app_referrals_index') }}">back to list</a>
+{% endblock %}

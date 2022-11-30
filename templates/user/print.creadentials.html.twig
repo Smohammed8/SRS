@@ -1,0 +1,73 @@
+
+<html>
+	<head>
+		<link rel="stylesheet" href="{{asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+
+	
+	</head>
+	<body>
+
+		
+
+				<div style="display:block; width:100%">
+		<img src="{{ asset('http://localhost/IMS/public/assets/assets/logo/logo.jpg') }}" style="float: left;" width="70" height="70"> 
+		
+			   <strong><p style="text-align:center; font-size:26px;margin-top:0px !important;"><u> Jimma University </u> </p> </strong> 	</span> 
+                     
+	      <center><b>  Liaison and Referral Service Office </b> <br>
+			     	 	  
+                    <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 Inpatient Managment System </span>  </center>
+					<h4>  Access at: <a href="https://www.ims.ju.edu.et">https://www.ims.ju.edu.et </h4>
+			    	</center> 
+				
+				</span> 
+				
+                  <hr/>
+			      <span style="float: right;">Print Date :
+		    	<u>	{{ 'now'|date('Y-m-d') }}</u><span><br/>
+					
+				</div>
+
+				
+		<div style="display:block; width:100%">
+
+					 Full Name :
+					<u>{{ user.firstname }}
+						{{ user.fatherName }}
+						</u>
+					<br>
+
+					<br>
+					Username :
+					<u>{{user.username }}</u>
+					<br>
+					<br>
+					Password :
+					<u>{{password }}</u>
+
+
+					<br>
+					<br>
+					Phone :
+					{% if user.phone  is null %}
+					<u>-</u>
+					{% else %}
+	                 <u>{{phone}}</u>
+					{% endif %}
+
+
+						<br>
+					<br>
+					Email :
+					<u>{{user.email}}</u>
+					
+					
+				</div>
+
+
+				<br>
+
+		
+	</body>
+</html>

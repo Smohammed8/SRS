@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Assessment {% endblock %}
+
+{% block body %}
+     <div class="pull-right"> 
+    
+        {% if is_granted("add_diagnosis") %}
+         <a href=" {{ path('app_assessment_new', {'id': patient.id}) }}" class="btn btn-success btn-sm float-right">  <i class="fa fa-plus"></i> Add diagnosis</a>
+		{% endif %}
+    
+    	<a href="{{ path('patient_show', {'id': patient.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Back </a>
+	              
+		</div>				
+       <h4> <a href="{{ path('patient_show',{'id': patient.id }) }}"> {{ patient }} </a>  's diagnosis </h4>
+   
+    <table class="table">
+        <thead>
+            <tr>
+                 <th># </th>
+                 <th>Clinical Note </th>
+                 {# <th>Upload </th> #}
+                 {# <th>Physcian </th>
+                 <th>Created at</th> #}
+                 <th>Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assessment in assessments %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ assessment.note|raw }}</td>
+{# 
+                {% if assessment.file == null %}
+
+                 <td> -   </td>
+                  {% else %}
+                  <td> <a  class="radius-round bord1er-2 brc-warning-m1" href="{{ asset('assessments/'~ assessment.file)}}"> View Upload      </a>    </td>
+                  {% endif %} #}
+
+
+                {# <td>{{ assessment.physcian }}</td>
+                <td>{{ assessment.createdAt ? assessment.createdAt| eth_date : '' }}</td> #}
+               
+                <td>
+                  {% if is_granted("viw_diagnosis") %}
+                    <a href="{{ path('app_assessment_show', {'id': assessment.id}) }}">Show</a>
+                    	{% endif %}
+
+                      {% if is_granted("edt_diagnosis") %}
+                    <a href="{{ path('app_assessment_edit', {'id': assessment.id}) }}">Edit</a>
+
+                    	{% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3" style="color:red;">No assessment found!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(assessments) }}</div>
+{% endblock %}
+
+	

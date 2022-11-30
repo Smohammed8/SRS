@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Slip{% endblock %}
+
+{% block body %}
+   <h4> Create admission slip for <a href="{{ path('patient_show', {'id': patientID }) }}"> {{ patient }} </a> </h4>
+
+    {{ include('slip/_form.html.twig') }}
+
+ 
+{% endblock %}
+

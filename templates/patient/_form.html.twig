@@ -1,0 +1,368 @@
+
+
+
+{% block body %}
+
+
+<br> <br>
+
+		<div class="col-md-12 cards-container">	
+
+	<!--		<div class="widget-box"> -->
+		<div class="widget-header widget-header-blue widget-header-flat">
+	<h4 class="widget-title lighter"><i class="fa fa-user"> </i> Patient registaration form </h4>
+
+		<div class="pull-right tableTools-container">
+                            
+				
+						<a href="{{ path('patient_index') }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Close </a>
+	              
+						
+
+         
+
+	                        </div>
+									</div>
+
+			<div class="widget-body">
+
+
+<br>  <span id="msg"></span>  
+
+		{{ form_start(form) }}
+		{{ form_errors(form) }}
+		<div class="card">
+
+				<div class="card-header">
+					
+
+					<div class="col-xs-12">
+                                    
+				</div>
+					<div class="row">
+
+		                  <div class="form-group col-md-4">
+	                            
+							<label class="col-12 control-label no-padding-right">
+								Card Number <span style="color:red;"> * </span>
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.MRN,{'attr':{'class':'form-control ace-select'}}) }}
+							</div>
+						</div>
+
+
+
+                               <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								First Name <span style="color:red;"> * </span>
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.fname,{'attr':{'class':'form-control ace-select'}}) }}
+							</div>
+						</div>
+
+                        <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								Middle Name<span style="color:red;"> * </span>
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.mname,{'attr':{'class':'form-control ace-select','required':'false'}}) }}
+							</div>
+						</div>
+
+
+                            <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+							Last Name <small style="color:red;"> (Optional)  </small>
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.lname,{'attr':{'class':'form-control ace-select'}}) }}
+							</div>
+						</div>
+
+
+
+
+                            <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								Gender <span style="color:red;"> * </span>
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.gender,{'attr':{'class':'select2 form-control'}}) }}
+							</div>
+						</div>
+
+
+                       
+                                              
+
+
+
+
+				
+                               <div class="form-group col-md-4">
+	                         <label class="col-12 control-label no-padding-right">
+							Phone <small style="color:red;"> (Optional)  </small>
+							</label>
+																<div class="col-12">
+																	<div class="input-group">
+																		<span class="input-group-addon">
+																			<i class="ace-icon fa fa-phone"></i>
+																		</span>
+
+																		{{ form_widget(form.phone,{'attr':{'class':'form-control '}}) }}
+							</div>
+							</div>
+							
+						</div>
+
+
+
+                        
+
+						  <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								Age <span style="color:red;"> * </span>
+							</label>
+
+
+							<div class="col-12">
+
+								{#{ form_widget(form.dob,{'attr':{'class':'form-control','id':'start'}}) } #}
+								<!--<input type="text" name="dob"  required="required" autocomplete="off" id="start" class="form-control" > -->
+
+									<input type="number" name="age"  min ="1"  max ="100"  required="required" autocomplete="off" id="" class="form-control" >
+
+							</div>
+						
+						
+						</div>
+					
+						  <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								{{ form_label(form.region) }} 
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.region,{'attr':{'class':'select2 form-control'}}) }}
+							</div>
+						</div>
+
+	                   <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								{{ form_label(form.zone) }} 
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.zone,{'attr':{'class':'select2 form-control'}}) }}
+							</div>
+						</div>
+
+	                       <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								{{ form_label(form.woreda) }} 
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.woreda,{'attr':{'class':'select2 form-control'}}) }}
+							</div>
+						</div>
+
+
+					  <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								Kebele/{{ form_label(form.address) }} 
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.address,{'attr':{'class':'form-control ace-select'}}) }}
+							</div>
+						</div>
+
+
+			  <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								{{ form_label(form.referredFrom) }} 
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.referredFrom,{'attr':{'class':'select2 form-control'}}) }}
+							</div>
+						</div>
+		
+
+
+
+                    
+
+
+
+                        
+						
+					
+					
+					    
+
+{# 
+                               <div class="form-group col-md-4">
+	                         <label class="col-12 control-label no-padding-right">
+							Phone <small> (Optional) </small>
+							</label>
+																<div class="col-12">
+																	<div class="input-group">
+																		<span class="input-group-addon">
+																			<i class="ace-icon fa fa-phone"></i>
+																		</span>
+
+																		<input type="tel" id="phone"  class="form-control" name="phone" />
+																	</div>
+																</div>
+								
+						</div> #}
+
+						
+
+
+				   	<div class="pull-right tableTools-container">
+							<button type="submit" class="btn btn-success mt-1 float-right">
+							 <i class="fa fa-save"></i> 	Save
+							</button>
+						</div>
+
+
+					</div>
+
+					{{form_end(form)}}
+               	
+                   					</div><!-- /.col -->
+
+
+	   
+        </div><!-- /.col -->
+
+     
+<script type="text/javascript">
+// Ajax post
+$(document).ready(function() 
+{
+$("#patient_MRN").blur(function() 
+//$("#patient_MRN").on('blur',function() 
+{
+	alert("check mrn");
+	
+var patient_MRN = $('#patient_MRN').val();
+
+	if(patient_MRN!="")
+	{
+		jQuery.ajax({
+		type: "POST",
+		url: '{{ url("check_mrn") }}',
+		dataType: 'html',
+		data: {patient_MRN: patient_MRN},
+	//	async :false
+		success: function(res) {
+			if(res==1){
+			$("#msg").css({"color":"red"});
+			$("#msg").html("ይህ ካርድ ቁጥር በሌላ ሰው ስም ቀድሞ ተመዝግቧል!");
+			return false;
+			}
+			else
+			{
+			$("#msg").css({"color":"green"});
+			//$("#msg").html("Ya! You can use this card number");	
+			$("#msg").html('&nbsp;<img src="uploads/tick.gif" align="absmiddle">');
+			return true;
+			}
+		  },
+		error:function(){
+		alert('some error');	
+		}
+		});
+	}
+	/* else
+	{
+	alert("Please, Start from card number!");
+	} */
+
+});
+});
+</script>
+
+{# 
+          		<script>
+jQuery(document).ready(function() {
+	
+
+	
+	// 1 First name Capitalize string first character to uppercase
+	jQuery('#patient_fname').keyup(function() {
+		var caps = jQuery('#patient_fname').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#patient_fname').val(caps);
+	});
+		// 1 Middle name Capitalize string first character to uppercase
+	jQuery('#patient_mname"').keyup(function() {
+		var caps = jQuery('#patient_mname').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#patient_mname').val(caps);
+	});
+		
+	// 2 Last name Capitalize string first character to uppercase
+	jQuery('#patient_lname').keyup(function() {
+		var caps = jQuery('#patient_lname').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#patient_lname').val(caps);
+	});
+		// 2 Specific Address Capitalize string first character to uppercase
+	jQuery('#patient_address').keyup(function() {
+		var caps = jQuery('#patient_address').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#patient_address').val(caps);
+	});
+
+});
+
+
+</script> #}
+				
+{% endblock %}
+
+
+
+

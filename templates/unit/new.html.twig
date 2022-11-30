@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Unit{% endblock %}
+
+{% block body %}
+    <h4>Create new Unit in <a href="#"> {{ ward  }} </a> </h4>
+
+    {{ include('unit/_form.html.twig') }}
+
+    <a href="{{ path('unit_new',{id:ward.id}) }}">Back to list</a>
+{% endblock %}

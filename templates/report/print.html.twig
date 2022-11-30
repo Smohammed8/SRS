@@ -1,0 +1,116 @@
+
+{% block body %}
+
+
+
+		<div style="display:block; width:100%">
+		<img src="{{ asset('http://localhost/IMS/public/assets/assets/logo/logo.jpg') }}" style="float: right;" width="70" height="70"> 
+		
+			<span> <img src="{{ asset('http://localhost/IMS/public/assets/assets/logo/logo.png') }}" width="70" height="70" >  
+                   
+				   <strong><p style="text-align:center; font-size:26px;margin-top:0px !important;"><u> Jimma University </u> </p> </strong> 	</span> 
+                     
+	      <center><b>  Liaison and Referral Service Office </b></center>
+			     	 	  
+                    (<span> Reporting period From &nbsp; {{ start_date }} E.C &nbsp;-&nbsp;{{ end_date }}  E.C )  </span> 
+			    	</center> 
+				
+				</span> 
+				
+                  <hr/>
+			      <span style="float: right;">Print Date :
+		    	<u>	{{ 'now'|date('Y-m-d') }}</u><span><br/>
+					
+				</div>
+			
+
+
+
+
+  <div style="display:block; width:100%" style="font-size:18px;">
+		
+
+                	
+                     <center>
+                    <span>   Referral report   </span> 
+			    	</center> 
+                  <hr/>	
+				</div>
+			   
+			    <table width="100%" border="1" style="font-size:18px; border-collapse:collapse;" >
+  
+      
+      
+         <tr style="background-color:lightblue;">
+
+            <th style="font-size:14px;">RF_RFR 1 </th>
+
+            <th style="font-size:14px;"> Refer outs</th>
+            <th style="font-size:14px;"> Feedback</th>
+    
+           </tr>
+
+              <tr >
+                   <th style="font-size:14px; font-weight:normal;"> GNY </th>
+                <td> 2 </td>
+                 <td>- </td>
+            </tr>
+
+             <tr>
+                 <th style="font-size:14px; font-weight:normal;"> Medical</th>
+                  <td> 0 </td>
+                 <td> - </td>
+            </tr>
+
+                <tr>
+                <th style="font-size:14px; font-weight:normal;"> Neonatology</th>
+                  <td> 0 </td>
+                 <td> -</td>
+            </tr>
+
+                 <tr>
+                <th style="font-size:14px; font-weight:normal;"> Ophthamology</th>
+                  <td> 0 </td>
+                 <td>  </td>
+            </tr>
+
+
+                 <tr>
+                <th style="font-size:14px; font-weight:normal;"> Orthopedics</th>
+                  <td> 0 </td>
+                 <td> -</td>
+            </tr>
+
+              <tr>
+                <th style="font-size:14px; font-weight:normal;"> Pediatrics </th>
+                  <td> 0
+                 <td> - </td>
+            </tr>
+
+                   <tr>
+                <th style="font-size:14px; font-weight:normal;"> Surgical
+                  <td> 0 </td>
+                 <td> - </td>
+            </tr>
+
+                      <tr>
+                <th style="font-size:14px;text-align:right; background-color:lightblue; font-weight:normal;"> Total
+                  <td  style="font-size:14px;text-align:center; background-color:lightblue; font-weight:normal;"> 45 </td>
+                 <td  style="font-size:14px;text-align:right; background-color:lightblue; font-weight:normal;"> - </td>
+            </tr>
+              
+              
+
+         
+        </tbody>
+    </table>
+
+      <br>
+    <p  style="text-align:right !important;"> Printed by : {{ user }} <br>  <br>    <span> __________________ </span></p>
+
+ 
+
+  </div>
+
+
+{% endblock %}

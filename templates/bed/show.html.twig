@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bed{% endblock %}
+
+{% block body %}
+    <h3> <i class="fa fa-bed"> </i> Bed Information </h3>
+
+  
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ bed.id }}</td>
+            </tr>
+
+               <tr>
+                <th>Locaction </th>
+                <td> {{ bed.room.unit.ward}}->{{ bed.room.unit}}->{{ bed.room}}-><a href="">{{ bed.name }} <a></td>
+            </tr>
+
+               <tr>
+                <th>Total no of admissions</th>
+                <td>{{ bed.admimssions|length }}</td>
+            </tr>
+
+            <tr>
+                <th>Name</th>
+                <td>{{ bed.name }}</td>
+            </tr>
+
+            <tr>
+                <th>Is functional ?</th>
+                <td>{{ bed.isFunctional ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ bed.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h4>List of Admimssions</h4>
+
+    <table class="table" style="border-top:3px solid #438EB9; ">
+        <thead>
+            <tr>
+                <th>#</th>
+                 <th>Patient</th>
+                <th> Admitted at</th>
+                <th> Discharged at </th>
+                <th>Location</th>
+                <th> Outcome  </th>
+                <th>Status </th>
+             
+           
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% for admimssion in bed.admimssions %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                  <td> <a href="{{ path('patient_show', {'id': admimssion.patient.id }) }}"> {{ admimssion.patient }} </a></td>
+                <td>{{ admimssion.createdAt ? admimssion.createdAt| eth_date }}</td>
+
+                                     {% if admimssion.dischargedAt  == null %}
+
+                         <td> - </td>
+
+                   {% else %}
+                    <td>{{ admimssion.createdAt ? admimssion.dischargedAt| eth_date }}</td>
+
+                       {% endif %}
+              
+                <td>
+                 {{ admimssion.bed.room.unit.ward }}/
+                 {{ admimssion.bed.room.unit }}/
+                  {{ admimssion.bed.room }}/
+                  {{ admimssion.bed }}</td>
+                 
+
+                    <td>{{ admimssion.outcome ?? '-' }}</td>
+                   
+
+                      {% if admimssion.ischeckedIn == 0 %}
+                        <td> <span style="color:red;">  Waiting </span>    </td>
+
+                     {% elseif  admimssion.status == 0  %}
+
+                       <td><span style="color:green;"> Admitted </span>    </td>
+                       
+                     {% elseif  admimssion.status == 1 %}
+
+                       <td> <span style="color:green;">  Discharged </span>    </td>
+
+                      {% else %}
+                       <td> <span style="color:green;">  Re-admitted </span>   </td>
+                      {% endif %}
+
+
+                   
+
+               
+              
+ 
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" style="color:red;"> {{bed.name }} has no admimssions yet</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{# <div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(beds) }}</div> #}
+
+    <a href="{{ path('bed_index', {'id': bed.id}) }}"> Back </a>
+
+{% endblock %}

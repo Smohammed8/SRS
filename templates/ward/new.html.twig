@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Ward{% endblock %}
+
+{% block body %}
+    <h1>Create new Ward</h1>
+
+    {{ include('ward/_form.html.twig') }}
+
+    <a href="{{ path('ward_index') }}">back to list</a>
+{% endblock %}

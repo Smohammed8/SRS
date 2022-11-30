@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admimssion{% endblock %}
+
+{% block body %}
+    <h4> Admimssion Details </h4>
+
+    <table class="table">
+        <tbody>
+
+
+
+           <tr>
+                <th>Location </th>
+                <td>  {{ admimssion.bed.room.unit.ward }}/
+                 {{ admimssion.bed.room.unit }}/
+                  {{ admimssion.bed.room }}/
+                  {{ admimssion.bed }}{{ admimssion.bed }}</td>
+            </tr>
+           <tr>
+                <th>MRN</th>
+                <td>{{ admimssion.patient.mrn }}</td>
+            </tr>
+
+              <tr>
+                <th>Address </th>
+                <td>{{ admimssion.patient.address }}</td>
+            </tr>
+
+
+              <tr>
+                <th> Date of birth  </th>
+                <td>{{ admimssion.patient.dob ? admimssion.createdAt| eth_date}}</td>
+            </tr>
+
+            <tr>
+                <th>Sex</th>
+                <td>{{ admimssion.patient.gender }}</td>
+            </tr>
+            <tr>
+                <th> Date of admimssion</th>
+                <td>{{ admimssion.createdAt ? admimssion.createdAt| eth_date }} ( {{ admimssion.createdAt ? admimssion.createdAt| ago }} )</td>
+            </tr>
+            <tr>
+                <th>Date of discharge </th>
+                <td>{{ admimssion.dischargedAt ? admimssion.dischargedAt| eth_date }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ admimssion.duration }} days </td>
+            </tr>
+            <tr>
+                <th>Outcome</th>
+                <td>{{ admimssion.outcome }}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ admimssion.user }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admimssion_index') }}">Back</a>
+           {% if is_granted("edt_admsion") %}
+
+    <a href="{{ path('admimssion_edit', {'id': admimssion.id}) }}">Edit</a>
+        {% endif %}
+                {% if is_granted("delt_admsion") %}
+
+    {{ include('admimssion/_delete_form.html.twig') }}
+      {% endif %}
+     
+
+{% endblock %}

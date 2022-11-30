@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Attendants {% endblock %}
+
+{% block body %}
+    <h5>  <i class="fa fa-users"> </i> The person who visited <a href="{{ path('patient_show', {'id': patient.id }) }}"> {{ patient }} </a> </h5>
+
+     	
+         
+         <div class="pull-right tableTools-container">
+           <a href="{{ path('visitor_new', {'id':patient.id}) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-user-plus"></i> New Attendant</a>                   
+		   <a href="{{ path('patient_show',{'id': patient.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-user"></i> Back </a>
+	              
+						
+
+         
+
+	                        </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th> Attendant</th>
+            
+                  <th>Sex</th>
+                  <th>Relation </th>
+                   <th>Date of visiting </th>
+                  <th>Visited Patient </th>
+             
+                <th>User </th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for visitor in visitors %}
+            <tr>
+                 <td>{{ loop.index }}</td>
+                <td>{{ visitor.firstName }} {{ visitor.lastName }}</td>
+               
+                <td>{{ visitor.sex }}</td>
+                <td>{{ visitor.relation }}</td>
+                 
+                 
+                <td>{{ visitor.dateOfVisit ? visitor.dateOfVisit| eth_date: '' }} ({{ visitor.dateOfVisit ? visitor.dateOfVisit| ago }} )</td>
+                 <td>  <a href="{{ path('patient_show', {'id': visitor.patient.id}) }}">  {{visitor.patient }} </a></td>
+                <td>{{ visitor.user }}</td>
+                <td>
+                    <a class="btn btn-xs btn-info" href="{{ path('visitor_show', {'id': visitor.id}) }}" title="Show Visitor">
+					<i class="fa fa-user"></i> Show
+				   </a>
+                    <a class="btn btn-xs btn-warning" href="{{ path('visitor_edit', {'id': visitor.id}) }}" title="Edit Visitor">
+					<i class="fa fa-user"></i> Edit
+				    </a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+  
+{% endblock %}

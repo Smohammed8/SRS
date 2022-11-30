@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Referrals index{% endblock %}
+
+{% block body %}
+    <h4>List of Referral out Hospitals</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for referral in referrals %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ referral.name }}</td>
+                <td>{{ referral.description }}</td>
+                <td>
+                    <a href="{{ path('app_referrals_show', {'id': referral.id}) }}">Show</a>
+                    <a href="{{ path('app_referrals_edit', {'id': referral.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_referrals_new') }}">Create new</a>
+{% endblock %}

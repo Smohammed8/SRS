@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New UserGroup{% endblock %}
+
+{% block body %}
+<div class="main-content">
+				<div class="main-content-inner">
+				
+                
+                	<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">Home</a>
+							</li>
+
+							<li>
+								<a href="#">Other Pages</a>
+							</li>
+							<li class="active">Blank Page</li>
+						</ul><!-- /.breadcrumb -->
+
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- /.nav-search -->
+					</div>
+
+
+
+					 <div class="page-content">
+						
+                        
+                        
+                       	{% include "menu/layout.html.twig" %}
+
+		               <div class="row">
+							<div class="col-sm-12">
+						      {{ include('user_group/_form.html.twig') }}
+
+
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+					
+				
+					
+					
+				</div>
+			</div><!-- /.main-content -->
+
+
+     <script>
+jQuery(document).ready(function() {
+	
+	// 1 FIRST NAME  - convert textbox user entered text to uppercase
+	jQuery('#user_info_firstName').keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});	
+		// 1 MIDDLE NAME  - convert textbox user entered text to uppercase
+	jQuery('#user_info_middleName').keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});	
+		// 1 LAST NAME - convert textbox user entered text to uppercase
+	jQuery('#user_info_lastName').keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});	
+	
+	// 1 First name Capitalize string first character to uppercase
+	jQuery('#incident_case_patientFirstName').keyup(function() {
+		var caps = jQuery('#incident_case_patientFirstName').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#incident_case_patientFirstName').val(caps);
+	});
+		// 1 Middle name Capitalize string first character to uppercase
+	jQuery('#incident_case_patientMiddleName').keyup(function() {
+		var caps = jQuery('#incident_case_patientMiddleName').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#incident_case_patientMiddleName').val(caps);
+	});
+		
+	// 2 Last name Capitalize string first character to uppercase
+	jQuery('#txtcapital3').keyup(function() {
+		var caps = jQuery('#txtcapital3').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#txtcapital3').val(caps);
+	});
+		// 2 Specific Address Capitalize string first character to uppercase
+	jQuery('#incident_case_specificAddress').keyup(function() {
+		var caps = jQuery('#incident_case_specificAddress').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#incident_case_specificAddress').val(caps);
+	});
+	
+	// 3 Last Name Capitalize string every 1st chacter of word to uppercase
+	jQuery('#incident_call_callerName').keyup(function() 
+	{
+		var str = jQuery('#incident_call_callerName').val();
+       
+		
+		var spart = str.split(" ");
+		for ( var i = 0; i < spart.length; i++ )
+		{
+			var j = spart[i].charAt(0).toUpperCase();
+			spart[i] = j + spart[i].substr(1);
+		}
+      jQuery('#incident_call_callerName').val(spart.join(" "));
+	
+	});
+});
+
+
+</script>
+
+        <script src="{{ asset('assets/js/wizard.min.js') }}"></script>
+		<script src="{{ asset('assets/js/jquery.validate.min.js')}}"></script>
+		<script src="{{ asset('assets/js/jquery-additional-methods.min.js')}}"></script>
+		<script src="{{ asset('assets/js/bootbox.js')}}"></script>
+		<script src="{{ asset('assets/js/jquery.maskedinput.min.js')}}"></script>
+		<script src="{{ asset('assets/js/select2.min.js')}}"></script>
+{% endblock %}

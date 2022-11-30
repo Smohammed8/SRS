@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+<h4> Patient admimssion report</h4>
+<br>	
+<div>
+
+		{{ form_start(form) }}
+		{{ form_errors(form) }}
+		  <div class="form-group col-md-3">
+
+							<label class="col-12 control-label no-padding-right">
+								Select outcome <span style="color:red;"> * </span>
+							</label>
+
+
+			<div class="col-12">
+
+			{{ form_widget(form.outcome,{'attr':{'class':'form-control ace-select'}}) }}
+			
+		
+		</div>
+			</div>
+
+
+
+
+		  <div class="form-group col-md-3">
+
+							<label class="col-12 control-label no-padding-right">
+								Start date: <span style="color:red;"> * </span>
+							</label>
+
+
+							<div class="col-12">
+
+								{#{ form_widget(form.dob,{'attr':{'class':'form-control','id':'start'}}) } #}
+								<input type="text" name="sdate" id="start"  autocomplete="off" class="form-control ace-select" >
+							
+			</div>
+		
+		</div>
+
+			  <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+							End date: <span style="color:red;"> * </span>
+							</label>
+
+
+							<div class="col-12">
+                   	<input type="text" name="edate" id="end"  autocomplete="off" class="form-control ace-select" >
+							
+		
+		
+	            	</div>
+
+	</div>
+
+
+			
+
+
+
+				   	<div class="pull-right tableTools-container">
+							<button type="submit" class="btn btn-xs btn-success">
+							 <i class="fa fa-print"></i> 	
+							   Generate 
+							</button>
+						</div>
+
+	</div>
+			{{form_end(form)}}
+
+
+     
+				
+{% endblock %}
+

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admimssion {% endblock %}
+
+{% block body %}
+    <h4> You search Result with <a href="#"> {{ ward }}</a> and <a href="#"> {{ unit }} </a> <a href="#">  and {{date }} </a> </h4>
+     
+    <table class="table" style="border-top:3px solid #438EB9; ">
+        <thead>
+            <tr>
+                <th>#</th>
+                   <th>Patient</th>
+                <th>Date of Admimssion</th>
+                <th>Location</th>
+           
+                <th> Current status </th>
+             
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for admimssion in admimssions %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                  <td> <a href="{{ path('patient_show', {'id': admimssion.patient.id }) }}"> {{ admimssion.patient }} </a></td>
+                <td>{{ admimssion.createdAt ? admimssion.createdAt| eth_date }}</td>
+              
+                <td>
+                {{ admimssion.bed.room.unit.ward }}/
+                 {{ admimssion.bed.room.unit }}/
+                  {{ admimssion.bed.room }}/
+                  {{ admimssion.bed }}</td>
+                    <td>  
+                    {% if admimssion.status == 1 %}
+                     <p style="color:red;">  {{ 'Admitted'}}  </p>
+                     {% elseif admimssion.status== 3 %}
+                       <p style="color:yellow">   {{ 'Re-admitted'}}  </p>
+                       {% else  %}
+                      <p style="color:green"> {{ 'Discharged'}} </p>
+                   
+                     {% endif  %}
+                         </td>
+              
+                <td>
+                    <a href="{{ path('admimssion_show', {'id': admimssion.id}) }}">Show</a>
+                    <a href="{{ path('admimssion_edit', {'id': admimssion.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

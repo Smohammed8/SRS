@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Diagnosis {% endblock %}
+
+{% block body %}
+    <h4>Edit <a href=""> {{ patient}} </a> 's Diagnosis  <a href="{{ path('patient_show',{'id': assessment.patient.id }) }}">Close</a></h4>
+
+    {{ include('assessment/_form.html.twig', {'button_label': 'Update'}) }}
+
+   
+
+    {{ include('assessment/_delete_form.html.twig') }}
+{% endblock %}

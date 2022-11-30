@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Admimssion{% endblock %}
+
+{% block body %}
+    <h4>Create new Admimssion</h4>
+
+    {{ include('admimssion/_form.html.twig') }}
+
+    <a href="{{ path('admimssion_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      {% block title %}
+        Welcome to Inpatient Management System
+      {% endblock %}
+    </title>
+    <meta name="viewport"  content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
+    <title>
+      Inpatient Management System
+    </title>
+    <link rel="stylesheet"
+      href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}" />
+    <link rel="stylesheet"
+      href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}" />
+    <link rel="stylesheet"
+      href="{{ asset('assets/vendors/iconfonts/font-awesome/css/font-awesome.min.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('assets/css/font_style.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('assets/css/shared/style.css') }}" />
+
+    {% block stylesheets %}
+    {% endblock %}
+    <style>
+      html, body:not(i){ font-family: 'Lato', sans-serif!important; }
+
+      @keyframes scroll { from{ transform: translateY(0); }
+
+      to{ transform: translateY(-30%); } } tr td, tr th{ font-size:
+      17px!important; }
+
+      .container-fluid{ animation: scroll 20s alternate infinite ; }
+      .last_updated{ position: fixed; bottom: 45px; right: 2px; } .login{
+      position: fixed; top: 30px; right: 10px; z-index: 99; }
+    </style>
+  </head>
+  <body  width="100%">
+    <a class="login text-primary text-lg" href="{{ path('app_login') }}">
+      Login
+    </a>
+    <div class="container-fluid" style="width:100% !important" >
+
+      {% for key, ward in wards %}
+
+        <div class="container-scroller" >
+          <div   style="border-top-style: solid; border-top-width: 3px;border-top-color: #0b75c9bb; width:100%">
+          <!-- <div class="container card text-lg-center rounded-lg mt-4 shadow-sm"  style="border-top-style: solid;border-top-width: 3px;border-top-color: #0b75c9bb;">-->
+            <div class="card-body table-responsive">
+              <h6 class="font-weight-bolder">
+                {{ ward.name }}
+     
+              </h6>
+
+              <table class="table" width="100%">
+                <thead>
+                  <tr>
+                    <th>
+                      Unit Name
+                    </th>
+                    <th>
+                      Total Rooms
+                    </th>
+                    <th>
+                      Total beds
+                    </th>
+                    <th>
+                      Occupied beds
+                    </th>
+                    <th>
+                      Free Beds
+                    </th>
+                    <th>
+                      Impending
+                    </th>
+                        <th>
+                    <span class="pull-right"> Last Update </span>
+                    </th>
+            </tr>
+                </thead>
+                <tbody>
+                  {% for unit in ward.units %}
+                    <tr>
+                      <td class="py-1">
+                        {{ unit.name }}
+                      </td>
+
+                      
+                      {% set bedCount = 0 %}
+                      {% set freeBedCount = 0 %}
+                      {% set occupiedBedCount = 0 %}
+                      {% set impendingBedCount = 0 %}
+                     
+                      {% for room in unit.rooms %}
+                        {% for bed in room.beds %}
+
+                          
+                            {% if bed.isFunctional  == 1   %}
+                              {% set bedCount = bedCount + 1 %}
+                        {% endif %}
+                          {# {% if bed.updatedAt is not null %}
+                          
+                              {% set last_updated = bed.updatedAt %}
+                          
+                          {% endif %} #}
+
+                            {% if bed.accessibility ==1 %}
+                            {% set occupiedBedCount = occupiedBedCount + 1 %}
+                          {% endif %}
+
+                          {% if bed.accessibility  == 0 and  bed.isFunctional  == 1   %}
+                            {% set freeBedCount = freeBedCount + 1 %}
+                          {% endif %}
+
+                            {% if bed.currentStatus ==1 %}
+                            {% set impendingBedCount = impendingBedCount + 1 %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+
+                      <td>
+                        {{ unit.rooms|length }}
+                      </td>
+                      <td>
+                        {{ bedCount }}
+                      </td>
+                      <td>
+                        {{ occupiedBedCount }}
+                      </td>
+                      <td>
+                        {{ freeBedCount }}
+                      </td>
+                      <td>
+                        {{ impendingBedCount }}  
+                      </td>
+
+                        <td>
+                         {% if date(unit.lastUpdated) < date("-30 days") %}
+                        <span class="badge badge-pill badge-danger pull-right" style="align:right;"> 
+          
+                        {{ unit.lastUpdated|ago }} 
+                          </span> 
+                          {% else %}
+
+                          <span class="badge badge-pill badge-primary pull-right" style="align:right;"> 
+                       {{ unit.lastUpdated|ago }} 
+                          </span> 
+
+                         {% endif %}
+                     
+                      </td>                                         
+          
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  
+  <script>
+
+setTimeout(() => {
+  document.location.reload();
+}, 20000);
+
+  </script>
+
+  </body>
+</html>

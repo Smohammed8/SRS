@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Slip{% endblock %}
+
+{% block body %}
+    <h4>Edit Slip</h4>
+
+    {{ include('slip/_form.html.twig', {'button_label': 'Update'}) }}
+
+    {# <a href="{{ path('slip_index') }}">back to list</a> #}
+
+    {{ include('slip/_delete_form.html.twig') }}
+{% endblock %}
