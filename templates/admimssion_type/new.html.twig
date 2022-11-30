@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New AdmimssionType{% endblock %}
+
+{% block body %}
+    <h1>Create new AdmimssionType</h1>
+
+    {{ include('admimssion_type/_form.html.twig') }}
+
+    <a href="{{ path('admimssion_type_index') }}">back to list</a>
+{% endblock %}

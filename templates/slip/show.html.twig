@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Slip{% endblock %}
+
+{% block body %}
+    <h1>Slip</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ slip.id }}</td>
+            </tr>
+            <tr>
+                <th>SeenDate</th>
+                <td>{{ slip.seenDate ? slip.seenDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Diagnosis</th>
+                <td>{{ slip.diagnosis }}</td>
+            </tr>
+            <tr>
+                <th>AdmittingTeam</th>
+                <td>{{ slip.admittingTeam }}</td>
+            </tr>
+            <tr>
+                <th>EvaluatingResident</th>
+                <td>{{ slip.evaluatingResident }}</td>
+            </tr>
+            <tr>
+                <th>SeniorSurgeon</th>
+                <td>{{ slip.seniorSurgeon }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('slip_index') }}">back to list</a>
+
+    <a href="{{ path('slip_edit', {'id': slip.id}) }}">edit</a>
+
+    {{ include('slip/_delete_form.html.twig') }}
+{% endblock %}

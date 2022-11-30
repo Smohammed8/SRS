@@ -1,0 +1,274 @@
+{% extends 'base.html.twig' %}
+{% block title %} Attendant add
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-xs-12">
+<br>
+        <div>
+            <div id="user-profile-1" class="user-profile row">
+                <div class="col-xs-12 col-sm-3 center" style="font-size:18px;" >
+                   
+                   
+                    <div>
+                        <span class="profile-picture">
+                            <img id="avatar" class="editable img-responsive" wi alt="User Photo"
+                                src="{{ asset('assets/images/avatars/profile-pic.jpg')}}" />
+                        </span>
+
+                        <div class="space-4"></div>
+
+                        <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                            <div class="inline position-relative">
+                                <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                  
+                                
+                                    <span title="Click here to see more.." class="white">{{ patient.fname }}
+                                        {{patient.mname  }}
+                                        {{patient.lname}}</span>
+                                </a>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="space-6"></div>
+
+                    <div class="profile-contact-info">
+                        <div class="profile-contact-links align-left">
+
+
+                            <center>
+                                Card Number: {{ patient.mrn }}
+                            </center>
+                       
+
+                        </div>
+
+                        <div class="space-6"></div>
+
+
+                    </div>
+
+                    <div class="hr hr12 dotted"></div>
+
+                    <div class="clearfix">
+                        <div class="grid2">
+                            <span class="bigger-120 blue">M
+                            </span>
+
+                            <br />
+                            Patient Gender
+                        </div>
+                  {% set age = date().diff(date(patient.dob)).y  %}
+                        <div class="grid2">
+                            <span class="bigger-120 blue">
+                                {{ age }}
+                            </span>
+
+                            <br />
+                            Current Age
+                        </div>
+                    </div>
+
+                    <div class="hr hr16 dotted"></div>
+                    
+                </div>
+                <div class="col-xs-12 col-sm-9" style="font-size:18px;" >
+                   
+                    <div id="patient_action_toolbar" class="pull-left tableTools-container">
+
+                     <a  href="" class="btn btn-sm btn-primary btn-blue btn-round"  style="color:red;" title="Patient location">
+                            <i class="ace-icon fa fa-bed bigger-120"></i>
+                         {% for admimssion in admimssions %}
+                            {{ admimssion.bed.room.unit.ward }} >>  {{ admimssion.bed.room.unit }} >> {{ admimssion.bed.room }} >> {{ admimssion.bed }}
+                        {% endfor %}
+                        </a>   
+                    </div>
+                  
+                  
+                    <div id="patient_action_toolbar" class="pull-right tableTools-container">
+
+                     <a  href="{{ path('visitor_new', {'id':patient.id}) }}" class="btn btn-sm btn-primary btn-white btn-round"  style="color:red;" title="Patient location">
+                            <i class="ace-icon fa fa-plus bigger-120"></i>
+                         Add Vistor
+                        </a>   
+                    </div>
+                  
+                  
+
+                  <div class="profile-user-info profile-user-info-striped" style="border-top:3px solid #438EB9; ">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Full Name</div>
+
+                            <div class="profile-info-value"  style="color:red;" >
+                                <span class="editable" id="username">
+                                    {{ patient.fname |capitalize}}
+                                    {{ patient.mname |capitalize}}
+                                    {{ patient.lname |capitalize}}
+                                </span>
+                            </div>
+                        </div>
+                         
+                           <div class="profile-info-row">
+                            <div class="profile-info-name">
+                               Vistors
+                            </div>
+                            <div class="profile-info-value">
+                              {% for visitor in patient.visitors %}
+                             {% endfor %}
+                      
+                                <span class="editable" id="country">{{ patient.visitors|length}}</span>
+
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Kebele
+                            </div>
+                            <div class="profile-info-value">
+                      
+                                <span class="editable" id="country">{{ patient.address}}</span>
+
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Gender
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="age">{{ patient.gender }}</span>
+                            </div>
+                        </div>
+
+                   
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Phone
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">{{ patient.phone }}</span>
+                            </div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Registered at
+                            </div>
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                    {{ patient.createdAt ? patient.createdAt|date('Y-m-d') : '' }}
+                                    (
+                                    {{ patient.createdAt|ago }})</span>
+                            </div>
+                        </div>
+            
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                              Current Status
+                            </div>
+
+                             <div class="profile-info-value">
+                                <span class="editable" id="about">
+                              
+                                   {% if patient.status == 0 %}
+
+                                     <span>   Not admitted   </span>
+                                    {% elseif  patient.status ==  1 %}
+                                        <span>   Admitted         </span>
+                                    {% elseif  patient.status  ==  2 %}
+                                        <span>  Waiting </span>
+                                   {%  elseif  patient.status  ==  3 %}
+                                      <span>  Re-admitted </span>
+                                   {% else %}
+                                        <span>  Discharged </span>
+                                    {% endif %}
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="space-20"></div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="hr hr10 hr-double" ></div>
+        <table id="dynamic-table" style="border-top:3px solid #438EB9; " class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th colspan="7">
+                        <b>
+                            <i class="fa fa-user"></i>
+                        Attendant Information</b>
+                    </th>
+
+                </tr>
+                <tr style="background-color:lightblue;">
+                    <th>#</th>
+                    <th>Date of visiting</th>
+                 
+                    <th> Status  </th>
+
+                    <th>Attendant Name</th>
+
+                    <th>Relation </th>
+                    <th> Gate Keeper</th>
+                    <th> Exit time</th>
+                  
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for visitor in visitors %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                
+                    <td>
+                        {{ visitor.dateOfVisit ? visitor.dateOfVisit |eth_date : '' }}
+                    </td>
+                     {%  if  visitor.exitTime|date('Y-m-d H:i:s') > 'now'|date('Y-m-d H:i:s') %} 
+
+                     <td style="color:red;"> Visiting </td>
+                     {% else %}
+                      <td style="color:red;"> No visitor entered!</td>
+                     {% endif  %}
+
+                    <td>  {{ visitor.firstName }}   {{ visitor.lastName }}  </td>
+                    <td>{{ visitor.relation }}</td>
+                    <td>{{ visitor.user }}</td>
+                    <td> After 30 Miniuts</td>
+              </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            </tbody>
+            </tr>
+
+            {% else %}
+          
+            <tr>
+                <td colspan="11" style="color:red;">No attendant record found !</td>
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <div class="pull-right" style="margin-right:10px;">{{ knp_pagination_render(visitors) }}
+        </div>
+  </div>
+
+
+   
+{% endblock %}

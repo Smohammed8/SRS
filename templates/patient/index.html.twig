@@ -1,0 +1,254 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %} List of patients {% endblock %}
+
+
+{% block body %}
+
+
+                
+
+		               <div class="row">
+        
+        
+							<div class="col-xs-12">
+
+       {% if is_granted("filter_pnt") %} 
+                            
+			{{ form_start(form,{'attr': {'role':'form','id':'form'}}) }}
+      
+				<div class="row ">
+
+					<div class="form-group col-md-3">
+						<div class="col-12">
+							{{ form_widget(form.status,{'attr':{'class':' select2 form-control','required':'required'}}) }}
+						</div>
+					</div>
+
+    
+
+
+						<div class="form-group col-md-2">
+					
+						<input type="text" class="form-control"  required="required" placeholder="Start date" autocomplete="off" name="sdate" size="3" id="start"/>
+					</div>
+
+
+					<div class="form-group col-md-2">
+					
+						<input type="text" class="form-control"  required="required" placeholder="End date" autocomplete="off" name="edate" size="3" id="end"/>
+					</div>
+
+
+			           <div class="form-group col-md-2">
+						<label class="col-3 control-label no-padding-right">
+							
+						</label>
+							<button class="btn btn-xs btn-success-round" type="submit">
+                            <i class="fa fa-search"> </i> Filter </button>
+					</div>
+
+					
+			
+				</div>
+
+				{{ form_end(form) }}	
+
+                	 {% endif %} 			
+
+<div class="widget-header widget-header-blue widget-header-flat" >
+	
+
+		<div class="pull-right tableTools-container">
+
+        
+              	<div class="pull-right tableTools-container">
+                  {% if is_granted("ad_new_pnt") %}   	
+                              <a href="{{ path('patient_new') }}" class="btn btn-sm btn-info btn-white btn-round float-right"> <i class="fa fa-plus"></i> Add new patient </a>
+
+					     
+	              {% endif %}
+						  {% if is_granted("batch_uplod") %} 
+					     	<a href="{{ path('batch_upload') }}" class="btn btn-sm btn-info btn-white btn-round float-right">  <i class="fa fa-download"></i> Batch Upload </a>
+	              
+				 {% endif %} 
+
+         
+
+	                        </div>
+                            
+	   </div>
+       
+		</div>
+
+    <span class="pull-right" style="font-size:16px;">    Total :
+				{{ total_patinets }}
+				Patients </span>
+    
+	<table id="dynamic-table" style="border-top:3px solid #438EB9; " class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>MRN</th>
+                <th>Patient Name </th>
+           
+                <th>Gender</th>
+                <th>Phone</th>
+                <th>Address</th>
+             
+                <th>Age </th>
+                <th width="20%" >Patient profile</th>
+                <th width="8%" > More options </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for patient in patients %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ patient.MRN }}</td>
+                <td>{{ patient.fname }} {{ patient.mname }} {{ patient.lname }}</td>
+           
+                <td>{{ patient.gender }}</td>
+                    {% if patient.phone is null %}
+                        <td>-</td>
+                    {% else %}
+                <td>{{ patient.phone }}</td>
+                    {% endif %}
+             
+
+                <td>{{ patient.address }}</td>
+
+
+                    {% set age = date().diff(date(patient.dob)).y  %}
+                  
+                                {{ age }}
+
+                 <td title="{{ patient.dob ? patient.dob| eth_date }}"> {{ age }} years old</td>
+
+           
+              
+              
+                <td>
+  {% if is_granted("viw_patient_profile") %} 
+                	<a class="btn btn-sm btn-info btn-white btn-round" href="{{ path('patient_show', {'id': patient.id}) }}" title="Show patient">
+					<i class="ace-icon fa fa-user bigger-120"></i>  Profile
+				   </a>
+
+    {% endif %}            
+ 
+      {% if is_granted("viw_apoint") %} 
+                  {% if patient.appointments|length >0 %}
+     	           <a class="btn btn-xs btn-success" href="{{ path('appointment_view', {'id': patient.id}) }}" title="View Appointment">
+						<i class="ace-icon fa fa-calendar bigger-120"></i> Appointment
+				   </a>
+                     {% else %}
+                   <span> <b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - </b> </span>
+                 {% endif %}
+  {% endif %} 
+
+                </td>
+
+
+                <td>
+                        <div class="widget-toolbar no-border">
+                            <div class="inline dropdown-hover">
+
+                        {% if is_granted("viw_patient_acction") %}
+                                <button class="btn btn-sm btn-info btn-white btn-round">
+
+                                    <b>
+                                        <i class="ace-icon fa fa-list bigger-110">&nbsp;</i>
+                                        Options
+                                    </b>
+                                    <i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+                                </button>
+                            {% endif %} 
+
+                                <ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
+                
+                   
+                       {% if is_granted("viw_atendt") %}
+                         {% if patient.visitors|length >0 %}
+                        
+                        <li class="active">
+                                       
+                            <a href="{{ path('visitor_view', {'id': patient.id}) }}" title="View visitors">
+                                    <i class="ace-icon fa fa-users bigger-120"></i> Attendants
+                            </a>
+              
+                                    </li>
+                      {% endif %}
+                         {% endif %}
+                         
+                            {% if is_granted("viw_slip") %}
+
+                           {% if patient.slips|length >0 %}
+
+                                   <li class="active">
+                                          
+     	                    <a  href="{{ path('slip_view', {'id': patient.id}) }}" title="View slips">
+				     		<i class="ace-icon fa fa-file bigger-120"></i> Slips
+				            </a>
+            
+                                    </li>
+                              {% endif %}
+                           {% endif %}
+
+                       {% if is_granted("edit_patient") %}
+                             <li class="active">
+                               <a  href="{{ path('patient_edit', {'id': patient.id}) }}" title="Edit">
+					         	<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				              </a>
+                                    </li>
+                                   {% endif %}
+
+          {% if is_granted("delt_patient") %}
+                                     
+              {% if patient.admimssions |length > 0 or patient.appointments|length  > 0 or patient.encounters|length  > 0 or  patient.visitors|length > 0 %}
+                      
+                      <a class="btn btn-sm btn-danger btn-white btn-round" href="#" title="It has child records!">
+                        <i class="ace-icon fa fa-trash bigger-120"></i> <del> Delete </del>
+                      </a>
+
+            {% else %}
+                   
+                         <li class="active">
+                       <a  href="{{ path('patient_delete', {'id': patient.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-trash bigger-120"></i> Delete
+				       </a>
+                     </li>
+            {% endif %}
+
+           {% endif %}
+                                 
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11" style="color:red;">No patients found !</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="pull-right" style="margin-right:10px; display:inline;" id="custompaginator">{{ knp_pagination_render(patients) }}</div>
+
+
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+
+{# 
+	<script>
+$('#custompaginator .page-link').click(function (e) {
+e.preventDefault();
+
+
+});
+	</script> #}
+
+					
+{% endblock %}

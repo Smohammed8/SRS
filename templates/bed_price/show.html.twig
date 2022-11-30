@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bed Price{% endblock %}
+
+{% block body %}
+    <h4>Bed Price</h4>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ bed_price.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ bed_price.type }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ bed_price.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bed_price_index') }}">Back to list</a>
+
+    <a href="{{ path('app_bed_price_edit', {'id': bed_price.id}) }}">edit</a>
+
+    {{ include('bed_price/_delete_form.html.twig') }}
+{% endblock %}

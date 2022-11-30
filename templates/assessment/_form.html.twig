@@ -1,0 +1,41 @@
+
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="card">
+
+	        <div class="card-body">
+	         <hr>
+		<div class="row">
+	
+                	<div class="form-group mt-2 col-md-12 col-sm-6 ">
+					{{ form_label(form.note,'Assessment note') }} <br>
+					{{ form_widget(form.note,{'attr':{'cols':'10','rows':'7','placeholder':'Write your medical assessment note here..'}}) }}
+					<br>   <br>  
+					</div>
+
+                        <br>
+ 
+					  <div class="form-group col-md-4">
+
+							<label class="col-12 control-label no-padding-right">
+								Uploads/{{ form_label(form.file) }} 
+							</label>
+
+
+							<div class="col-12">
+
+								{{ form_widget(form.file,{'attr':{'class':'form-control'}}) }}
+							</div>
+						</div>
+
+	
+	
+			
+			<br>
+			<button type="submit" class="btn btn-primary pull-right">
+	      <b> <i class=" fa fa-save"> </i></b>	{{ button_label|default('Save') }}
+	    	</button>
+
+
+			{{ form_end(form) }}

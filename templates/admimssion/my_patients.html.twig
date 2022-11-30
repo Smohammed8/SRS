@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admimssion {% endblock %}
+{% block javascripts %}
+<script>
+    
+    function patientCheckIn(patientId) {
+        var route = '/admimssion/'+patientId+'/checked_in/';
+        swal.fire({
+            title: "Do you want to check this patient?",
+            text: "You won't be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, Check In!"
+        }).then(function (result) {
+            $.ajax({
+                type: "POST",
+                url: route,
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    swal.fire("Patient checked in successfully", "Patient checked in successfully", "success").then(function (result) {
+                    location.reload();
+                    })
+                }
+            }); 
+        });
+    } 
+    
+</script>
+{% endblock %}
+{% block body %}
+
+<form>
+    <input type="hidden">
+</form>      
+     
+    <h4>List of Admimssions in <a href="">{{ ward }} </a> </h4>
+     
+
+    <table class="table" style="border-top:3px solid #438EB9; ">
+        <thead>
+            <tr>
+                <th>#</th>
+                   <th>Patient</th>
+                <th>Date of Admimssion</th>
+                <th>Location</th>
+           
+                <th> Current status </th>
+             
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for admimssion in admimssions %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                  <td> <a href="{{ path('patient_show', {'id': admimssion.patient.id }) }}"> {{ admimssion.patient }} </a></td>
+                <td>{{ admimssion.createdAt ? admimssion.createdAt| eth_date }}</td>
+              
+                <td>
+                  {{ admimssion.bed.room.unit }}/
+                  {{ admimssion.bed.room }}/
+                  {{ admimssion.bed }}</td>
+                    
+
+                      <td>  
+                    
+                     <p style="color:red;">  {{ 'Waiting'}}  </p>
+                   
+                         </td>
+              
+                <td>
+
+  {% if is_granted("vw_admsion") %}
+                     <a  href="{{ path('admimssion_show', {'id': admimssion.id}) }}" class="btn btn-sm btn-primary btn-white btn-round">
+                     <i class="ace-icon fa fa-eye bigger-120"></i>
+                       View
+                       </a>
+       {% endif  %} 
+
+         {% if is_granted("edt_admsion") %}
+
+                     <a  href="{{ path('admimssion_edit', {'id': admimssion.id}) }}" class="btn btn-sm btn-primary btn-white btn-round">
+                     <i class="ace-icon fa fa-edit bigger-120"></i>
+                       Edit
+                       </a>
+
+
+     {% endif  %} 
+                   <a  href="{{ path('patient_show', {'id': admimssion.patient.id}) }}" class="btn btn-sm btn-primary btn-white btn-round">
+                     <i class="ace-icon fa fa-bed bigger-120"></i>
+                       Details
+                       </a>
+
+
+ 
+           {% if is_granted("check_in") %}
+                    {% if admimssion.status == 0%}
+
+                    {% if admimssion.isCheckedIn == false %}
+                    <a onclick="event.preventDefault();patientCheckIn({{ admimssion.id }})" href="#" class="btn btn-sm btn-primary btn-white btn-round">
+                     <i class="ace-icon fa fa-check-square bigger-120"></i>
+                    Check In</a>
+                   
+                     {% else %}
+
+                   <a  href="" class="btn btn-sm btn-primary btn-white btn-round">
+                    <i class="ace-icon fa fa-check-square bigger-120"></i>
+                    Check-out</a>
+                   
+                     {% endif %}
+
+                     {% else %}
+
+                    <a  href="" class="btn btn-sm btn-primary btn-white btn-round">
+                    <i class="ace-icon fa fa-check-square bigger-120"></i>
+                    Checked-Out</a>
+                   
+                      {% endif %}
+           {% endif %}
+
+              
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No admissions found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

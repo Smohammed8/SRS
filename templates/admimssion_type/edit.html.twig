@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit AdmimssionType{% endblock %}
+
+{% block body %}
+    <h1>Edit AdmimssionType</h1>
+
+    {{ include('admimssion_type/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admimssion_type_index') }}">back to list</a>
+
+    {{ include('admimssion_type/_delete_form.html.twig') }}
+{% endblock %}

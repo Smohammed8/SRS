@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Assessment {% endblock %}
+
+{% block body %}
+    <h4> {{ patient }} 's clinical Assessment</h4>
+
+    <table class="table">
+        <tbody>
+           <tr>
+                <th>Patinet Name </th>
+                <td>{{ patient }}</td>
+            </tr>
+         
+
+             <tr>
+                <th> Medical Upload </th>
+                           {% if assessment.file == null %}
+
+                 <td> -   </td>
+                  {% else %}
+                  <td> <a  class="radius-round bord1er-2 brc-warning-m1" href="{{ asset('assessments/'~ assessment.file)}}"> View Upload      </a>    </td>
+                  {% endif %}
+            </tr>
+
+                 <tr>
+                <th> Date of assessment </th>
+                <td>
+           
+                 {{ assessment.createdAt ? assessment.createdAt| eth_date }}</td>
+            </tr>
+
+
+
+                 <tr>
+                <th>Physcian </th>
+                <td>  {{  assessment.physcian }}</td>
+            </tr>
+
+
+            <tr>
+                <th> Clinical Note</th>
+                <td>{{ assessment.note|raw }}</td>
+            </tr>
+            
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('patient_show',{'id': assessment.patient.id }) }}">Back</a>
+
+    <a href="{{ path('app_assessment_new',{'id': assessment.patient.id }) }}">Create new</a>
+
+    {# {{ include('assessment/_delete_form.html.twig') }} #}
+{% endblock %}

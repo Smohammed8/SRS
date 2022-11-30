@@ -1,0 +1,85 @@
+
+
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" href="{{asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ asset("assets/css/shared/style.css") }}">
+		
+	</head>
+	<body>
+
+		
+		<div style="display:block; width:100%">
+		<img src="{{ asset('http://localhost/IMS/public/assets/assets/logo/logo.jpg') }}" style="float: right;" width="70" height="70"> 
+		
+			<span> <img src="{{ asset('http://localhost/IMS/public/assets/assets/logo/logo.png') }}" width="70" height="70" >  
+                   
+				   <strong><p style="text-align:center; font-size:18px;margin-top:0px !important;"><u> Jimma Medcial Center </u></p> </strong> 	</span> 
+                     
+				<p style="text-align:left; margin-top:0px !important;"> Patient Adminssion Slip </p> 	
+				
+				</span> 
+				
+                  <hr/>
+			      <span style="float: right;">Seen Date :
+			<u>	 {{ eth_date2(slip.seenDate ) }}  E.C </u><span><br/>
+					
+				</div>
+			
+			
+				<div style="display:block; width:100%">
+					<br>
+					 Full Name :
+					<u>{{ slip.patient.fname }}  {{ slip.patient.mname }}  {{ slip.patient.lname }}</u>
+					<br>
+					 <br>
+				
+	             	 Medical Record Number:
+					<u>{{ slip.patient.mrn }}</u>
+					 <br>
+					<br>
+				
+				
+					Patient priority:
+					<u> {{  slip.priority }} </u>
+					<br>
+                    <br>
+				
+
+					Diagnosis :
+					<u>{{ slip.diagnosis }}</u>
+					<br>
+                   <br>
+				
+				   	Admitting team  :
+					<u> {{ slip.admittingTeam  }}  </u> 
+					<br>
+					<br>
+				
+
+				   	Evaluating_resident :
+					<u> {{ slip.evaluatingResident  }}  </u> 
+					<br>
+					<br>
+				
+
+					Senior Surgeon :
+					<u> {{ slip.seniorSurgeon  }}  </u> 
+					<br>
+					<br>
+				
+
+
+				</div>
+               <br><br> 
+			   
+			 
+			  
+					
+	           <span style="float: right;">{{ slip.user }} <br> <br>____________________<span>
+				<br>
+
+		
+	</body>
+</html>

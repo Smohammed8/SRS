@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReasonOfAppointment{% endblock %}
+
+{% block body %}
+    <h1>ReasonOfAppointment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reason_of_appointment.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ reason_of_appointment.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ reason_of_appointment.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reason_of_appointment_index') }}">back to list</a>
+
+    <a href="{{ path('app_reason_of_appointment_edit', {'id': reason_of_appointment.id}) }}">edit</a>
+
+    {{ include('reason_of_appointment/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Permission index{% endblock %}
+
+{% block body %}
+    <h4>Permission</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for permission in permissions %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ permission.name }}</td>
+                <td>{{ permission.code }}</td>
+                <td>{{ permission.description }}</td>
+                <td>
+   
+              
+                 	<a class="btn btn-xs btn-info" href="{{ path('permission_show', {'id': permission.id}) }}" title="view permission">
+					<i class="ace-icon fa fa-eye bigger-120"></i>  View
+				    </a>
+
+                   	<a class="btn btn-xs btn-warning" href="{{ path('permission_edit', {'id': permission.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a>
+
+                      	<a class="btn btn-xs btn-danger" href="{{ path('permission_delete', {'id':permission.id}) }}" title="Delete">
+						<i class="ace-icon fa fa-trash bigger-120"></i> Delete
+				   </a>
+              
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(permissions) }}</div>
+
+    <a href="{{ path('permission_new') }}">Create new</a>
+{% endblock %}

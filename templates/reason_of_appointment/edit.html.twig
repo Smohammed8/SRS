@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ReasonOfAppointment{% endblock %}
+
+{% block body %}
+    <h1>Edit ReasonOfAppointment</h1>
+
+    {{ include('reason_of_appointment/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reason_of_appointment_index') }}">back to list</a>
+
+    {{ include('reason_of_appointment/_delete_form.html.twig') }}
+{% endblock %}

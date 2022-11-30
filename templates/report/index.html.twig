@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Report{% endblock %}
+
+{% block body %}
+
+  <!-- Used for amharic calendar -->
+        <link rel="stylesheet" href="{{ asset("css/redmond.calendars.picker.css") }}">
+<div class="card shadow-sm rounded-lg">
+
+{{ include("report/ward_report.html.twig") }}
+</div>
+{% endblock %}

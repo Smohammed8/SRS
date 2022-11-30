@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admimssion {% endblock %}
+
+{% block body %}
+    <h4>List of Admimssions</h4>
+
+    <table class="table" style="border-top:3px solid #438EB9; ">
+        <thead>
+            <tr>
+                <th>#</th>
+                   <th>Patient</th>
+                <th>Date of Admimssion</th>
+                <th>Last update </th>
+                <th>Location</th>
+           
+                <th> Current status </th>
+             
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for admimssion in admimssions %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                  <td> <a href="{{ path('patient_show', {'id': admimssion.patient.id }) }}"> {{ admimssion.patient }} </a></td>
+                <td>{{ admimssion.createdAt ? admimssion.createdAt| eth_date }}</td>
+              
+    
+                  <td>{{ admimssion.createdAt|ago }}</td>
+              
+                <td>
+                 {{ admimssion.bed.room.unit.ward }}/
+                 {{ admimssion.bed.room.unit }}/
+                  {{ admimssion.bed.room }}/
+                  {{ admimssion.bed }}</td>
+                    <td>  
+                    
+                     <p style="color:red;">  {{ 'Waiting'}}  </p>
+                   
+                         </td>
+              
+                <td>
+
+                               {% if is_granted("check_in") %}
+                                        <a class="btn btn-sm btn-success" href="#" onclick="toggleCheckIn('{{path("admimssion_checked_in",{"id":admimssion.id})}}')">
+                                            <i class="ace-icon fa fa-bed bigger-110 ">&nbsp;</i>
+
+                                            Check in
+                                        </a>
+                            {% endif %}
+                                    
+
+
+                    {# <a class="btn btn-sm btn-success" href="{{ path('patient_show', {'id': admimssion.id}) }}" title="Show Bed">
+					<i class="ace-icon fa fa-eye bigger-120"></i>  View
+				   </a> #}
+
+                   	{# <a class="btn btn-sm btn-warning" href="{{ path('admimssion_edit', {'id': admimssion.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a> #}
+
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+
+    function toggleCheckIn(route) {
+swal.fire({
+title: "Are you sure if the patient has taken bed?",
+text: "You won't be able to revert this!",
+type: "warning",
+showCancelButton: true,
+confirmButtonText: "Yes, Patient is admitted!"
+
+}).then(function (result) {
+$.ajax({
+type: "POST",
+url: route,
+data: {},
+dataType: 'json',
+success: function (data) {
+swal.fire("Patient check-in status changed!", "Waiting Status has been updated.", "success").then(function (result) {
+location.reload();
+})
+}
+});
+});
+ }
+
+    </script>
+
+{% endblock %}

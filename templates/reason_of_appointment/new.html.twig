@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ReasonOfAppointment{% endblock %}
+
+{% block body %}
+    <h4>Create new Reason of appointment</h4>
+
+    {{ include('reason_of_appointment/_form.html.twig') }}
+
+    <a href="{{ path('app_reason_of_appointment_index') }}">Back to list</a>
+{% endblock %}

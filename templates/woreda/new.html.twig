@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Woreda{% endblock %}
+
+{% block body %}
+    <h1>Create new Woreda</h1>
+
+    {{ include('woreda/_form.html.twig') }}
+
+    <a href="{{ path('woreda_index') }}">back to list</a>
+{% endblock %}

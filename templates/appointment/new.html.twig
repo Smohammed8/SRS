@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Appointment{% endblock %}
+
+{% block body %}
+    <h3>Create new Appointment for <a href=""> {{ patient }} </a> </h3>
+
+    {{ include('appointment/_form.html.twig') }}
+
+    
+{% endblock %}
+

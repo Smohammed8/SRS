@@ -1,0 +1,81 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %} Batch Upload {% endblock %}
+
+{% block body %}
+
+                
+
+		              			
+
+<div class="widget-header widget-header-blue widget-header-flat" >
+	
+
+		<div class="pull-right tableTools-container">
+
+        
+              	<div class="pull-right tableTools-container">
+				<b> Note: </b> Here You can make batch upload patients using xlsx file, before uploading ,please download sample Ms Excel file from the system to keep correct format as shown below
+                              <a href="{{ path('patient_new') }}" class="btn btn-sm btn-primary btn-white btn-roun"> <i class="fa fa-plus"></i> Add new patient </a>
+
+					     
+					     	<a href="{{ path('patient_index') }}" class="btn btn-sm btn-primary btn-white btn-roun">  <i class="fa fa-users"></i> Back </a>
+	              
+	                        </div>           
+	   </div>
+       
+		</div>
+
+ 
+							</div><!-- /.col -->
+
+
+
+							 <div class="row">
+        
+        
+							<div class="col-xs-12">
+                            
+			{{ form_start(form,{'attr': {'role':'form','id':'form'}}) }}
+      
+				<div class="row ">
+		
+			
+                     <a href="" class="btn btn-sm btn-primary btn-white btn-roun">  <i class="fa fa-download"></i> Download sample xlsx  </a>
+	              
+						
+					
+                     
+					<div class="form-group col-md-3">
+						<div class="col-12">
+							{{ form_widget(form.file,{'attr':{'class':' form-control','required':'required'}}) }}
+						</div>
+					</div>
+
+    
+
+
+					
+			           <div class="form-group col-md-2">
+					
+							<button class="btn btn-sm btn-primary btn-white btn-roun" type="submit">
+                            <i class="fa fa-upload"> </i> Upload </button>
+					</div>
+
+					
+			
+				</div>
+
+				{{ form_end(form) }}	
+
+					<img src="{{ asset('http://localhost/IMS/public/Screenshot.png') }}"  width="1200" height="600"> 
+		
+		
+						</div><!-- /.row -->
+
+
+
+					
+{% endblock %}
