@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome
+			{% endblock %}
+		</title>
+
+		<meta name="description" content=""/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/bootstrap.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('assets/assets/font-awesome/4.5.0/css/font-awesome.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/jquery-ui.custom.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/bootstrap-duallistbox.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/bootstrap-multiselect.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/select2.min.css') }}"/>
+		<link href="{{ asset('select2/dist/css/select2.min.css') }}" rel="stylesheet"/>
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/fonts.googleapis.com.css') }}"/>
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/ace.min.css') }}" class="ace-main-stylesheet" id="main-ace-style"/>
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/ace-skins.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('assets/assets/css/ace-rtl.min.css') }}"/>
+		{# <link rel="stylesheet" href="{{ asset('assets/toast/toastr.min.css') }}"/> #}
+
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets/font-awesome/4.5.0/css/font-awesome.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/fonts.googleapis.com.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/ace.min.css')}}" class="ace-main-stylesheet" id="main-ace-style">
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/ace-skins.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/ace-rtl.min.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('assets/calendar/css/redmond.calendars.picker.css')}}">
+		<script src="{{ asset('assets/js/ace-extra.min.js')}}"></script>
+
+
+		{% block stylesheets %}
+  
+		{% endblock %}
+		{# <style>
+     
+	   html,div{
+   font-size:15px !important;
+
+	   }
+
+		</style> #}
+
+	</head>
+
+	<body style='font-family: "Lucida Sans Unicode", "Lucida Grande", roboto; color: black' class="no-skin">
+
+		<!-- ////////////////////////////// Stary of Top Nav //////////////////////////////////// -->
+		<div id="navbar" class="navbar navbar-default          ace-save-state">
+			<div class="navbar-container ace-save-state" id="navbar-container">
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<div class="navbar-header pull-left">
+					<a href="#" class="navbar-brand">
+						<small>
+							<!--	<i class="fa fa-leaf"></i> -->
+							<img class="nav-user-photo" width="30" height="30" src="{{ asset('assets/logo/logo.png')}}" alt="Logo"> {{ "Inpatient Managment System"}}
+						</small>
+					</a>
+				</div>
+				<!-- Top Top Navigation -->
+
+				{% include "menu/top_nav.html.twig" %}
+
+				<!-- End Top Nav /////////////////////////////////////// -->
+
+
+				<div class="main-container ace-save-state" id="main-container">
+					<script type="text/javascript">
+						try {
+ace.settings.loadState('main-container')
+} catch (e) {}
+					</script>
+
+					<!-- //////// side nav -->
+
+
+					{% include "menu/side_nav.html.twig" %}
+					<!-- end of side nav-->
+
+					<div class="main-content">
+					
+						<div class="main-content-inner">
+							{# <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+																																													<ul class="breadcrumb"> #}
+							<div class="widget-body">
+								<div class="widget-main">
+									<div class="row">
+										
+										<div class="col-xs-12 col-sm-6 pull-right">
+											<form method="POST" action="{{ path('search_result') }}">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="ace-icon fa fa-user"></i>
+
+													</span>
+
+													<input type="text" class="form-control search-query" name="search" autocomplete="off" placeholder="Enter card number or phone" required/>
+													<span class="input-group-btn">
+													<i class="ace-icon fa fa-search"></i>
+													<input type="submit" class="btn btn-inverse btn-white" value="Search"/>
+													<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+													Search
+												
+													</span>
+												</div>
+											</form>
+										</div>
+
+		                                  <div class="col-xs-12 col-sm-2">
+											<div class="input-group">
+											 	<a class="btn btn-sm btn-primary btn-white btn-round" href="{{ path('app_advanced_search')}}" title="Edit">
+						                        <i class="ace-icon fa fa-search bigger-120"></i> Advanced Search
+				                               </a>
+                                          </div>
+										  </div>
+
+									</div>
+								</div>
+							</div>
+	
+                        	<div class="page-content">
+
+									{% for message in app.flashes('notice') %}
+											<div class="alert alert-info">
+												<button type="button" class="close" data-dismiss="alert">
+													<i class="ace-icon fa fa-times"></i>
+												</button>
+
+												{{ message }}
+												<br>
+											</div>
+
+										{% endfor %}
+
+										{% for message in app.flashes('success') %}
+											<div class="alert alert-success">
+												<button type="button" class="close" data-dismiss="alert">
+													<i class="ace-icon fa fa-times"></i>
+												</button>
+
+												<strong>{{ message }}</strong>
+												<br>
+											</div>
+
+										{% endfor %}
+										{% for message in app.flashes('danger') %}
+											<div class="alert alert-danger">
+												<button type="button" class="close" data-dismiss="alert">
+													<i class="ace-icon fa fa-times"></i>
+												</button>
+
+												<strong>{{ message }}</strong>
+												<br>
+											</div>
+
+										{% endfor %}
+
+										{% for message in app.flashes('success') %}
+											<div class="alert alert-block alert-success">
+												<button type="button" class="close" data-dismiss="alert">
+													<i class="ace-icon fa fa-times"></i>
+												</button>
+												<div class="well well-lg text-center">
+													<div class="label label-large label-success arrowed">
+														{{ message }}
+													</div>
+												</div>
+											</div>
+
+										{% endfor %}
+
+
+										{# pass an array argument to get the messages of those types  #}
+										{% for label, messages in app.flashes(['warning']) %}
+											{% for message in messages %}
+												<div class="alert alert-warning">
+													<button type="button" class="close" data-dismiss="alert">
+														<i class="ace-icon fa fa-times"></i>
+													</button>
+
+													<strong>
+														{{ message }}</strong>
+
+													<br>
+												</div>
+
+
+											{% endfor %}
+										{% endfor %}
+
+										{% for label, messages in app.flashes(['error']) %}
+											{% for message in messages %}
+												<div class="alert alert-warning">
+													<button type="button" class="close" data-dismiss="alert">
+														<i class="ace-icon fa fa-times"></i>
+													</button>
+
+													<div class="well well-lg text-center">
+														<span class="label label-warning">
+															<i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>
+															Error
+														</span>
+														<div class="label label-large label-danger arrowed-in">
+															{{ message }}
+														</div>
+													</div>
+												</div>
+											{% endfor %}
+										{% endfor %}
+
+
+								<!-- /////////////////////////// start of body ////////////////////////////////-->
+								{% block body %}
+									<div style="width: 100%;margin: auto;">
+										{# {% for label, messages in app.flashes %}
+											{% for message in messages %}
+												<div class="alert alert-{{ label }} alert-dismissible fade show m-auto">
+													<a href="#" class="close" data-dismiss="alert" aria-label="Close">&times;<a/> {{ message }}
+													</div>
+												{% endfor %}
+											{% endfor %} #}
+										</div>
+									{% endblock %}
+
+
+								</div>
+								<!-- /.page-content -->
+
+
+							</div>
+						</div>
+						<!-- /.main-content -->
+
+						<!-- ///////////////////////// End of body /////////////////////////-->
+
+
+					</div>
+					<!-- /.main-container -->
+
+
+					<!-- //////////// start of foooter ////////////// -->
+					{% include "menu/footer.html.twig" %}
+
+					<!-- End of footer ////////////////////// -->
+
+
+					<script type="text/javascript">
+						if ('ontouchstart' in document.documentElement) 
+document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+					</script>
+
+
+					<script src="{{ asset('assets/js/jquery-2.1.4.min.js ')}}"></script>
+					<script src="{{ asset('assets/js/bootstrap.min.js ')}}"></script>
+					<script src="{{ asset('assets/js/ace-elements.min.js ')}}"></script>
+					<script src="{{ asset('assets/js/ace.min.js')}}"></script>
+					<script src="{{ asset('assets/js/ace-extra.min.js')}}"></script>
+					<script src="{{ asset('assets/js/html5shiv.min.js')}}"></script>
+					<script src="{{ asset('assets/js/respond.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/jquery-1.11.3.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/jquery.dataTables.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/jquery.dataTables.bootstrap.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/dataTables.buttons.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/buttons.flash.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/buttons.html5.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/buttons.print.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/buttons.colVis.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/dataTables.select.min.js')}}"></script>
+					<script src="{{ asset('assets/js/popper.min.js')}}"></script>
+					<script src=" {{ asset('assets/js/popup.js')}}"></script>
+
+					<script src="{{ asset('assets/js/select2.min.js') }}"></script>
+					<script src="{{asset('assets/js/jquery.bootstrap-duallistbox.min.js')}}"></script>
+
+					<script src=" {{ asset('assets/calendar/js/jquery.plugin.js')}}"></script>
+					<script src=" {{ asset('assets/calendar/js/jquery.calendars.js')}}"></script>
+					<script src=" {{ asset('assets/calendar/js/jquery.calendars.plus.js')}}"></script>
+					<script src=" {{ asset('assets/calendar/js/jquery.calendars.picker.js')}}"></script>
+					<script src=" {{ asset('assets/calendar/js/jquery.calendars.ethiopian.js')}}"></script>
+					<script src=" {{ asset('assets/calendar/js/jquery.calendars.ethiopian-am.js')}}"></script>
+					<script src=" {{ asset('assets/calendar/js/jquery.calendars.picker-am.js')}}"></script>
+					<script src= "{{ asset('select2/dist/js/select2.min.js') }}"></script>
+					<script src= "{{ asset('swal/dist/sweetalert2.all.min.js') }}"></script>
+					
+
+					
+						<script>
+					 	var calendar = $.calendars.instance('ethiopian', 'am');
+						$('#start').calendarsPicker({calendar: calendar});
+						$('#end').calendarsPicker({calendar: calendar});
+											</script>
+			       	{% block js %}
+							
+					 <script>
+					$(function () { // Initialize Select2 Elements
+			  	$('.select2').select2()
+					});
+					</script> 
+<script>
+	$(function () {
+		if (typeof toastr !== 'undefined') {
+			// the variable is defined
+			toastr.options = {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": true,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			}
+		}
+		$('.select2').css('width', '100%').select2()
+	})
+		</script>
+
+
+
+							
+			{% block javascripts %} {% endblock %}
+								
+					
+					{% endblock %}
+
+				</body>
+
+		</body>
+
+</html>

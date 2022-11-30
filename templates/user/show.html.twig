@@ -1,0 +1,306 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+
+                            
+
+{% if is_granted('usr_dlt') %}
+
+						<a href="{{ path('user_index') }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Close </a>
+{% endif %}				
+	              
+						
+
+         
+
+	                   
+
+					   <div class="row">
+                        <div class="col-xs-12">
+                          
+
+                            <div class="hr dotted"></div>
+
+                            <div>
+                                <div id="user-profile-1" class="user-profile row">
+                                    <div class="col-xs-12 col-sm-3 center">
+                                        <div>
+                                            <span class="profile-picture">
+													<img id="avatar" class="editable img-responsive"  wi alt="User Photo" src="{{ asset('assets/images/avatars/profile-pic2.jpg')}}" />
+												</span>
+
+                                            <div class="space-4"></div>
+
+                                            <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                                                <div class="inline position-relative">
+                                                    <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                                        <i class="ace-icon fa fa-circle light-green"></i> &nbsp;
+                                                        <span class="white">{{user.fullName}} </span>
+                                                    </a>
+
+                                               
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="space-6"></div>
+
+                                        <div class="profile-contact-info">
+                                            <div class="profile-contact-links align-left">
+                        
+
+                                                <a href="#" class="btn btn-link">
+                                                    <i class="ace-icon fa fa-envelope bigger-125 blue"></i>  {{ user.email }}
+                                                </a>
+                                            </div>
+
+                                            <div class="space-6"></div>
+
+                                       
+                                        </div>
+
+                                        <div class="hr hr12 dotted"></div>
+
+                                        <div class="clearfix">
+                                            <div class="grid2">
+                                                <span class="bigger-110 blue"> {{ user.isActive ? 'Active' : 'Inactive' }} </span>
+
+                                                <br /> Status
+                                            </div>
+
+                                            <div class="grid2">
+                                                <span class="bigger-110 blue"> 27 </span> 
+
+                                                <br /> Age
+                                            </div>
+                                        </div>
+
+                                        <div class="hr hr16 dotted"></div>
+                                    </div>
+
+                                   
+                                   
+                                   
+                                    <div class="col-xs-12 col-sm-9">
+                                          <div id="patient_action_toolbar" class="pull-right tableTools-container">
+   
+
+                      
+{#                   
+                        <a class="btn btn-sm btn-primary btn-white btn-round"
+                            href="" title="Edit">
+                            <i class="ace-icon fa fa-envelope bigger-120"></i>
+                            Send Message
+                        </a> #}
+
+                        <a class="btn btn-sm btn-primary btn-white btn-round"
+                            href="{{ path('user_edit', {'id': app.user.id}) }} " title="Edit">
+                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                            Edit Profile
+                        </a>
+
+
+               
+
+                            <div class="inline position-relative">
+                              
+                            <a href="#"  class="btn btn-sm btn-primary btn-blue btn-round user-title-label dropdown-toggle" data-toggle="dropdown" title="Edit">
+                             <i class="ace-icon fa fa-list bigger-120"></i>   
+                              Setting
+                              </a>
+                                 <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
+                                 
+                                    <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-print"></i>
+                                            &nbsp;
+                                            <span class="black">Print credential </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-users"></i>
+                                            &nbsp;
+                                            <span class="black"> Change Password </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{path('user_profile') }}">
+                                            <i class="ace-icon fa fa-file"></i>
+                                            &nbsp;
+                                            <span class="black">Upload photo </span>
+                                        </a>
+                                    </li>
+                                       
+                                </ul>
+                            </div>
+
+                       
+
+                    </div>
+
+            
+                                  
+
+                                        <div class="space-12"></div>
+
+
+
+
+                                        <div class="profile-user-info profile-user-info-striped">
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Full Name</div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="username"> {{ user.fullName }} </span>
+                                                </div>
+                                            </div>
+
+
+										
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Role</div>
+
+                                                <div class="profile-info-value">
+                                                  <!--  <i class="fa fa-map-marker light-orange bigger-110"></i> -->
+                                                    <span class="editable" id="country">{{ user.roles ? user.roles|json_encode : '' }}</span>
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Gender </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="age">{{ user.sex }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Last login </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="signup">{{ user.lastLogin ? user.lastLogin|date('Y-m-d H:i:s') : '' }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Is active </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="login">{{ user.isActive ? 'Active' : 'Inactive' }}</span>
+                                                </div>
+                                            </div>
+
+
+
+                                                 <div class="profile-info-row">
+                                                <div class="profile-info-name"> Username</div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about">{{ user.username }}</span>
+                                                </div>
+                                            </div>
+
+											
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Phone </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about">{{ user.phone }}</span>
+                                                </div>
+                                            </div>
+
+                                              <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Date of registration   </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"> {{ user.createdAt | eth_date }} </span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="profile-info-row">
+                                                  <div class="profile-info-name">  Registered by   </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"> {{ user.registeredBy}} </span>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="profile-info-row">
+                                                  <div class="profile-info-name">  Online Status   </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"> {{ user.status ? 'Online' : 'Offline' }}</span>
+                                                </div>
+                                            </div>
+                                       
+                                       
+                                          <div class="profile-info-row">
+                                                  <div class="profile-info-name">  Ward   </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"> {{ user.ward }}</span>
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+
+                                        <div class="space-20"></div>
+                                     Profile Page
+
+
+                                        <div class="hr hr2 hr-double"></div>
+
+                                        <div class="space-6"></div>
+
+                                        <div class="center">
+                                         
+                                        <small> Jimma University,
+                                         Jimma Medical center,
+                                         Liaison Referral Office </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                  
+
+                            <!-- PAGE CONTENT ENDS -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+
+
+						
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

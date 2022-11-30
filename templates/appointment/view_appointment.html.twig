@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of appointment{% endblock %}
+
+{% block body %}
+   <h4> <i class="fa fa-user"> </i> <a href="{{ path('patient_show', {'id': patient.id }) }}"> {{ patient }}</a>'s Appointments  </h4>
+
+   	<div class="pull-right tableTools-container">
+
+
+      
+
+         <a href=" {{ path('appointment_new', {'id': patient.id}) }}" class="btn btn-success btn-sm float-right">  <i class="fa fa-user-plus"></i> Add Appointment </a>
+	              
+	
+                         
+		<a href="{{ path('patient_show', {'id': patient.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Back </a>
+	              
+						
+
+         
+
+	                        </div>
+    <table class="table" style="border-top:3px solid #438EB9; ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Patient </th>
+                <th>Reason </th>
+                <th>Date of visited</th>
+                <th>Date of Appointment</th>
+                <th>Status </th>
+                <th> Interval </th>
+                <th>Appointment by </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appointment in appointments %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                  <td width="18%" > <a href=" {{ path('patient_show', {'id': appointment.patient.id }) }}"> {{ appointment.patient }} </a></td>
+                <td>{{ appointment.reason }}</td>
+            
+                <td>{{ appointment.appointAt ? appointment.appointAt| eth_date : '' }}</td>
+                <td style="color:red;" >{{ appointment.appointedAt ? appointment.appointedAt|eth_date: '' }} ({{ appointment.shift }} ) </td>
+                 {% if appointment.status==1 %}
+                <td> Active </td>
+                {% else %}
+                 <td> Closed</td>
+                {% endif %}
+                  
+                  <td> {{ appointment.totalDays }} days </td>
+                <td>{{ appointment.user }}</td>
+                <td>
+                   
+                    <a class="btn btn-xs btn-info" href="{{ path('patient_show', {'id': appointment.patient.id }) }}" title="Show Patient">
+					<i class="fa fa-user"></i>  Profile
+				   </a>
+                     <a class="btn btn-xs btn-danger" href="{{  path('print_appointment',{'id':appointment.id }) }}" title="Show Patient">
+					<i class="fa fa-print"></i>  
+				   </a>
+
+
+                    {# <a href="{{ path('appointment_show', {'id': appointment.id}) }}">show</a>
+                    <a href="{{ path('appointment_edit', {'id': appointment.id}) }}">Edit</a> #}
+
+                      {% if is_granted("edt_appnt") %}
+                                         <a  class="btn btn-xs btn-warning" href="{{ path('appointment_edit', {'id': appointment.id}) }}">Edit</a>
+	                  {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" style="color:red;">No appointments found !</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(appointments) }}</div>
+
+{% endblock %}

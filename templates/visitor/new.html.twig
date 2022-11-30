@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New attendant{% endblock %}
+
+{% block body %}
+   <h4> Attendant of <a href=""> {{ patient }} </a> </h4>
+
+    {{ include('visitor/_form.html.twig') }}
+
+    <a href="{{ path('visitor_index') }}">Back to list</a>
+{% endblock %}

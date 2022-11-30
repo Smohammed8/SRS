@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+
+
+{# 
+                         <div class="row">
+						 <center>
+				<p style="font-size:30px; color:red;">  
+				            
+									<i class="ace-icon fa fa-exclamation-triangle bigger-125"> </i> The Card number <span style="color:green;"> ({{ searchkey }}) </span> is {{message }} </p>
+					        
+				<p style="font-size:30px; color:green;"><i class="ace-icon fa fa-hand-o-right blue"></i>  Click  <a href="{{ here }}"> <u> here  </u></a> to register as new </p>			
+			 </center>
+			</div><!-- /.row -->
+
+		       <div class="hr hr32 hr-dotted"></div>
+						 #}
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-xs-12" style="background-color: #f2dede !important;">
+                            <!-- PAGE CONTENT BEGINS -->
+
+                            <div class="error-container" >
+                                <div class="well" style="background-color: #f2dede !important;">
+                                    <h1 class="grey lighter smaller">
+                                       <center> <span class="red bigger-60" >
+											
+												<i class="ace-icon fa fa-exclamation-triangle bigger-100"> </i>
+									<strong> The record {{message }} </strong>
+											</span>
+										
+                                      </center> 
+										
+				            
+					
+						
+                                    </h1>
+
+                                    <hr style="border-top:3px solid #438EB9; "/>
+                                    <h3 class="lighter smaller">
+                                     <p style="font-size:20px; color:green;"><i class="ace-icon fa fa-hand-o-right blue"></i> The MRN  <span style="color:green;"> ({{ searchkey }}) </span> you entered is not found, Click  <a href="{{ here }}"> <u> here  </u></a> to register as new </p>	
+                                         
+                                    </h3>
+
+                                    <div class="space"></div>
+
+                                    <div>
+                                        <h4 class="lighter smaller"> <i class="ace-icon fa fa-search"></i> Meanwhile, try one of the following:</h4>
+
+                                        <ul class="list-unstyled spaced inline bigger-110 margin-15">
+                                            <li>
+                                                <i class="ace-icon fa fa-hand-o-right blue"></i> Check patient card number
+                                            </li>
+											  <li>
+                                                <i class="ace-icon fa fa-hand-o-right blue"></i> Avoid typing errors
+                                            </li>
+
+                                            <li>
+                                                <i class="ace-icon fa fa-hand-o-right blue"></i> If card number is correct,register as new
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <hr />
+                                    <div class="space"></div>
+
+                                   
+                                </div>
+                            </div>
+
+                            <!-- PAGE CONTENT ENDS -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+
+
+
+
+{% endblock %}

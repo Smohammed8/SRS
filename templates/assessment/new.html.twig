@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Assessment{% endblock %}
+
+{% block body %}
+  
+    <h4>Create Assessment for  <a href="{{ path('patient_show',{'id': patient.id }) }}"> {{ patient }} </a> </h4>
+    {{ include('assessment/_form.html.twig') }}
+
+     {# <a href="{{ path('app_assessment_index',{'id': assessment.patient.id }) }}">Back to list #}
+{% endblock %}
+
+
+
+
+
+

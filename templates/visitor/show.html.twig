@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Attendant {% endblock %}
+
+{% block body %}
+    <h1> Attendant </h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ visitor.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ visitor.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ visitor.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Sex</th>
+                <td>{{ visitor.sex }}</td>
+            </tr>
+            <tr>
+                <th>DateOfVisit</th>
+                <td>{{ visitor.dateOfVisit ? visitor.dateOfVisit|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ visitor.user }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-xs btn-success" href="{{ path('visitor_index') }}"> <i class="fa fa-users"></i> Back to list</a>
+
+    <a  class="btn btn-xs btn-warning" href="{{ path('visitor_edit', {'id': visitor.id}) }}"> 	<i class="fa fa-edit"></i> Edit</a>
+
+     {{ include('visitor/_delete_form.html.twig') }}
+         {% endblock %}
+     
+     
+   

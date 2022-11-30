@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EncounterType index{% endblock %}
+
+{% block body %}
+    <h4>Encounter type </h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for encounter_type in encounter_types %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ encounter_type.name }}</td>
+                <td>{{ encounter_type.description }}</td>
+                <td>
+
+                  
+                  
+                   <a class="btn btn-xs btn-success" href="{{ path('app_encounter_type_show', {'id': encounter_type.id}) }}" title="Show Bed">
+					<i class="ace-icon fa fa-eye bigger-120"></i>  View
+				   </a>
+
+                   	<a class="btn btn-xs btn-warning" href="{{ path('app_encounter_type_edit', {'id': encounter_type.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_encounter_type_new') }}">Create new</a>
+{% endblock %}

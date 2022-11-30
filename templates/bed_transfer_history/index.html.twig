@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bed Transfer History {% endblock %}
+
+{% block body %}
+    <h4> 	<i class="fa fa-exchange "></i> Bed transfer history  	</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                     <th>Old bed </th>
+                       <th>to </th>
+                      <th>New bed</th>
+                <th>Transferred at</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bed_transfer_history in bed_transfer_histories %}
+            <tr>
+                <td>{{ loop.index }}</td>
+
+                <td title=" transferred by : Abebe Mamao" >{{ bed_transfer_history.oldBed.room.unit.ward }}/
+                 {{ bed_transfer_history.oldBed.room.unit }}/
+                  {{ bed_transfer_history.oldBed.room }}/
+                  {{ bed_transfer_history.oldBed }} </td>
+
+                         <td> 	<i class="fa fa-exchange"></i> </td>
+
+                 <td title="Transferred by : Abebe Mamao">{{ bed_transfer_history.newBed.room.unit.ward }}/
+                 {{ bed_transfer_history.newBed.room.unit }}/
+                  {{ bed_transfer_history.newBed.room }}/
+                  {{ bed_transfer_history.newBed }}  </td>
+                <td>{{ bed_transfer_history.transferredAt ? bed_transfer_history.transferredAt|date('Y-m-d ') : '' }}</td>
+               
+                  {% if is_granted("viw_patient_profile") %}
+                      <td>
+					<a class="btn btn-xs btn-info" href="{{ path('patient_show', {'id': bed_transfer_history.admission.patient.id }) }}" title="Show Patient">
+						<i class="fa fa-bed"></i>
+						Profile
+					</a>
+                      </td>
+						{% endif %}
+
+                {# <td>
+                    <a href="{{ path('app_bed_transfer_history_show', {'id': bed_transfer_history.id}) }}">show</a>
+                    <a href="{{ path('app_bed_transfer_history_edit', {'id': bed_transfer_history.id}) }}">edit</a>
+                </td> #}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bed_transfer_history_new') }}">Create new</a>
+{% endblock %}

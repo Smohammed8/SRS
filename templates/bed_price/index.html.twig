@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bed price{% endblock %}
+
+{% block body %}
+    <h5>List of bed proce </h5>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Bed type</th>
+                <th>Price per day </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bed_price in bed_prices %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ bed_price.type }}</td>
+                <td>{{ bed_price.price }}</td>
+                <td>
+                    <a  class="btn btn-sm btn-primary btn-white btn-sm " href="{{ path('app_bed_price_show', {'id': bed_price.id}) }}">Show</a>
+                    <a class="btn btn-sm btn-primary btn-white btn-sm" href="{{ path('app_bed_price_edit', {'id': bed_price.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bed_price_new') }}">Create new</a>
+{% endblock %}

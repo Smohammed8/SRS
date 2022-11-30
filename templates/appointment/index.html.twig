@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appointment
+{% endblock %}
+
+{% block body %}
+	<h4>
+		<i class="fa fa-calendar"></i> {{ date('now') | eth_date  }}
+		-Today Appointments
+	</h4>
+
+
+	<div class="col-xs-12 pull-right">
+		<form method="POST" action="{{ path('search_appointment') }}">
+
+			<div class="row">
+
+				<div class="form-group col-md-3">
+
+					<div class="col-12">
+						<span>Unit
+						</span>
+						<select name="unit" class="select2 form-control">
+                              {% for unit in units %}
+
+							   <option value="{{ unit.id }}">{{ unit.name }} </option>
+									
+							
+						   	{% endfor %}
+
+					
+						</select>
+					</div>
+				</div>
+
+
+				<div class="form-group col-md-3">
+					<span>Date of Appointment
+					</span>
+					<div class="col-12">
+						<input type="text" class="form-control" required="required" placeholder="Date" autocomplete="off" name="date" size="3" id="start"/>
+
+					</div>
+				</div>
+
+
+				<div class="form-group col-md-2">
+                <span>  </span><br>
+					<label class="col-3 control-label no-padding-right"> 
+                    </label>
+					<button class="btn btn-sm btn-primary btn-white btn-round" type="submit">
+						<i class="fa fa-search"></i>
+						Filter
+					</button>
+				</div>
+
+			</div>
+		</div>
+
+	</form>
+</div>
+<br>
+<table class="table" style="border-top:3px solid #438EB9; ">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Patient
+			</th>
+			<th>Reason
+			</th>
+			<th>Date of visited</th>
+			<th>Date of Appointment</th>
+			<th>Status
+			</th>
+			<th>
+				Interval
+			</th>
+
+			<th>Appointment by
+			</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for appointment in appointments %}
+			<tr>
+				<td>{{ loop.index }}</td>
+				<td width="18%">
+					<a href=" {{ path('patient_show', {'id': appointment.patient.id }) }}"> {{ appointment.patient }}
+					</a>
+				</td>
+				<td>{{ appointment.reason }}</td>
+
+				<td>{{ appointment.appointAt ? appointment.appointAt| eth_date : '' }}</td>
+				<td style="color:red;">{{ appointment.appointedAt ? appointment.appointedAt|eth_date: '' }} ({{ appointment.shift }} ) </td>
+				{% if appointment.status==1 %}
+					<td>
+						Active
+					</td>
+				{% else %}
+					<td>
+						Closed</td>
+				{% endif %}
+
+				<td> {{ appointment.totalDays }}
+					days</td>
+				<td>{{ appointment.user }}</td>
+				<td>
+
+                     {% if is_granted("viw_patient_profile") %}
+					<a class="btn btn-xs btn-info" href="{{ path('patient_show', {'id': appointment.patient.id }) }}" title="Show Patient">
+						<i class="fa fa-user"></i>
+						Profile
+					</a>
+						{% endif %}
+
+				  {% if is_granted("print_appoint") %}
+						<a class="btn btn-xs btn-danger" href="{{ path('print_appointment',{'id':appointment.id }) }}" title="Show Patient">
+							<i class="fa fa-print"></i>
+						</a>
+
+					{% endif %}
+
+
+					{# <a href="{{ path('appointment_show', {'id': appointment.id}) }}">show</a> #}
+				  {# <a  class="btn btn-xs btn-warning" href="{{ path('appointment_edit', {'id': appointment.id}) }}">Edit</a> #}
+				</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td colspan="6" style="color:red;"> No active appointments found today! </td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(appointments) }}</div>{% endblock %}

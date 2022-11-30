@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Woreda{% endblock %}
+
+{% block body %}
+    <h1>Edit Woreda</h1>
+
+    {{ include('woreda/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('woreda_index') }}">back to list</a>
+
+    {{ include('woreda/_delete_form.html.twig') }}
+{% endblock %}

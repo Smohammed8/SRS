@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admimssion {% endblock %}
+
+{% block body %}
+    <h4>List of Admimssions</h4>
+
+    <table class="table" style="border-top:3px solid #438EB9; ">
+        <thead>
+            <tr>
+                <th>#</th>
+                   <th>Patient</th>
+                  <th> Admitted at</th>
+                  <th> Discharged at</th>
+                   <th>Location</th>
+                      <th>Outcome </th>
+           
+                <th> Current status </th>
+             
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for admimssion in admimssions %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                  <td> <a href="{{ path('patient_show', {'id': admimssion.patient.id }) }}"> {{ admimssion.patient }} </a></td>
+                <td>{{ admimssion.createdAt ? admimssion.createdAt| eth_date }}</td>
+
+                     {% if admimssion.dischargedAt  == null %}
+
+                         <td> - </td>
+
+                   {% else %}
+                    <td>{{ admimssion.createdAt ? admimssion.dischargedAt| eth_date }}</td>
+
+                       {% endif %}
+              
+                <td>
+                 {{ admimssion.bed.room.unit.ward }}/
+                 {{ admimssion.bed.room.unit }}/
+                  {{ admimssion.bed.room }}/
+                  {{ admimssion.bed }}</td>
+
+
+
+                    <td>{{ admimssion.outcome??'-' }}</td>
+
+                    <td>
+                      {% if (admimssion.ischeckedIn == 0) and (admimssion.outcome is null) %}
+                       <span style="color:red;">  Waiting </span>
+                     {% elseif (admimssion.outcome is not null ) %}
+                      <span style="color:green;">  Discharged </span>
+                      {% else %}
+                       <span style="color:green;"> Admitted </span>
+                      {% endif %}
+                      </td>
+
+
+
+                  
+                    {# {% if admimssion.status == 0 %}
+                    <td>   <p style="color:red;">  {{ 'Waiting'}}  </p>     </td>  
+                    
+                     {% if admimssion.status ==1 %}
+
+                    <td>   <p style="color:red;">  {{ 'Admitted'}}  </p>     </td>  
+                 
+                     {% if admimssion.status == 3 %}
+
+                       <td>   <p style="color:red;">  {{ 'Re-admitted'}}  </p>     </td>  
+                       
+                      {% else  %}
+
+                        <td>   <p style="color:red;">  {{ 'Discharged'}}  </p>     </td>  
+                   
+                     {% endif  %} #}
+
+                <td>
+                   {% if is_granted("vw_admsion") %}
+                    <a class="btn btn-sm btn-success btn-white btn-round" href="{{ path('patient_show', {'id': admimssion.id}) }}" title="Show Bed">
+					<i class="ace-icon fa fa-eye bigger-120"></i>  View
+				   </a>
+               {% endif  %} 
+            {% if is_granted("edt_admsion") %}
+                   	<a class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('admimssion_edit', {'id': admimssion.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a>
+                       {% endif  %} 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No admimssions found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(admimssions) }}</div>
+{% endblock %}

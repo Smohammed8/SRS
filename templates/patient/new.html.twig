@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Patient{% endblock %}
+
+{% block body %}
+
+                       	{# {% include "menu/layout.html.twig" %} #}
+
+		               <div class="row">
+							<div class="col-sm-12">
+						 {{ include('patient/_form.html.twig') }}
+
+
+							</div><!-- /.col -->
+
+
+
+
+
+
+       <script src="{{ asset('assets/js/wizard.min.js') }}"></script>
+		<script src="{{ asset('assets/js/jquery.validate.min.js')}}"></script>
+		<script src="{{ asset('assets/js/jquery-additional-methods.min.js')}}"></script>
+		<script src="{{ asset('assets/js/bootbox.js')}}"></script>
+		<script src="{{ asset('assets/js/jquery.maskedinput.min.js')}}"></script>
+		<script src="{{ asset('assets/js/select2.min.js')}}"></script> 
+
+		
+{% endblock %}

@@ -1,0 +1,89 @@
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-xs btn-success pull-right"><b> <i class=" fa fa-save"> </i> &nbsp; {{ button_label|default('Save') }}</b></button>
+{{ form_end(form) }}
+
+ #}
+
+
+
+  <!-- Used for amharic calendar -->
+<link rel="stylesheet" href="{{ asset("assets/calendar/css/redmond.calendars.picker.css") }}">
+{# <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> #}
+
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="card">
+
+	<div class="card-body">
+	         <hr>
+		<div class="row">
+		<input type="hidden" name="patient_id" value="{{ patient.id }}">
+	           <div class="form-group mt-2 col-md-4 col-sm-6 ">
+					{{ form_label(form.priorityLevel,'Patient priority level') }} <br>
+					
+		         	{{ form_widget(form.priorityLevel,{'attr':{'class':'form-control select2'}}) }}
+		
+				
+					</div>
+
+
+	               <div class="form-group mt-2 col-md-4 col-sm-6 ">
+					{{ form_label(form.unit,'Unit') }} <br>
+					
+		         	{{ form_widget(form.unit,{'attr':{'class':'form-control select2'}}) }}
+		
+				
+					</div>
+
+
+					<div class="form-group mt-2 col-md-4 col-sm-6 ">
+					{{ form_label(form.whyAppointed,' Appointment type') }} <br>
+					
+		         	{{ form_widget(form.whyAppointed,{'attr':{'class':'form-control select2'}}) }}
+		
+				
+					</div>
+
+
+
+                
+                	<div class="form-group mt-2 col-md-4 col-sm-6 ">
+                    Date of Appointment<br>
+					<input type="text" id ="start" class="form-control" name="appointedAt" autocomplete="off" />
+				
+					</div>
+
+	                    
+
+
+						<div class="form-group mt-2 col-md-4 col-sm-6 ">
+					{{ form_label(form.shift,' Appointment shift') }} <br>
+					
+		         	{{ form_widget(form.shift,{'attr':{'class':'form-control select2'}}) }}
+		
+				
+					</div>
+
+
+	                    <br>
+
+
+                	<div class="form-group mt-2 col-md-12 col-sm-6 ">
+					{{ form_label(form.reason,'Reason of appointment') }} <br>
+					{{ form_widget(form.reason,{'attr':{'cols':'10','rows':'7','placeholder':'Write your reason of appointment here..'}}) }}
+					<br>   <br>  
+					</div>
+
+	
+			
+			<br>
+			<button type="submit" class="btn btn-primary pull-right">
+	    <b> <i class=" fa fa-save"> </i></b>	{{ button_label|default('Save') }}
+	    	</button>
+
+
+			{{ form_end(form) }}
+
+			

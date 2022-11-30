@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ward {% endblock %}
+
+{% block body %}
+    <h4>List of wards  </h4>
+
+<div class="col-xs-12">
+                            
+ <br>
+<div class="widget-header widget-header-blue widget-header-flat">
+	<h5 class="widget-title lighter">  <i class="fa fa-users"></i> Ward Information  </h5>
+
+		<div class="pull-right tableTools-container">
+              	<div class="pull-right tableTools-container">
+                              <a href="{{ path('ward_new') }}" class="btn btn-info btn-sm float-right"> <i class="fa fa-plus"></i> Add new Entry </a>
+
+					     	<a href="{{ path('home') }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Close </a>
+	              
+						
+
+         
+
+	                        </div>
+                            
+	   </div>
+		</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Total Units</th>
+                 <th>Total Rooms</th>
+                <th>Total Beds</th>
+                <th>Occupied Beds</th>
+                <th>Free Beds</th>
+                <th>Impendings </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ward in wards %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td> <a href="{{ path('units_in_ward', {'id': ward.id}) }}"> 
+                 {{ ward.name }} </a></td>
+
+                      {% set bedCount = 0 %}
+                      {% set freeBedCount = 0 %}
+                      {% set occupiedBedCount = 0 %}
+                      {% set impendingBedCount = 0 %}
+                      {% set roomCounts = 0 %}
+                    {% for  unit in ward.units %}
+                      {% for room in unit.rooms %}
+                         {% set roomCounts = roomCounts + 1 %}
+                        {% for bed in room.beds %}
+
+                          {% if bed.updatedAt is not null %}
+                         
+                              {% set last_updated = bed.updatedAt %}
+                        
+                          {% endif %}
+
+                          {% set bedCount = bedCount + 1 %}
+                          
+                          {% if bed.accessibility ==1 %}
+                            {% set occupiedBedCount = occupiedBedCount + 1 %}
+                          {% endif %}
+
+                          {% if bed.accessibility  == 0 %}
+                            {% set freeBedCount = freeBedCount + 1 %}
+                          {% endif %}
+
+                          {% if bed.currentStatus==1 %}
+                            {% set impendingBedCount = impendingBedCount + 1 %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                         {% endfor %}
+
+                <td>{{ ward.units|length }}</td>
+
+                <td>{{  roomCounts }}</td>
+                <td>{{ bedCount }}</td>
+                <td>{{ occupiedBedCount }}</td>
+                <td>  {{ freeBedCount }}</td>
+                 <td> {{ impendingBedCount }}</td>
+                
+
+
+                
+                <td>
+            
+                   
+                     	<a class="btn btn-sm btn-info btn-white btn-round" href="{{ path('ward_show', {'id': ward.id}) }}" title="Show Ward">
+					<i class="ace-icon fa fa-eye bigger-120"></i>  View
+				   </a>
+
+                   	<a class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('ward_edit', {'id': ward.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a>
+
+             {% if ward.units|length < 1 %}
+          	<a class="btn btn-sm btn-danger btn-white btn-round" href="{{ path('ward_delete', {'id':ward.id}) }}" title="Delete">
+						<i class="ace-icon fa fa-trash bigger-120"></i> Delete
+				   </a>
+            {% else %}
+                        <a class="btn btn-sm btn-danger btn-white btn-round" href="#" title="Delete">
+                        <i class="ace-icon fa fa-trash bigger-120"></i> <del> Delete </del>
+                      </a>
+            {% endif %}
+                              
+
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No wards found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(wards) }}</div>
+
+
+
+{% endblock %}

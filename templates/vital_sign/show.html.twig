@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VitalSign{% endblock %}
+
+{% block body %}
+    <h1>VitalSign</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vital_sign.id }}</td>
+            </tr>
+            <tr>
+                <th>Temperature</th>
+                <td>{{ vital_sign.temperature }}</td>
+            </tr>
+            <tr>
+                <th>HeartRate</th>
+                <td>{{ vital_sign.heartRate }}</td>
+            </tr>
+            <tr>
+                <th>RespiratoryRate</th>
+                <td>{{ vital_sign.respiratoryRate }}</td>
+            </tr>
+            <tr>
+                <th>BloodPressure</th>
+                <td>{{ vital_sign.bloodPressure }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_vital_sign_index') }}">back to list</a>
+
+    <a href="{{ path('app_vital_sign_edit', {'id': vital_sign.id}) }}">edit</a>
+
+    {{ include('vital_sign/_delete_form.html.twig') }}
+{% endblock %}

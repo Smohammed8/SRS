@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Woreda{% endblock %}
+
+{% block body %}
+    <h1>Woreda</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ woreda.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ woreda.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ woreda.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('woreda_index') }}">back to list</a>
+
+    <a href="{{ path('woreda_edit', {'id': woreda.id}) }}">edit</a>
+
+    {{ include('woreda/_delete_form.html.twig') }}
+{% endblock %}

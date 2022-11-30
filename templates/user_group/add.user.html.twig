@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block maintitle %}
+	User Group Permission
+{% endblock %}
+
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12 col-sm-12 widget-container-col" id="widget-container-col-8">
+			<div class="widget-box widget-color-blue" id="widget-box-8">
+				<div class="widget-header">
+					<h5 class="widget-title bigger lighter">
+						{{ user_group.name }}
+						User Group 
+					</h5>
+
+					<div class="widget-toolbar"></div>
+
+					<div class="widget-toolbar">
+						<div class="card-header-right">
+							<a href="{{ path('user_group_index') }}" class="btn btn-success">
+								Back</a>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="widget-body">
+
+
+					<div class="widget-main padding-24">
+
+						<div class="table">
+							<form class="form-inline" method="post" style="display:inline;">
+
+								<div class="input-group">
+									<input type="text" class="form-control" name="search" placeholder="Search"/>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-default no-border btn-sm">
+											<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+										</button>
+									</div>
+								</div>
+							</form>
+
+							<form
+								method="POST">
+
+								<!-- /.card-header -->
+								<div class="card-body">
+
+
+									<div class="row">
+										<div class="col-12">
+
+											<div class="form-group">
+												<input hidden value="{{ user_group.id}}" name="usergroupuser">
+												<select class="duallistbox" multiple="multiple" name="user[]">
+													{% for user in user_group.users %}
+														<option selected value="{{user.id}}">
+															{{ user.firstName }} 	{{ user.fatherName }} 	{{ user.LastName }}
+
+														</option>
+													{% endfor %}
+													
+													{% for user in users %}
+
+														<option value="{{user.id}}">
+														{{ user.firstName }} 	{{ user.fatherName }} 	{{ user.LastName }}
+
+														</option>
+													{% endfor %}
+
+
+												</select>
+											</div>
+											<!-- /.form-group -->
+
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+								</div>
+								<!-- /.card-body -->
+								<div class="card-footer pull-right">
+									<div class="float-right">
+										<a href="{{path('user_group_index')}}" class="btn btn-primary">Cancel</a>
+										<button class="btn btn-info ">Save</button>
+
+
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+{% block javascripts %}
+
+		<script src="{{asset('assets/js/jquery.bootstrap-duallistbox.min.js')}}"></script>	<script>
+		$(function () {
+$('.duallistbox').bootstrapDualListbox({
+	nonSelectedListLabel: 'User List',
+  selectedListLabel: 'Users In The Group',
+  preserveSelectionOnMove: 'moved',
+  moveOnSelect: true,
+  moveSelectedLabel: "Add Selected Users to This Group",
+  moveAllLabel: "Add All Users to This Group ",
+  removeSelectedLabel: "Remove Selected Users From This Group",
+  removeAllLabel: "Remove All Users From This Group",
+  selectorMinimalHeight: "400"
+  });
+})
+	</script>
+{% endblock %}

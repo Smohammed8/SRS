@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of Woreda {% endblock %}
+
+{% block body %}
+    <h5> List of Woreda</h5>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Woreda </th>
+                <th>Zone</th>
+                  <th>Region</th>
+             
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for woreda in woredas %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ woreda.name }}</td>
+                  <td>{{ woreda.zone }}</td>
+                     <td>{{ woreda.zone.region }}</td>
+               
+                <td>
+                  
+                	<a class="btn btn-xs btn-info" href="{{ path('woreda_show', {'id': woreda.id}) }}" title="Show woreda">
+					<i class="ace-icon fa fa-eye bigger-120"></i>  View
+				    </a>
+
+                   	<a class="btn btn-xs btn-warning" href="{{ path('woreda_edit', {'id': woreda.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a>
+
+                      	<a class="btn btn-xs btn-danger" href="{{ path('woreda_delete', {'id':woreda.id}) }}" title="Delete">
+						<i class="ace-icon fa fa-trash bigger-120"></i> Delete
+				   </a>
+               
+
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('woreda_new') }}">Create new</a>
+{% endblock %}

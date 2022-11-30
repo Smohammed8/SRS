@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AdmimssionType index{% endblock %}
+
+{% block body %}
+    <h4>List of referral types</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for admimssion_type in admimssion_types %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ admimssion_type.name }}</td>
+                <td>{{ admimssion_type.description }}</td>
+                <td>
+                    <a href="{{ path('admimssion_type_show', {'id': admimssion_type.id}) }}">show</a>
+                    <a href="{{ path('admimssion_type_edit', {'id': admimssion_type.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admimssion_type_new') }}">Create new</a>
+{% endblock %}

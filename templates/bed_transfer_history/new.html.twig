@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New BedTransferHistory{% endblock %}
+
+{% block body %}
+    <h1>Create new BedTransferHistory</h1>
+
+    {{ include('bed_transfer_history/_form.html.twig') }}
+
+    <a href="{{ path('app_bed_transfer_history_index') }}">back to list</a>
+{% endblock %}

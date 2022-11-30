@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reason of Referral{% endblock %}
+
+{% block body %}
+    <h4>Reason of Referral</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reason_of_referral in reason_of_referrals %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ reason_of_referral.name }}</td>
+                <td>{{ reason_of_referral.description }}</td>
+                <td>
+                    <a href="{{ path('app_reason_of_referral_show', {'id': reason_of_referral.id}) }}">show</a>
+                    <a href="{{ path('app_reason_of_referral_edit', {'id': reason_of_referral.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reason_of_referral_new') }}">Create new</a>
+{% endblock %}

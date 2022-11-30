@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta charset="utf-8"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8"/>
+
+		<meta name="description" content=""/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+	<link rel="stylesheet" href="{{ absolute_url(asset('assets/dist/css/adminlte.min.css'))}}"/>
+		<style>
+
+			.page_break {
+				page-break-before: always;
+			}
+			.page_break:last-child {
+				page-break-after: avoid;
+			}
+			#footer {
+				position: fixed;
+				right: 0;
+				bottom: 10px;
+				text-align: center;
+				border-top: 1px solid black;
+			}
+			#footer-right {
+				position: fixed;
+				right: 0;
+				bottom: 10px;
+				text-align: right;
+				font-size: 10px;
+				border-top: 1px solid black;
+			}
+			#footer-left {
+				position: fixed;
+				right: 0;
+				bottom: 10px;
+				text-align: left;
+				font-size: 10px;
+				border-top: 1px solid black;
+			}
+			#footer .page:after {
+				content: counter(page, decimal);
+			}
+			@page {
+				margin: 20px 30px 40px 50px;
+			}
+			
+			.amharic1 {
+				font-family: amharic !important;
+			}
+			.amharic2 {
+				font-family: amharic2 !important;
+			}
+			.in {
+				margin-left: 800px;
+				margin-top: 5px;
+			}
+			.in2 {
+				margin-left: 320px;
+				margin-top: 5px;
+			}
+			.footer {
+				position: fixed;
+				left: 0;
+				bottom: 15;
+				width: 100%;
+				color: black;
+				text-align: center;
+			}
+
+			table {
+
+				border-collapse: collapse;
+				width: 100%;
+			}
+
+			td,
+			tr,
+			th {
+				border: 1px solid #000;
+				text-align: left;
+				padding-left: 15px;
+			}
+
+			.sign {
+				float: right;
+				height: 100px;
+				position: absolute;
+				right: 0;
+				bottom: 30;
+			}
+			.sign2 {
+				float: right;
+				height: 100px;
+				position: absolute;
+				right: 0;
+				bottom: 10;
+			}
+			.mt {
+				margin-top: 45px;
+			}
+			.sty {
+				list-style-type: none;
+			}
+		</style>
+		{% block stylesheets %}{% endblock %}
+
+	</head>
+
+	<body>
+
+
+		<div>
+			<center><img class="img-responsive" height="{{ size.height }}" width="{{ size.width }}" src="data:image;base64,{{ logo }}"/></center>
+		</div>
+		<div style="margin-top:15px;"> {% block body %}{% endblock %}
+			</div>
+{% if footer %}
+
+			<div id="footer">
+				{% block footer %}
+					{# <p class="page">Page
+					</p> #}
+<div id="footer-left" class="amharic2">
+			AAYYOO Automated Pre-Hospital Care and Inter-referral Dispatching System<br>
+				
+			</div>
+
+
+			<div id="footer-right">
+				Tel: 6238<br>
+				Address: Jimma, Oromia, Ethiopia
+			</div>
+
+				{% endblock %}
+			</div>
+			
+		{% endif %}
+
+		</body>
+	</html>

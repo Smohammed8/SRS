@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vital Sign{% endblock %}
+
+{% block body %}
+
+
+
+     <h4> <i class="fa fa-user"> </i>
+  <a href="{{ path('patient_show', {'id': patient.id }) }}"> {{ patient }} 
+  </a>'s Vital Sign
+   </h4>
+
+    <table class="table" style="border-top:3px solid #438EB9; ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Temperature</th>
+                <th>HeartRate</th>
+                <th>RespiratoryRate</th>
+                <th>BloodPressure</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vital_sign in vital_signs %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ vital_sign.temperature }}</td>
+                <td>{{ vital_sign.heartRate }}</td>
+                <td>{{ vital_sign.respiratoryRate }}</td>
+                <td>{{ vital_sign.bloodPressure }}</td>
+                <td>
+                    <a href="{{ path('app_vital_sign_show', {'id': vital_sign.id}) }}">show</a>
+                    <a href="{{ path('app_vital_sign_edit', {'id': vital_sign.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_vital_sign_new') }}">Create new</a>
+{% endblock %}

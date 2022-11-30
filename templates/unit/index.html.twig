@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Unit index{% endblock %}
+
+{% block body %}
+
+
+<div class="col-xs-12">
+                            
+
+<div class="widget-header widget-header-blue widget-header-flat">
+
+List of units in <b><u>  {{ ward }} </b> </u> 
+		<div class="pull-right tableTools-container">
+              	<div class="pull-right tableTools-container">
+                              <a href=" {{ path('unit_new',{id:ward.id}) }}" class="btn btn-info btn-sm float-right"> <i class="fa fa-plus"></i> Add new Entry </a>
+
+					     	<a href="{{ path('ward_index') }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Back </a>
+	    
+				 </div>
+                            
+	   </div>
+		</div>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                 <th>#</th>
+                 <th>Unit Name</th>
+            
+                  <th>Total Rooms </th>
+
+                 <th>Total Beds</th>
+                     <th> Occupied Beds</th>
+                 <th>Free Beds</th>
+             
+                 <th>Impendings </th>
+                 <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for unit in units %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                
+                 <td> <a href="{{ path('rooms_in_unit', {'id': unit.id}) }}">  {{ unit.name }} </a></td>
+                
+         
+
+
+                    {% set bedCount = 0 %}
+                      {% set freeBedCount = 0 %}
+                      {% set occupiedBedCount = 0 %}
+                      {% set impendingBedCount = 0 %}
+                      {% set roomCounts = 0 %}
+              
+                      {% for room in unit.rooms %}
+                        {% for bed in room.beds %}
+
+                          {% set bedCount = bedCount + 1 %}
+
+                          {% if bed.updatedAt is not null %}
+                         
+                              {% set last_updated = bed.updatedAt %}
+                        
+                          {% endif %}
+
+                        
+                          
+                          {% if bed.accessibility ==1 %}
+                            {% set occupiedBedCount = occupiedBedCount + 1 %}
+                          {% endif %}
+
+                          {% if bed.accessibility  == 0 %}
+                            {% set freeBedCount = freeBedCount + 1 %}
+                          {% endif %}
+
+                          {% if bed.currentStatus==1 %}
+                            {% set impendingBedCount = impendingBedCount + 1 %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                        
+
+
+                 <td>  {{ unit.rooms|length }} </td>  
+                <td>{{ bedCount }}</td>
+                <td>{{ occupiedBedCount }}</td>
+                <td>  {{ freeBedCount }}</td>
+                 <td> {{ impendingBedCount }}</td>
+                <td>
+
+          	{%  if  is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN')  or is_granted('ROLE_LIAISON') %}
+            <a class="btn btn-sm btn-info btn-white btn-round" href="{{ path('unit_show', {'id': unit.id}) }}" title="Show Unit">
+			  		<i class="ace-icon fa fa-eye bigger-120"></i>  View
+				     </a>
+
+          	<a class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('unit_edit', {'id': unit.id}) }}" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> Edit
+				   </a>
+
+        
+
+
+        {% if unit.rooms|length < 1 %}
+             	 <a class="btn btn-sm btn-primary btn-white btn-round" href="" >
+																	
+																{{ include('unit/_delete_form.html.twig') }}
+
+																</a>
+            {% else %}
+                        <a class="btn btn-sm btn-danger btn-white btn-round" href="#" title="Delete">
+                        <i class="ace-icon fa fa-trash bigger-120"></i> <del> Delete </del>
+                      </a>
+            {% endif %}
+                          
+
+
+
+            {% else %}  
+               <a class="btn btn-xs btn-info" href="" title="Show Unit">
+			  		<i class="ace-icon fa fa-eye bigger-120"></i> View 
+				     </a>
+
+
+
+          	<a class="btn btn-xs btn-warning" href="" title="Edit">
+						<i class="ace-icon fa fa-pencil bigger-120"></i> <del> Edit </del>
+				   </a>
+
+            {% endif %}
+                  
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(units) }}</div>
+
+{% endblock %}

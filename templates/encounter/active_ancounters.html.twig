@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Encounter {% endblock %}
+
+{% block body %}
+
+
+
+
+
+
+       <h3> Active Encounters </h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th> Department</th>
+                <th> Encounter type </th>
+                <th> User </th>
+                <th>Date of visit </th>
+                  <th>Referred to </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for encounter in encounters %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ encounter.destination }}</td>
+                <td>{{ encounter.type }}</td>
+                <td>{{ encounter.createdBy }}</td>
+                <td>{{ encounter.createdAt ? encounter.createdAt|eth_date }}</td>
+                  <td>{{ encounter.referout }}</td>
+                <td>
+
+
+
+   {% if encounter.assignedTo is null %}
+
+                                  <a href="#referr-out" onclick="event.preventDefault();" role="button" class=" btn btn-sm btn-primary btn-white btn-round"  data-toggle="modal">
+                                        <i class="ace-icon fa fa-user-md bigger-120"></i>
+                                
+                                    Assign
+                                 
+                                    </a>
+                                   
+                                 {% else %}
+                     <a href="#" role="button" class=" btn btn-sm btn-primary btn-white btn-round"  data-toggle="modal">
+                                        <i class="ace-icon fa fa-user bigger-120"></i>
+                                
+                                    Assigned
+                                 
+                                    </a>
+
+
+                                         {# <a href="#" role="button" class=" btn btn-sm btn-primary btn-white btn-round" >
+                                        <i class="ace-icon fa fa-print bigger-120"></i>
+                                
+                                    Print
+                                 
+                                    </a> #}
+
+                        {% endif %}
+                
+                    {% if encounter.assignedTo is null %} 
+                    
+                    <a class="btn btn-xs btn-info" href="{{ path('app_encounter_edit', {'id': encounter.id}) }}"><i class="fa fa-edit"> </i>  Edit</a>
+                   {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No encounters found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(encounters) }}</div>
+
+
+    {# <a href="{{ path('app_encounter_new') }}">Create new</a> #}
+
+
+
+           <!-- ////////////////////////////-->
+<div id="referr-out" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="smaller lighter blue no-margin"> Do you want assign  patient ?</h3>
+            </div>
+            <div class="modal-body">
+                  
+       
+                      
+                <div>
+               {% for encounter in encounters %}
+                    <form id="referrOut" method="POST" action="{{path('referr_out',{id:encounter.id})}}">
+                     
+              
+                        <div class="row">
+                            <div>
+                          {# <input type="hidden" name="patient_id" value="{{patient.id}}"> #}
+
+                          <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ encounter.id) }}">
+                            </div>
+                               {% endfor %}
+                         
+                             <div class="col-md-12">
+                                <label>Where patient is referring to?</label>
+                                <select class="select2 form-control" required name="healthFacility" id="healthFacility" style="width:100%;">
+                                 {% for referral in referrals %}
+                                        <option value="{{referral.id}}">{{referral.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <br><br><br><br>
+
+                            <div class="col-md-12">
+                                <label>Select reason of referral</label>
+                                <select class="select2 form-control" required name="reason" id="reasonType" style="width:100%;">
+                                 {% for reason_of_referral in reason_of_referrals %}
+                                        <option value="{{reason_of_referral.id}}">{{reason_of_referral.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <br><br><br><br>
+						<div class="col-md-12">
+						<label> Please specify the reason to referral out</label> 
+                        <br>
+						<textarea  cols="50" rows="5" name="specify" id="specify"/> </textarea>
+						</div>
+                        </div>
+                    </form>
+                  
+ 
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-info pull-right" data-dismiss="modal"> <i class="ace-icon fa fa-times"></i>
+                    Close
+                </button>
+                <button class="btn btn-sm btn-success pull-right" onclick="submitReferrForm()">
+                    <i class="ace-icon fa fa-save"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/////////////-->
+<script>
+  function submitReferrForm(){
+        if ($('#healthFacility').val()) {
+            $('#referr-out').addClass('fade');
+            $('#referr-out').removeClass('show');
+            document.getElementById('referrOut').submit();
+        }
+    }
+    </script>
+{% endblock %}

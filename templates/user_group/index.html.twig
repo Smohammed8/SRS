@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserGroup  {% endblock %}
+
+{% block body %}
+ 
+<div class="main-content">
+				<div class="main-content-inner">
+			
+
+					<div class="page-content">
+					
+
+                
+
+		<div class="row">
+        
+        
+							<div class="col-xs-12">
+                            
+					
+
+                          
+                          	<div class="pull-right tableTools-container">
+							  	{% if is_granted('add_grp') %}
+                              <a href="{{ path('user_group_new') }}" class="btn btn-info btn-sm float-right"> <i class="fa fa-plus"></i> Add new Entry </a>
+                                   {% endif %}
+				
+						<a href="{{ path('home') }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Close </a>
+	              
+						
+
+         
+
+	                        </div>
+              
+
+
+             <div class="clearfix">
+			<div class="pull-right tableTools-container"></div>
+			  </div>
+
+               <div class="table-header">
+							 <i class="fa fa-users"></i>	User Group
+					</div>
+
+
+   <!-- <table class="table"> -->
+    
+		<table id="dynamic-table" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr style="background-color:lightblue;">
+
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th> Status </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user_group in user_groups %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user_group.name }}
+            
+								
+									
+											<span class="badge badge-danger">{{user_group.users|length }}
+											</span>
+
+									
+
+
+							
+                
+                
+                </td>
+                <td>{{ user_group.description }}</td>
+                {# <td>{{ user_group.isActive ? 'Yes' : 'No' }}</td> #}
+
+	               	<td>
+                		
+
+										<form class="d-inline" method="post" action="{{ path('user_group_action',{'id':user_group.id})}}" onsubmit="return confirm('Are you sure you want to {{ user_group.isActive ? 'DeActivate':'Activate'}} this User Group?');">
+											<input name="activateUserGroup" value="{{ user_group.isActive ? 0 : 1}}" hidden>
+											{{ user_group.isActive ?  '<button class="btn btn-sm badge badge-danger"> <i class="fa fa-check-circle" style="font-size:16px;color:green"></i>&nbsp; Deactivate </button>': '<button class="btn btn-sm btn-success"> <i class="fa fa-check-circle" style="font-size:16px;color:red"></i>&nbsp; Activate </button>' }}
+
+										</form>
+								
+								</td>
+
+
+              
+                <td>
+		                       	{% if is_granted('ad_prmsn_to_grp') %}
+
+                                  <a href="{{ path('user_group_permission', {'id': user_group.id}) }}" class="btn btn-info btn-sm" title="add permissions">
+									<i class="fa fa-list"></i>&nbsp;Permissions
+								</a>
+			                 	  {% endif %}
+
+                             	{% if is_granted('ad_usr_to_grp') %}
+								<a href="{{ path('user_group_users', {'id': user_group.id}) }}" class="btn btn-success btn-sm" title="add users">
+									<i class="fa fa-users"></i>&nbsp;Users
+								</a>
+								{% endif %}
+								{% if is_granted('edt_grp') %}
+												<a href="{{ path('user_group_edit', {'id': user_group.id}) }}" class="btn btn-warning btn-sm" title="edit">
+									<i class="fa fa-pen"></i> Edit
+								</a>
+			               	 {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+					
+				
+					
+					
+				</div>
+			</div><!-- /.main-content -->
+{% endblock %}

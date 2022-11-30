@@ -1,0 +1,477 @@
+<div class="navbar-buttons navbar-header pull-right" role="navigation">
+
+ 						
+					<ul class="nav ace-nav">
+                        {% if is_granted("ROLE_NURSE") or is_granted("ROLE_DATA_ENCODER") or is_granted(" ROLE_GATE_KEEPER")  or is_granted("ROLE_PHYSICIAN") or is_granted("ROLE_ADMIN") or is_granted("ROLE_SUPERADMIN") or is_granted("ROLE_LIAISON") %} 
+
+						 <li class="grey dropdown-modal">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="ace-icon fa fa-tasks"></i>
+								<span class="badge badge-grey">6</span>
+							</a>
+
+							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+					    <li class="dropdown-header">
+									<i class="ace-icon fa fa-check"></i>
+									Patient outcome
+						</li>
+
+				<li class="dropdown-content">
+									<ul class="dropdown-menu dropdown-navbar">
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left"> Deaths</span>
+													<span class="pull-right">17.5%</span>
+												</div>
+
+												<div class="progress progress-mini">
+													<div style="width:17%" class="progress-bar progress-bar-danger"></div>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">Referr outs</span>
+													<span class="pull-right">28%</span>
+												</div>
+
+												<div class="progress progress-mini">
+													<div style="width:35%" class="progress-bar progress-bar-warning"></div>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">Improved</span>
+													<span class="pull-right">48.5%</span>
+												</div>
+
+												<div class="progress progress-mini">
+													<div style="width:48%" class="progress-bar progress-bar-success"></div>
+												</div>
+											</a>
+										</li>
+										
+											<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">  	No change</span>
+													<span class="pull-right">5%</span>
+												</div>
+
+												<div class="progress progress-mini progress-striped active">
+													<div style="width:5%" class="progress-bar progress-bar"></div>
+												</div>
+											</a>
+										</li>
+						
+
+											<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left"> Abscond</span>
+													<span class="pull-right">3%</span>
+												</div>
+
+												<div class="progress progress-mini progress-striped active">
+													<div style="width:3%" class="progress-bar progress-bar-warning"></div>
+												</div>
+											</a>
+										</li>
+						
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">Transfer</span>
+													<span class="pull-right">9%</span>
+												</div>
+
+												<div class="progress progress-mini progress-striped active">
+													<div style="width:9%" class="progress-bar progress-bar-success"></div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li class="dropdown-footer">
+									<a href="#">
+										See outcome details
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+
+
+                      
+						<li class="purple dropdown-modal">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
+								<span class="badge badge-important">12</span>
+							</a>
+
+							<ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+								<li class="dropdown-header">
+									<i class="ace-icon fa fa-calendar"></i>
+									 Appointment Notification
+								</li>
+
+								<li class="dropdown-content">
+									<ul class="dropdown-menu dropdown-navbar navbar-pink">
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-pink fa fa-calendar"></i>
+														Today appointments
+													</span>
+													<span class="pull-right badge badge-info">+12</span>
+												</div>
+											</a>
+										</li>
+
+								
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-success fa fa-plus"></i>
+														Tomorrow Appointments
+													</span>
+													<span class="pull-right badge badge-success">+8</span>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-info fa fa-minus"></i>
+														Yesterday Appointments
+													</span>
+													<span class="pull-right badge badge-info">+11</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<li class="dropdown-footer">
+									<a href="#">
+										See all notifications
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+					</li>
+
+
+
+				<li class="green dropdown-modal">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+								<span class="badge badge-success">3</span>
+							</a>
+
+							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+								<li class="dropdown-header">
+									<i class="ace-icon fa fa-file"></i>
+									 List of patient slips
+								</li>
+
+								<li class="dropdown-content">
+									<ul class="dropdown-menu dropdown-navbar">
+									
+
+					
+	                                       <li>
+											<a href="#" class="clearfix">
+												<img src="assets/images/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue">Seid:</span>
+													Dr Abebe sent patient slip to you...
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span>1:33 pm</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+								
+
+										<li>
+											<a href="#" class="clearfix">
+												<img src="assets/images/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue">Abdurohman:</span>
+															Dr Abebe sent patient slip to you...
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span>1:33 pm</span>
+													</span>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="#" class="clearfix">
+												<img src="assets/images/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+												
+												<span class="msg-body">
+													<span class="msg-title">
+														<span class="blue">Frew:</span>
+															Dr Gelawu sent patient slip to you...
+													</span>
+
+													<span class="msg-time">
+														<i class="ace-icon fa fa-clock-o"></i>
+														<span>10:09 am</span>
+													</span>
+												</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+
+								<li class="dropdown-footer">
+									<a href="inbox.html">
+										See all slips
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+
+
+                                 {% else %}
+
+							{% set waiting = 0 %}
+						    {% for unit in app.user.ward.units  %}
+						     {% for room in unit.rooms %}
+                              {% for bed in room.beds %}
+							     {% for admimssion in bed.admimssions %}
+									{% if admimssion.isCheckedIn  == 0 %}
+										{% set waiting = waiting+ 1 %}
+									{% endif %}
+							   {% endfor %}
+							     {% endfor %}
+								     {% endfor %}
+									   {% endfor %}
+
+
+
+									   
+							{% set admmitted = 0 %}
+						    {% for unit in app.user.ward.units  %}
+						     {% for room in unit.rooms %}
+                              {% for bed in room.beds %}
+							     {% for admimssion in bed.admimssions %}
+									{% if admimssion.isCheckedIn  == 1 %}
+										{% set admmitted = admmitted + 1 %}
+									{% endif %}
+							   {% endfor %}
+							     {% endfor %}
+								     {% endfor %}
+									   {% endfor %}
+
+
+						  	{% set discharged = 0 %}
+						    {% for unit in app.user.ward.units  %}
+						     {% for room in unit.rooms %}
+                              {% for bed in room.beds %}
+							     {% for admimssion in bed.admimssions %}
+									{% if admimssion.status  == 1 %}
+										{% set discharged = discharged + 1 %}
+									{% endif %}
+							   {% endfor %}
+							     {% endfor %}
+								     {% endfor %}
+									   {% endfor %}
+
+
+									   
+						  	{% set readmitted= 0 %}
+						    {% for unit in app.user.ward.units  %}
+						     {% for room in unit.rooms %}
+                              {% for bed in room.beds %}
+							     {% for admimssion in bed.admimssions %}
+									{% if admimssion.status  == 4 %}
+										{% set readmitted = readmitted+ 1 %}
+									{% endif %}
+							   {% endfor %}
+							     {% endfor %}
+								     {% endfor %}
+									   {% endfor %}
+
+
+									   
+								 
+						<li class="purple dropdown-modal">
+							
+							   <a data-toggle="dropdown" class="dropdown-toggle" href="">
+								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
+								{% if waiting >0  %}
+								<span class="badge badge-important"> <span class="blink" style="font-size:16px;"><small> +{{ waiting }} Waiting lists </small></span>
+								{% else %}
+								
+							    {% endif %}
+							</a>
+
+							<ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+								<li class="dropdown-header">
+										<center><i class="ace-icon fa fa-download"></i>
+								 New Adminssions </center>
+								</li>
+
+								<li class="dropdown-content">
+									<ul class="dropdown-menu dropdown-navbar navbar-pink">
+										<li>
+										{# {% if app.user.ward.id != null %} #}
+											<a href="{{ path('new_adminssions', {'id': app.user.ward.id}) }}">
+											{# {% endif %} #}
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-pink fa fa-calendar"></i>
+														New check-ins
+													</span>
+													<span class="pull-right badge badge-info">+{{ waiting }}  </span>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="{{ path('myAdmitted', {'id': app.user.ward.id}) }}">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-success fa fa-bed"></i>
+														Admitted Patients
+													</span>
+													<span class="pull-right badge badge-success">{{ admmitted }} </span>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="{{ path('my_discharges', {'id': app.user.ward.id}) }}">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-info fa fa-user-md"></i>
+														Discharged Patients
+													</span>
+													<span class="pull-right badge badge-info">{{ discharged }}</span>
+												</div>
+											</a>
+										</li>
+
+											<li>
+											<a href="">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-info fa fa-user-md"></i>
+														Re-admitted  Patients
+													</span>
+													<span class="pull-right badge badge-info">{{ readmitted  }}</span>
+												</div>
+											</a>
+										</li>
+
+										
+									</ul>
+								</li>
+
+								<li class="dropdown-footer">
+									<a href="#">
+										See all admimssions
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+					</li>
+
+
+                                   {% endif %}
+
+						<li class="light-blue dropdown-modal">
+					
+										
+							<a  id="aa" data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="{{ asset('assets/images/avatars/32.jpg')}}" alt="User's Photo" />
+								<span class="user-info">
+									<small>Logged as ,</small>
+								{% if app.user %}
+
+								{{app.user}}
+								{# {{ app.user.username }} #}
+								{% endif %}
+								</span>
+
+								<i class="ace-icon fa fa-caret-down"></i>
+							</a>
+
+
+							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+									<a href="{{ path('change_password',{'id': app.user.id}) }}">
+										<i class="ace-icon fa fa-cog"></i>
+									 Change Password
+									</a>
+								</li>
+
+						          <li>
+									<a href="{{path('my_profile')}}">
+										<i class="ace-icon fa fa-user"></i>
+										Profile
+									</a>
+								</li>
+
+								<li class="divider"></li>
+                    
+
+
+
+					      {% if app.user %}
+								<li>
+									<a href="{{ path('app_logout') }}">
+										<i class="ace-icon fa fa-power-off"></i>
+										Logout
+									</a>
+								</li>
+							{% endif %}
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div><!-- /.navbar-container -->
+			
+		</div>
+		<style>
+	    	.blink {
+			animation: blink 1s steps(1, end) infinite;
+			}
+
+			@keyframes blink {
+			0% {
+				opacity: 1;
+			}
+			50% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+			}
+			</style>

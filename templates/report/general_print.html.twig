@@ -1,0 +1,123 @@
+
+{% block body %}
+
+
+
+		<div style="display:block; width:100%">
+		<img src="{{ asset('http://localhost/IMS/public/assets/assets/logo/logo.jpg') }}" style="float: right;" width="70" height="70"> 
+		
+			<span> <img src="{{ asset('http://localhost/IMS/public/assets/assets/logo/logo.png') }}" width="70" height="70" >  
+                   
+				   <strong><p style="text-align:center; font-size:26px;margin-top:0px !important;"><u> Jimma University </u> </p> </strong> 	</span> 
+                     
+	      <center><b>  Liaison and Referral Service Office </b></center>
+			     	 	  
+                    (<span> Reporting period From &nbsp; {{ start_date }} E.C &nbsp;-&nbsp;{{ end_date }}  E.C )  </span> 
+			    	</center> 
+				
+				</span> 
+				
+                  <hr/>
+			      <span style="float: right;">Print Date :
+		    	<u>	{{ 'now'|date('Y-m-d') }}</u><span><br/>
+					
+				</div>
+			
+
+
+
+
+  <div style="display:block; width:100%" style="font-size:18px;">
+		
+
+                	
+                     <center>
+                    <span>   General report   </span> 
+			    	</center> 
+                  <hr/>	
+				</div>
+			   
+			    <table width="100%" border="1" style="font-size:18px; border-collapse:collapse;" >
+  
+      
+      
+         <tr style="background-color:lightblue;">
+
+            <th style="font-size:14px;">RF_RFR 1 </th>
+
+            <th style="font-size:14px;"> Number of patient referred to other health facility</th>
+            <th style="font-size:14px;"> Result</th>
+    
+           </tr>
+
+              <tr >
+                   <th style="font-size:14px; font-weight:normal;">RF_RFR.1.1 </th>
+                <td>Emeregency Referral </td>
+                 <td>{{total_emergency }} </td>
+            </tr>
+
+             <tr>
+                 <th style="font-size:14px; font-weight:normal;"> RF_RFR.1.2 </th>
+                  <td> Non-Emeregency Referral </td>
+                 <td> {{ total_non_emergency }} </td>
+            </tr>
+
+                <tr>
+                <th style="font-size:14px; font-weight:normal;"> IPD_AR.1</th>
+                  <td> Number of Impatient admissions </td>
+                 <td> {{ total_admimssions }} </td>
+            </tr>
+
+                 <tr>
+                <th style="font-size:14px; font-weight:normal;"> IPD_BOR.1</th>
+                  <td> Total number of beds
+                 <td> {{ total_beds }} </td>
+            </tr>
+
+
+                 <tr>
+                <th style="font-size:14px; font-weight:normal;"> IPD_BOR.2</th>
+                  <td> Length of stay(in days) in reporting period
+                 <td> {{length_stay_in_days }} days </td>
+            </tr>
+
+              <tr>
+                <th style="font-size:14px; font-weight:normal;"> IPD_ALS.1 </th>
+                  <td> Total Number of inpatient discharges
+                 <td> {{total_discharges }} </td>
+            </tr>
+
+                   <tr>
+                <th style="font-size:14px; font-weight:normal;"> IPD_IMR.1</th>
+                  <td> Total Number of inpatient deaths
+                 <td> {{total_deaths }} </td>
+            </tr>
+                   <tr>
+                <th style="font-size:14px; font-weight:normal;"> </th>
+                  <td> Total Number of days added to surgical wait list
+                 <td> 0 </td>
+            </tr>
+                  <tr>
+                <th style="font-size:14px; font-weight:normal;"> </th>
+                  <td> Total Number of patient appointed for elective  surgical
+                 <td> 0 </td>
+            </tr>
+                 <tr>
+                <th style="font-size:14px; font-weight:normal;"> </th>
+                  <td> Average days of  surgical wait list and elective  surgical
+                 <td> swl+es/2 </td>
+            </tr>
+
+         
+        </tbody>
+    </table>
+
+      <br>
+    <p  style="text-align:right !important;"> Printed by : {{ user }} <br>  <br>    <span> __________________ </span></p>
+
+ 
+
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+<form method="post" action="{{ path('room_delete', {'id': room.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ room.id) }}">
+    <button class="btn btn-sm btn-info btn-white btn-round">	<i class="ace-icon fa fa-trash"></i> Delete</button>
+</form>
+
+
+{# 
+ <form class="d-inline-block" method="delete" action="{{ path('room_delete', {'id': room.id}) }}" onsubmit="return showCancelMessage('Are you sure you want to delete this item?',this);">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ room.id) }}">
+ <button class="btn btn-xs btn-danger">	<i class="ace-icon fa fa-trash bigger-120"></i> Delete</button>
+</form>
+
+
+                       #}

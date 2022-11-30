@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BedTransferHistory{% endblock %}
+
+{% block body %}
+    <h1>BedTransferHistory</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bed_transfer_history.id }}</td>
+            </tr>
+            <tr>
+                <th>TransferredAt</th>
+                <td>{{ bed_transfer_history.transferredAt ? bed_transfer_history.transferredAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bed_transfer_history_index') }}">back to list</a>
+
+    <a href="{{ path('app_bed_transfer_history_edit', {'id': bed_transfer_history.id}) }}">edit</a>
+
+    {{ include('bed_transfer_history/_delete_form.html.twig') }}
+{% endblock %}

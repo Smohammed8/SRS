@@ -1,0 +1,216 @@
+	                     <li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-wrench"></i>
+							<span class="menu-text"> Setting</span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+						
+							  {% if is_granted("vew_bed") %} 
+
+								<li class="">
+								<a href="{{ path('view_beds')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+								List of Beds
+								</a>
+
+								<b class="arrow"></b>
+						     	</li>
+								{% endif %}
+
+						{% if is_granted("vew_ward") %} 
+
+							<li class="">
+								<a href="{{path('ward_index')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Wards
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+                  	    {% endif %}
+							{% if is_granted("view_admsn_type") %}
+			                 <li class="">
+								<a href="{{ path('admimssion_type_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+								Admission types
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						  {% endif %}
+
+                 	{% if is_granted("view_priority") %}
+	                 	<li class="">
+								<a href="{{ path('priority_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+								Priority Level
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						  {% endif %}		
+						
+
+                        	{% if is_granted("vew_region") %}
+							<li class="">
+								<a href="{{path('app_region_index')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Region
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							  {% endif %}
+
+						{% if is_granted("vew_zon") %}
+								<li class="">
+								<a href="{{path('app_zone_index')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Zone
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+					   {% endif %}
+					   		{% if is_granted("viw_woreda") %}
+			
+								<li class="">
+								<a href="{{path('woreda_index')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Woreda
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							   {% endif %}
+
+					 	{% if is_granted("vew_kebele") %}
+
+								<li class="">
+								<a href="{{path('kebele_index')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Kebele
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+	                       {% endif %}
+
+						    	{% if is_granted("view_outcome") %}
+
+							<li class="">
+								<a href="{{ path('outcome_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+								   Outcome
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+                            {% endif %}
+
+						 	{% if is_granted("view_appoint_reason") %}
+									<li class="">
+								<a href="{{ path('app_reason_of_appointment_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+								   Appointment reason
+								</a>
+
+								<b class="arrow"></b>
+						    	</li>
+						  {% endif %}
+
+	                  {% if is_granted("vew_encounter_type") %}
+							<li class="">
+								<a href="{{ path('app_encounter_type_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+								   Encounter type
+								</a>
+
+								<b class="arrow"></b>
+						    	</li>
+
+		       		  {% endif %}	
+
+					     {% if is_granted("vew_referrals") %}
+
+								<li class="">
+								<a href="{{ path('app_referrals_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+						     	Referrals
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+					  {% endif %}	
+
+					     {% if is_granted("view_health_facility") %}
+
+		                       <li class="">
+								<a href="{{ path('health_facility_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									 List of Health Facility
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+                   	  {% endif %}	
+					       {% if is_granted("vew_dept") %}
+
+		                       <li class="">
+								<a href="{{ path('app_department_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Departments
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						 {% endif %}
+					 	    {% if is_granted("viw_discease_categ") %}
+							     <li class="">
+								<a href="{{ path('app_disease_category_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+								Disease categories
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+	                           {% endif %}
+							     {% if is_granted("viw_referral_reason") %}
+		                       <li class="">
+								<a href="{{ path('app_reason_of_referral_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Referral Reason
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							 {% endif %}
+
+							   {% if is_granted("view_bed_price") %}
+
+							         <li class="">
+								<a href="{{ path('app_bed_price_index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Bed Price
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+								 {% endif %}
+
+
+
+
+
+							
+
+						</ul>
+					</li>
