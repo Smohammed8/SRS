@@ -1,1 +1,1 @@
-# Inpatient Managment System for Hospital
+#  Student registrartion System
