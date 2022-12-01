@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProgramLevel index{% endblock %}
+
+{% block body %}
+    <h1>ProgramLevel index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for program_level in program_levels %}
+            <tr>
+                <td>{{ program_level.id }}</td>
+                <td>{{ program_level.name }}</td>
+                <td>
+                    <a href="{{ path('app_program_level_show', {'id': program_level.id}) }}">show</a>
+                    <a href="{{ path('app_program_level_edit', {'id': program_level.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_program_level_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit FieldOfStudy{% endblock %}
+
+{% block body %}
+    <h1>Edit FieldOfStudy</h1>
+
+    {{ include('field_of_study/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_field_of_study_index') }}">back to list</a>
+
+    {{ include('field_of_study/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ProgramLevel{% endblock %}
+
+{% block body %}
+    <h1>Edit ProgramLevel</h1>
+
+    {{ include('program_level/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_program_level_index') }}">back to list</a>
+
+    {{ include('program_level/_delete_form.html.twig') }}
+{% endblock %}

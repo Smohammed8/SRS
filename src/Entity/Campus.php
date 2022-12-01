@@ -34,6 +34,11 @@ class Campus
      */
     private $dean;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=College::class, inversedBy="campuses")
+     */
+    private $college;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class Campus
     public function setDean(User $dean): self
     {
         $this->dean = $dean;
+
+        return $this;
+    }
+
+    public function getCollege(): ?College
+    {
+        return $this->college;
+    }
+
+    public function setCollege(?College $college): self
+    {
+        $this->college = $college;
 
         return $this;
     }

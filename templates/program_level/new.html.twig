@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ProgramLevel{% endblock %}
+
+{% block body %}
+    <h1>Create new ProgramLevel</h1>
+
+    {{ include('program_level/_form.html.twig') }}
+
+    <a href="{{ path('app_program_level_index') }}">back to list</a>
+{% endblock %}

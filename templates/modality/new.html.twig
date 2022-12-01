@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Modality{% endblock %}
+
+{% block body %}
+    <h1>Create new Modality</h1>
+
+    {{ include('modality/_form.html.twig') }}
+
+    <a href="{{ path('app_modality_index') }}">back to list</a>
+{% endblock %}
