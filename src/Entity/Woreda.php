@@ -49,6 +49,11 @@ class Woreda
      * @ORM\OneToMany(targetEntity=Patient::class, mappedBy="woreda")
      */
     private $patients;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Campus::class, mappedBy="woreda", orphanRemoval=true)
+     */
+    private $campuses;
     
       public function __toString()
     {
@@ -60,6 +65,7 @@ class Woreda
         $this->kebeles = new ArrayCollection();
         $this->healthFacilities = new ArrayCollection();
         $this->patients = new ArrayCollection();
+        $this->campuses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,6 +194,36 @@ class Woreda
             // set the owning side to null (unless already changed)
             if ($patient->getWoreda() === $this) {
                 $patient->setWoreda(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Campus>
+     */
+    public function getCampuses(): Collection
+    {
+        return $this->campuses;
+    }
+
+    public function addCampus(Campus $campus): self
+    {
+        if (!$this->campuses->contains($campus)) {
+            $this->campuses[] = $campus;
+            $campus->setWoreda($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCampus(Campus $campus): self
+    {
+        if ($this->campuses->removeElement($campus)) {
+            // set the owning side to null (unless already changed)
+            if ($campus->getWoreda() === $this) {
+                $campus->setWoreda(null);
             }
         }
 
