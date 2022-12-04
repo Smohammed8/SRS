@@ -16,9 +16,8 @@ class Student
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="integer")
+  /**
+     * @ORM\Column(type="string", length=100)
      */
     private $studentId;
 
@@ -61,6 +60,32 @@ class Student
      * @ORM\ManyToOne(targetEntity=Modality::class, inversedBy="students")
      */
     private $modality;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $academicYear;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="students")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Nationality::class, inversedBy="students")
+     */
+    private $nationality;
 
     public function getId(): ?int
     {
@@ -171,6 +196,78 @@ class Student
     public function setModality(?Modality $modality): self
     {
         $this->modality = $modality;
+
+        return $this;
+    }
+
+    public function getAdmissionDate(): ?\DateTimeInterface
+    {
+        return $this->admissionDate;
+    }
+
+    public function setAdmissionDate(\DateTimeInterface $admissionDate): self
+    {
+        $this->admissionDate = $admissionDate;
+
+        return $this;
+    }
+
+    public function getAcademicYear(): ?string
+    {
+        return $this->academicYear;
+    }
+
+    public function setAcademicYear(string $academicYear): self
+    {
+        $this->academicYear = $academicYear;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getNationality(): ?Nationality
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?Nationality $nationality): self
+    {
+        $this->nationality = $nationality;
 
         return $this;
     }

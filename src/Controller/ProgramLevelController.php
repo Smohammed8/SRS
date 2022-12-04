@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/program/level')]
+#[Route('/program-level')]
 class ProgramLevelController extends AbstractController
 {
     #[Route('/', name: 'app_program_level_index', methods: ['GET'])]

@@ -77,10 +77,6 @@ class Patient
      */
     private $appointments;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Visitor::class, mappedBy="patient", orphanRemoval=true)
-     */
-    private $visitors;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -92,11 +88,7 @@ class Patient
      */
     private $admimssions;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=HealthFacility::class, inversedBy="patients")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $referredFrom;
+
 
 
     /**
@@ -157,7 +149,7 @@ class Patient
     {
       
         $this->appointments = new ArrayCollection();
-        $this->visitors = new ArrayCollection();
+     
         $this->admimssions = new ArrayCollection();
         $this->slips = new ArrayCollection();
         $this->assessments = new ArrayCollection();
@@ -305,35 +297,7 @@ class Patient
         return $this;
     }
 
-    /**
-     * @return Collection|Visitor[]
-     */
-    public function getVisitors(): Collection
-    {
-        return $this->visitors;
-    }
-
-    public function addVisitor(Visitor $visitor): self
-    {
-        if (!$this->visitors->contains($visitor)) {
-            $this->visitors[] = $visitor;
-            $visitor->setPatient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVisitor(Visitor $visitor): self
-    {
-        if ($this->visitors->removeElement($visitor)) {
-            // set the owning side to null (unless already changed)
-            if ($visitor->getPatient() === $this) {
-                $visitor->setPatient(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 
     public function getAddress(): ?string
     {
@@ -377,18 +341,7 @@ class Patient
         return $this;
     }
 
-    public function getReferredFrom(): ?HealthFacility
-    {
-        return $this->referredFrom;
-    }
-
-    public function setReferredFrom(?HealthFacility $referredFrom): self
-    {
-        $this->referredFrom = $referredFrom;
-
-        return $this;
-    }
-
+  
 
 
     public function getUser(): ?User

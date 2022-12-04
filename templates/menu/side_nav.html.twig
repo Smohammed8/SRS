@@ -101,8 +101,9 @@
   {% if is_granted("viw_patient") %} 
 			        <li class="">
 						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-wheelchair"></i>
-							<span class="menu-text"> Patients </span>
+						<i class="menu-icon  fa fa-graduation-cap"></i>
+					
+							<span class="menu-text"> Students </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -112,9 +113,9 @@
 						<ul class="submenu">
 						  {% if is_granted("ad_new_pnt") %} 
 							<li class="">
-								<a href="{{path('patient_new')}}">
+								<a href="{{path('app_student_new')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-								    New patient
+								    New student
 								</a>
 
 								<b class="arrow"></b>
@@ -122,16 +123,16 @@
 							{% endif %}
                    {% if is_granted("viw_patient") %} 
 							<li class="">
-								<a href="{{path('patient_index')}}">
+								<a href="{{path('app_student_index')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-									List of patient
+									List of student
 								</a>
 
 								<b class="arrow"></b>
 							</li>
 						{% endif %}
 
-						  {% if is_granted("viw_encter") %} 
+						  {# {% if is_granted("viw_encter") %} 
 					<li class="">
 						<a href="{{path('encounter_view')}}">
 							<i class="menu-icon fa fa-caret-right"></i>
@@ -140,8 +141,8 @@
 
 						<b class="arrow"></b>
 					</li>
-	            {% endif %}
-
+	            {% endif %} #}
+{# 
 		  {% if is_granted("view_apnt") %} 
 					<li class="">
 						<a href="{{path('appointment_index')}}">
@@ -151,181 +152,20 @@
 
 						<b class="arrow"></b>
 					</li>
-	            {% endif %}
+	     {% endif %} #}
 	 						
 						</ul>
 					</li>
                     {% endif %}
 
-		  {% if is_granted("manage_inpatient") %} 
+
+
+					  {# {% if is_granted("viw_patient") %}  #}
 			        <li class="">
 						<a href="#" class="dropdown-toggle">
-								<i class="menu-icon fa fa-bed"></i>
-							<span class="menu-text"> Inpatients </span>
-
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-						<b class="arrow"></b>
-
-						<ul class="submenu">
-				    {% if is_granted("vw_admsion") %} 
-			 
-					<li class="">
-						<a href="{{path('admimssion_index')}}">
-							<i class="menu-icon fa fa-bed"></i>
-							<span class="menu-text"> Adminssions </span>
-						</a>
-
-						<b class="arrow"></b>
-					</li>
-					{% endif %}
-                     {% if is_granted("viw_bed_transfer") %} 
-							
-							<li class="">
-								<a href="{{path('app_bed_transfer_history_index')}}">
-									<i class="menu-icon fa fa-exchange"></i>
-									Bed transfers
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-						{% endif %}
-	              {% if is_granted("viw_wait") %} 
-              
-	                 <li class="">
-					    	<a href="{{ path('waiting_info')}}">
-							<i class="menu-icon fa fa-clock-o"></i>
-							 Waiting List
-							
-				
-						</a>
-
-						<b class="arrow"></b>
-					</li>
-              {% endif %}
-
-			  
-               {% if is_granted("vew_appnt") %} 
-              
-	        
-					<li class="">
-						<a href="{{path('appointment_index')}}">
-							<i class="menu-icon fa fa-calendar"></i>
-							<span class="menu-text"> Appointments </span>
-						</a>
-
-						<b class="arrow"></b>
-					</li>
-                {% endif %}
-
-			 {% if is_granted("viw_atendt") %} 
-						
-                    <li class="">
-						<a href="{{path('visitor_index')}}">
-							<i class="menu-icon fa fa-group"></i>
-							<span class="menu-text"> Atendant </span>
-						</a>
-
-						<b class="arrow"></b>
-					</li>
-				  {% endif %}
-
-	           	{% if is_granted("viw_slip") %} 
-						<li class="">
-						<a href="{{path('slip_index')}}">
-							<i class="menu-icon fa fa-file"></i>
-							<span class="menu-text"> Patient Slips </span>
-						</a>
-
-						<b class="arrow"></b>
-					</li>
-					{% endif %}
-						
-							
-						</ul>
-					</li>
-  {% endif %}
-
-
-
-
-
-	{% if is_granted('ROLE_CHECKPOINT') %}  
-
-	{% if is_granted("viw_own_ward") %} 
-
-			 <li class="">
-                	<a href="{{ path('units_in_ward', {'id': app.user.ward.id}) }}" class="dropdown-toggle">
-							<i class="menu-icon fa fa-hospital-o"></i>
-							<span class="menu-text"> In {{ app.user.ward }} </span>
-
-							<b class="arrow fa fa-angle-down"></b>
-						</a>
-
-
-                    <b class="arrow"></b>
-            
-			    <ul class="submenu">
-                     
-					    <li class="">
-
-                            <a href="{{ path('units_in_ward', {'id': app.user.ward.id}) }}" class="dropdown-toggle">
-                                <i class="menu-icon fa fa-caret-right"></i>  List of Units
-                                <b class="arrow fa fa-angle-down"></b>
-                            </a>
-
-
-                            <b class="arrow"></b>
-							
-
-			                  <ul class="submenu">
-							  	<li class="">
-
-
-						  <a href="{{ path('units_in_ward', {'id': app.user.ward.id}) }}">
-							<i class="menu-icon fa fa-caret-right"></i>
-							 All Units
-							<span class="badge badge-danger" title="There are patients who are not checked in yet!">  {{ app.user.ward.units|length }}</span> 
-				
-						</a>
-
-
-								<b class="arrow"></b>
-							</li>
-                       {% for unit in app.user.ward.units %}
-							<li class="">
-
-
-						  <a href="{{ path('rooms_in_unit', {'id': unit.id}) }} ">
-						
-							<i class="menu-icon fa fa-caret-right"></i>
-							 {{ unit }}
-							<span class="badge badge-danger" title="There are patients who are not checked in yet!">  {{ unit.rooms|length }}</span> 
-				
-						</a>
-
-
-								<b class="arrow"></b>
-							</li>
-                     {% endfor %}
-                                    </ul>
-                              
-                        </li>
-                    </ul>
-                </li>
+						<i class="menu-icon  fa fa-th-list"></i>
 					
-		    {% endif %}
-			   {% endif %}
-			   
-	{% if is_granted('ROLE_CHECKPOINT') %}  
-	{% if is_granted("viw_own_patient") %} 
-		
-  
-	              <li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-users"></i>
-							<span class="menu-text"> Patients</span>
+							<span class="menu-text"> Courses </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
@@ -333,61 +173,31 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-						
+						  {# {% if is_granted("ad_new_pnt") %}  #}
 							<li class="">
-						   {% set waitinglist = 0 %}
-						    {% for unit in app.user.ward.units  %}
-						     {% for room in unit.rooms %}
-                              {% for bed in room.beds %}
-							     {% for admimssion in bed.admimssions %}
-									{% if admimssion.isCheckedIn  == 0 %}
-										{% if admimssion.dischargedAt  is null %}
-										{% set waitinglist = waitinglist+ 1 %}
-									 {% endif %}
-								 {% endif %}
-							   {% endfor %}
-							     {% endfor %}
-								     {% endfor %}
-									   {% endfor %}
-
-						  <a href="{{ path('new_adminssions', {'id': app.user.ward.id}) }}">
-							<i class="menu-icon fa fa-caret-right"></i>
-							 Waiting List
-							<span class="badge badge-danger" title="There are {{ waitinglist }} patients who are not checked in yet!">  {{ waitinglist }} </span> 
-				
-						</a>
-
-
-								<b class="arrow"></b>
-							</li>
-
-
-							<li class="">
-								<a href="{{ path('myAdmitted', {'id': app.user.ward.id}) }}">
+								<a href="{{path('app_course_index')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-								  Admitted Patients
-								  
+								    List courses
 								</a>
 
 								<b class="arrow"></b>
 							</li>
-
-					     	<li class="">
-								<a href="{{ path('my_discharges', {'id': app.user.ward.id}) }}">
+							{# {% endif %}
+                   {% if is_granted("viw_patient") %}  #}
+							<li class="">
+								<a href="{{path('slip_index')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-								Discharged Patients
+									Prepare slip
 								</a>
 
 								<b class="arrow"></b>
 							</li>
-				
+						{# {% endif %} #}
 						</ul>
 					</li>
-                    {% endif %}    
-					   {% endif %}
+                    {# {% endif %} #}
 
         	{% if is_granted('manage_usr') %} 
-			
 
 			             <li class="">
 						<a href="#" class="dropdown-toggle">

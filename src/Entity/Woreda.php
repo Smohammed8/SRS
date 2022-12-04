@@ -30,15 +30,7 @@ class Woreda
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Kebele::class, mappedBy="woreda")
-     */
-    private $kebeles;
 
-    /**
-     * @ORM\OneToMany(targetEntity=HealthFacility::class, mappedBy="woreda")
-     */
-    private $healthFacilities;
 
     /**
      * @ORM\ManyToOne(targetEntity=Zone::class, inversedBy="woredas")
@@ -67,8 +59,7 @@ class Woreda
 
     public function __construct()
     {
-        $this->kebeles = new ArrayCollection();
-        $this->healthFacilities = new ArrayCollection();
+  
         $this->patients = new ArrayCollection();
         $this->campuses = new ArrayCollection();
         $this->students = new ArrayCollection();
@@ -112,57 +103,9 @@ class Woreda
         return $this->kebeles;
     }
 
-    public function addKebele(Kebele $kebele): self
-    {
-        if (!$this->kebeles->contains($kebele)) {
-            $this->kebeles[] = $kebele;
-            $kebele->setWoreda($this);
-        }
+  
 
-        return $this;
-    }
-
-    public function removeKebele(Kebele $kebele): self
-    {
-        if ($this->kebeles->removeElement($kebele)) {
-            // set the owning side to null (unless already changed)
-            if ($kebele->getWoreda() === $this) {
-                $kebele->setWoreda(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|HealthFacility[]
-     */
-    public function getHealthFacilities(): Collection
-    {
-        return $this->healthFacilities;
-    }
-
-    public function addHealthFacility(HealthFacility $healthFacility): self
-    {
-        if (!$this->healthFacilities->contains($healthFacility)) {
-            $this->healthFacilities[] = $healthFacility;
-            $healthFacility->setWoreda($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHealthFacility(HealthFacility $healthFacility): self
-    {
-        if ($this->healthFacilities->removeElement($healthFacility)) {
-            // set the owning side to null (unless already changed)
-            if ($healthFacility->getWoreda() === $this) {
-                $healthFacility->setWoreda(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
     public function getZone(): ?Zone
     {

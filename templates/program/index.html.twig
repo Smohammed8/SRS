@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Program index{% endblock %}
+{% block title %}Program {% endblock %}
 
 {% block body %}
-    <h1>Program index</h1>
+    <h4>List of programs</h4>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>#</th>
+                <th>Program name</th>
+                <th> Department </th>
+                   <th> Study year  </th>
+                <th> Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -18,14 +20,16 @@
             <tr>
                 <td>{{ program.id }}</td>
                 <td>{{ program.name }}</td>
+                   <td>{{ program.department }}</td>
+                      <td>-</td>
                 <td>
-                    <a href="{{ path('app_program_show', {'id': program.id}) }}">show</a>
-                    <a href="{{ path('app_program_edit', {'id': program.id}) }}">edit</a>
+                    <a href="{{ path('app_program_show', {'id': program.id}) }}">Show</a>
+                    <a href="{{ path('app_program_edit', {'id': program.id}) }}">Edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">No records found</td>
             </tr>
         {% endfor %}
         </tbody>

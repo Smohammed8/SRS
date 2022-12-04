@@ -29,9 +29,20 @@ class Modality
      */
     private $students;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Slip::class, mappedBy="modality", orphanRemoval=true)
+     */
+    private $slips;
+
     public function __construct()
     {
         $this->students = new ArrayCollection();
+        $this->slips = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -75,6 +86,36 @@ class Modality
             // set the owning side to null (unless already changed)
             if ($student->getModality() === $this) {
                 $student->setModality(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Slip>
+     */
+    public function getSlips(): Collection
+    {
+        return $this->slips;
+    }
+
+    public function addSlip(Slip $slip): self
+    {
+        if (!$this->slips->contains($slip)) {
+            $this->slips[] = $slip;
+            $slip->setModality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlip(Slip $slip): self
+    {
+        if ($this->slips->removeElement($slip)) {
+            // set the owning side to null (unless already changed)
+            if ($slip->getModality() === $this) {
+                $slip->setModality(null);
             }
         }
 

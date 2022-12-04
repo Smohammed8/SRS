@@ -19,10 +19,7 @@ class Encounter
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=EncounterType::class, inversedBy="encounters")
-     */
-    private $type;
+
 
     /**
      * @ORM\Column(type="datetime")
@@ -39,10 +36,7 @@ class Encounter
      */
     private $destination;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Referrals::class, inversedBy="encounters")
-     */
-    private $referout;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Patient::class, inversedBy="encounters")
@@ -54,10 +48,6 @@ class Encounter
      */
     private $updatedBy;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=ReasonOfReferral::class, inversedBy="encounters")
-     */
-    private $referralReason;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -76,11 +66,6 @@ class Encounter
      */
     private $referredAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=DiseaseCategory::class, inversedBy="encounters")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $diseaseCategory;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -92,14 +77,11 @@ class Encounter
      */
     private $assignedTo;
 
-    /**
-     * @ORM\OneToMany(targetEntity=VitalSign::class, mappedBy="encounter")
-     */
-    private $vitalSigns;
+ 
 
     public function __construct()
     {
-        $this->vitalSigns = new ArrayCollection();
+
     }
 
     public function __toString()
@@ -113,17 +95,7 @@ class Encounter
         return $this->id;
     }
 
-    public function getType(): ?EncounterType
-    {
-        return $this->type;
-    }
 
-    public function setType(?EncounterType $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -161,17 +133,6 @@ class Encounter
         return $this;
     }
 
-    public function getReferout(): ?Referrals
-    {
-        return $this->referout;
-    }
-
-    public function setReferout(?Referrals $referout): self
-    {
-        $this->referout = $referout;
-
-        return $this;
-    }
 
     public function getPatient(): ?Patient
     {
@@ -197,17 +158,7 @@ class Encounter
         return $this;
     }
 
-    public function getReferralReason(): ?ReasonOfReferral
-    {
-        return $this->referralReason;
-    }
 
-    public function setReferralReason(?ReasonOfReferral $referralReason): self
-    {
-        $this->referralReason = $referralReason;
-
-        return $this;
-    }
 
     public function getSpecifyReason(): ?string
     {
@@ -247,17 +198,7 @@ class Encounter
         return $this;
     }
 
-    public function getDiseaseCategory(): ?DiseaseCategory
-    {
-        return $this->diseaseCategory;
-    }
 
-    public function setDiseaseCategory(?DiseaseCategory $diseaseCategory): self
-    {
-        $this->diseaseCategory = $diseaseCategory;
-
-        return $this;
-    }
 
     public function getEncounterType(): ?string
     {
@@ -291,25 +232,5 @@ class Encounter
         return $this->vitalSigns;
     }
 
-    public function addVitalSign(VitalSign $vitalSign): self
-    {
-        if (!$this->vitalSigns->contains($vitalSign)) {
-            $this->vitalSigns[] = $vitalSign;
-            $vitalSign->setEncounter($this);
-        }
 
-        return $this;
-    }
-
-    public function removeVitalSign(VitalSign $vitalSign): self
-    {
-        if ($this->vitalSigns->removeElement($vitalSign)) {
-            // set the owning side to null (unless already changed)
-            if ($vitalSign->getEncounter() === $this) {
-                $vitalSign->setEncounter(null);
-            }
-        }
-
-        return $this;
-    }
 }

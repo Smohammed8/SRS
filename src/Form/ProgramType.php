@@ -13,7 +13,7 @@ class ProgramType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('fieldOfStudy')
+            ->add('department')
         ;
     }
 

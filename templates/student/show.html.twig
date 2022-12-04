@@ -2,41 +2,1473 @@
 
 {% block title %}Student{% endblock %}
 
-{% block body %}
-    <h1>Student</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ student.id }}</td>
-            </tr>
-            <tr>
-                <th>StudentId</th>
-                <td>{{ student.studentId }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ student.firstName }}</td>
-            </tr>
-            <tr>
-                <th>FatherName</th>
-                <td>{{ student.fatherName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ student.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>{{ student.gender }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_student_index') }}">back to list</a>
-
-    <a href="{{ path('app_student_edit', {'id': student.id}) }}">edit</a>
-
-    {{ include('student/_delete_form.html.twig') }}
+{% block stylesheets %}
+	<style>
+		.d-none {
+			display: none;
+		}
+	</style>
 {% endblock %}
+{% block js%}
+	<script>
+
+
+function toggleCheckIn(route) {
+swal.fire({
+title: "Are you sure if the student has taken bed?",
+text: "You won't be able to revert this!",
+type: "warning",
+showCancelButton: true,
+confirmButtonText: "Yes, student is admitted!"
+}).then(function (result) {
+$.ajax({
+type: "POST",
+url: route,
+data: {},
+dataType: 'json',
+success: function (data) {
+swal.fire("student check-in status changed!", "Waiting Status has been updated.", "success").then(function (result) {
+location.reload();
+})
+}
+});
+});
+}
+
+
+
+function toggleImpendingStatus(route) {
+swal.fire({
+title: "Are you sure?",
+text: "You won't be able to revert this!",
+type: "warning",
+showCancelButton: true,
+confirmButtonText: "Yes, change impending status!"
+}).then(function (result) {
+$.ajax({
+type: "POST",
+url: route,
+data: {},
+dataType: 'json',
+success: function (data) {
+swal.fire("student impending status changed!", "Bed Status has been updated.", "success").then(function (result) {
+location.reload();
+})
+}
+});
+});
+}
+
+
+$(function () {
+$('#selectReferal').parent().addClass('d-none');
+$('#selectSpecify').parent().addClass('d-none');
+$('#selectReason').parent().addClass('d-none');
+
+$('#selectOutcome').on('change', function () {
+if ($('#selectOutcome').val() == 6) {
+
+$('#selectReferal').parent().removeClass('d-none');
+$('#selectReferal').parent().removeClass('fade');
+
+$('#selectSpecify').parent().removeClass('d-none');
+$('#selectSpecify').parent().removeClass('fade');
+/////////////////////////////////////
+$('#selectReason').parent().removeClass('d-none');
+$('#selectReason').parent().removeClass('fade');
+
+//////////////////////////////////////////
+
+} else {
+$('#selectReferal').val('').change();
+
+$('#selectReferal').parent().addClass('fade');
+$('#selectReferal').parent().addClass('d-none');
+
+$('#selectReason').parent().addClass('fade');
+$('#selectReason').parent().addClass('d-none');
+
+$('#selectSpecify').parent().addClass('fade');
+$('#selectSpecify').parent().addClass('d-none');
+}
+})
+})
+function dischargestudent(admissionId, route) {
+$('#formDischarge').attr('action', route);
+}
+
+function deleteAdmission(admissionId, route, token) {
+swal.fire({
+title: "Are you sure?",
+text: "You won't be able to revert this!",
+type: "warning",
+showCancelButton: true,
+confirmButtonText: "Yes, Delete it!"
+}).then(function (result) {
+if (result.value) {
+$.ajax({
+type: "POST",
+url: route,
+data: {
+'_token': token
+},
+dataType: 'json',
+success: function (data) {
+admissionButton = '\
+						<a href="#my-modal" role="button" class=" btn btn-sm btn-primary btn-white btn-round"\
+						data-toggle="modal">\
+								<i class="ace-icon fa fa-bed bigger-120"></i>\
+								Admimssion\
+							</a>';
+                        swal.fire(
+                            "Admission deleted!",
+                            "Admission has been deleted.",
+                            "success"
+                        ).then(function(result){
+							location.reload();
+						})
+                        $('#row_admission_' + admissionId).remove();
+                        $('#btn_discharge_' + admissionId).remove();
+                        $('#student_action_toolbar').prepend(admissionButton);
+                    },
+                    error: function (data) {
+                        if (data.status) {
+                            swal.fire("Forbidden!", "You can't delete this student admission!", "error");
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function submitAdmissionUpdateForm() {
+        if ($('#selectUpdateBed').val()) {
+            $('#update-modal').addClass('fade');
+            $('#update-modal').removeClass('show');
+            document.getElementById('formUpdateAdmission').submit();
+        } else {}
+    }
+    function submitAdmissionForm() {
+        if ($('#selectBed').val()) {
+            $('#my-modal').addClass('fade');
+            $('#my-modal').removeClass('show');
+            document.getElementById('formAddmission').submit();
+        } else {}
+    }
+
+    function submitDischargeForm(){
+        if ($('#selectOutcome').val()) {
+            $('#my-modal').addClass('fade');
+            $('#my-modal').removeClass('show');
+            document.getElementById('formDischarge').submit();
+        }
+    }
+    function setAdmissionType(type) {
+        if(type=='none'){
+            $('#re_admission').val('none');
+        }else{
+            $('#re_admission').val('re-admited');
+        }
+    }
+    $(function () {
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+        $.ajax({
+            type: 'GET',
+            url: '{{ url("app_student_index") }}',
+            data: {},
+            dataType: "json",
+            success: function (response) {
+                if (response.data) {
+                    $.each(response.data, function (key, value) {
+                        $("#selectWard").append('<option value="' + value.id + '">' + value
+                            .name + '</option>');
+                    });
+                }
+            }
+        });
+        $.ajax({
+            type: 'GET',
+              url: '{{ url("app_student_index") }}',
+            data: {},
+            dataType: "json",
+            success: function (response) {
+                if (response.data) {
+                    $.each(response.data, function (key, value) {
+                        $("#selectUpdateWard").append('<option value="' + value.id + '">' + value
+                            .name + '</option>');
+                    });
+                }
+            }
+        });
+        $('#selectWard').on('change', function () {
+            var idWard = this.value;
+            var wardName = $("#selectWard option:selected").text();
+            wardName = wardName.trim();
+            $("#selectUnit").html('');
+            $("#selectRoom").html('');
+            $("#selectBed").html('');
+            $.ajax({
+                url: "/unit/" + idWard,
+                type: "GET",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.data) {
+                        $('#selectUnit').html('<option value="">Select Unit</option>');
+                        $.each(response.data, function (key, value) {
+                            $("#selectUnit").append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        });
+                    }
+                }
+            });
+        });
+        $('#selectUnit').on('change', function () {
+            var idUnit = this.value;
+            var wardName = $("#selectUnit option:selected").text();
+            wardName = wardName.trim();
+            $("#selectRoom").html('');
+            $("#selectBed").html('');
+            $.ajax({
+                url: "/room/" + idUnit,
+                type: "GET",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.data) {
+                        $('#selectRoom').html('<option value="">Select Room</option>');
+                        $.each(response.data, function (key, value) {
+                            $("#selectRoom").append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#selectRoom').on('change', function () {
+            var idRoom = this.value;
+            var wardName = $("#selectRoom option:selected").text();
+            wardName = wardName.trim();
+            $("#selectBed").html('');
+            $.ajax({
+                url: "/bed/" + idRoom,
+                type: "GET",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.data) {
+                        $('#selectBed').html('<option value="">Select Bed</option>');
+                        $.each(response.data, function (key, value) {
+                            $("#selectBed").append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        });
+                    }
+                }
+            });
+        });
+
+
+
+
+        $('#selectUpdateWard').on('change', function () {
+            var idWard = this.value;
+            var wardName = $("#selectUpdateWard option:selected").text();
+            wardName = wardName.trim();
+            $("#selectUpdateUnit").html('');
+            $("#selectUpdateRoom").html('');
+            $("#selectUpdateBed").html('');
+            $.ajax({
+                url: "/unit/" + idWard,
+                type: "GET",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.data) {
+                        $('#selectUpdateUnit').html('<option value="">Select Unit</option>');
+                        $.each(response.data, function (key, value) {
+                            $("#selectUpdateUnit").append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        });
+                    }
+                }
+            });
+        });
+        $('#selectUpdateUnit').on('change', function () {
+            var idUnit = this.value;
+            var wardName = $("#selectUpdateUnit option:selected").text();
+            wardName = wardName.trim();
+            $("#selectUpdateRoom").html('');
+            $("#selectUpdateBed").html('');
+            $.ajax({
+                url: "/room/" + idUnit,
+                type: "GET",
+                dataType: 'json',
+                success: function (response) {
+                    if (response.data) {
+                        $('#selectUpdateRoom').html('<option value="">Select Room</option>');
+                        $.each(response.data, function (key, value) {
+                            $("#selectUpdateRoom").append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#selectUpdateRoom').on('change', function () {
+            var idRoom = this.value;
+            var wardName = $("#selectUpdateRoom option:selected").text();
+            wardName = wardName.trim();
+            $("#selectUpdateBed").html('');
+            $.ajax({
+                url: "/bed/" + idRoom,
+                type: "GET",
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response.data);
+                    if (response.data) {
+                        $('#selectUpdateBed').html('<option value="">Select Bed</option>');
+                        $.each(response.data, function (key, value) {
+                            $("#selectUpdateBed").append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        });
+                    }
+                }
+            });
+        });
+
+    })
+</script>
+
+<script>
+
+</script>
+{% endblock %}
+{% block body %}
+{# <form method="POST" action="/admission/{{student.id}}/discharge">
+</form> #}
+<br><br><br>
+<div class="row">
+    <div class="col-xs-12">
+
+
+	<div>
+									<div id="user-profile-1" class="user-profile row">
+										<div class="col-xs-12 col-sm-3 center">
+											<div>
+												<span class="profile-picture">
+													<img id="avatar" class="editable img-responsive"   height="150"  width="150" alt="Photo" src="{{ asset('assets/images/avatars/avatar5.png') }}" />
+												</span>
+
+												<div class="space-4"></div>
+
+
+
+
+                
+                        <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                            <div class="inline position-relative">
+                                <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                    {# <i class="ace-icon fa fa-circle light-green"></i> #}
+                                
+                                    <span title="Click here to see more.."
+                                     class="white">{{student.firstName}}
+                                        {{student.fatherName }}
+                                        {{student.lastName }}</span>
+                                </a>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="space-6"></div>
+
+                    <div class="profile-contact-info">
+                        <div class="profile-contact-links align-left">
+
+
+                            <center>
+                                Student Numbe: {{ student.studentId }}
+                            </center>
+                            {# <i class="ace-icon fa fa-envelope bigger-125 blue"></i>  {{ student.kebele }} #}
+
+                        </div>
+
+                        <div class="space-6"></div>
+
+
+                    </div>
+
+                    <div class="hr hr12 dotted"></div>
+
+                    <div class="clearfix">
+                        <div class="grid2">
+                            <span class="bigger-120 blue"> {{ student.gender }}
+                            </span>
+
+                            <br />
+                            Student  Gender
+                        </div>
+                  {# {% set age = date().diff(date(student.dob)).y  %} #} 
+                        <div class="grid2">
+                            <span class="bigger-120 blue">
+                                {# {{ age }} #} 26
+                            </span>
+
+                            <br />
+                            Current Age
+                        </div>
+                    </div>
+
+                    <div class="hr hr16 dotted"></div>
+                    
+                </div>
+
+
+                <div class="col-xs-12 col-sm-9">
+                    <div id="student_action_toolbar" class="pull-right tableTools-container">
+           <!---//////////////////////////////////////////////////////// -->
+  {% if is_granted("cret_encounter") %}          
+                       <a href="#my-encounter" title="Create Encounter" onclick="event.preventDefault();setAdmissionType('none');" role="button" class=" btn btn-sm btn-primary btn-white btn-round"  data-toggle="modal">
+                                        <i class="ace-icon fa fa-user-plus bigger-120"></i>
+                                       Encounter
+                                    </a>
+
+            {% endif %}
+            <!-- //////////////////////////////////////////////// -->
+          {% if is_granted("nw_adm") %}     
+                       
+                      
+                        <a href="#my-modal" title="Create adminssion"  onclick="event.preventDefault();setAdmissionType('none');" role="button" class=" btn btn-sm btn-primary btn-white btn-round"
+                            data-toggle="modal">
+                            <i class="ace-icon fa fa-bed bigger-120"></i>
+                            Admit
+                        </a>
+                   
+           {% endif %}   
+
+
+
+   {% if is_granted("add_appntmnt") %}   
+                        <a class="btn btn-sm btn-primary btn-white btn-round" title="Make Appointment"
+                            href="" title="Edit">
+                            <i class="ace-icon fa fa-calendar bigger-120"></i>
+                           Appoint
+                        </a>
+     {% endif %}
+
+ {% if is_granted("add_vital") %}  
+                        <a class="btn btn-sm btn-primary btn-white btn-round" title="Make Appointment"
+                            href="" title="Vital sign">
+                            <i class="ace-icon fa fa-heartbeat bigger-120"></i>
+                           Vital Sign
+                        </a>
+   {% endif %}
+
+    {% if is_granted("add_prescription") %}  
+                        <a class="btn btn-sm btn-primary btn-white btn-round"
+                            href="" title="Edit">
+                            <i class="ace-icon fa fa-medkit bigger-120"></i>
+                              Prescription
+                         </a>
+
+                      
+   {% endif %}
+     {% if is_granted("add_lab") %}  
+                        <a class="btn btn-sm btn-primary btn-white btn-round"
+                            href="" title="Laboratory">
+                            <i class="ace-icon fa fa-flask bigger-120"></i>
+                             Lab
+                        </a>
+
+
+      {% endif %}
+        
+    
+             <div class="inline position-relative">
+
+                           
+                          {% if is_granted("viw_student_acction") %}  
+                            <a href="#"  class="btn btn-sm btn-primary btn-blue btn-round user-title-label dropdown-toggle" data-toggle="dropdown" title="Edit">
+                             <i class="ace-icon fa fa-list bigger-120"></i>   
+                              More Details
+                              </a>
+                           {% endif %}
+                                 <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
+                                 
+
+                       {% if is_granted("viw_encter") %}  
+                                   <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-user-plus"></i>
+                                            &nbsp;
+                                            <span class="black">Encounters</span>
+                                        </a>
+                                    </li>
+                          {% endif %}
+
+                            {% if is_granted("vw_admsion") %}  
+                                      <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-bed"></i>
+                                            &nbsp;
+                                            <span class="black">Admimssions </span>
+                                        </a>
+                                    </li>
+
+                            {% endif %}
+                               {% if is_granted("viw_diagnosis") %}  
+                                      <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-file"></i>
+                                            &nbsp;
+                                            <span class="black">  Diagnosis</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                   {% if is_granted("viw_apoint") %}  
+                                    <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-calendar"></i>
+                                            &nbsp;
+                                            <span class="black">Appointments</span>
+                                        </a>
+                                    </li>
+                                   {% endif %}
+
+                                     {% if is_granted("viw_atendt") %}  
+                                    <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-users"></i>
+                                            &nbsp;
+                                            <span class="black">Atendants</span>
+                                        </a>
+                                    </li>
+                                       {% endif %}
+
+                               {% if is_granted("view_vital") %}  
+                                     <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-list"></i>
+                                            &nbsp;
+                                            <span class="black">Vital signs </span>
+                                        </a>
+                                    </li>
+                                  {% endif %}
+
+                                {% if is_granted("view_lab_order") %}  
+                                     <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-medkit"></i>
+                                            &nbsp;
+                                            <span class="black">Laboratory</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+ 	                         {% if is_granted("viw_slip") %}
+                                    <li>
+                                        <a href="">
+                                            <i class="ace-icon fa fa-file"></i>
+                                            &nbsp;
+                                            <span class="black">Slips </span>
+                                        </a>
+                                    </li>
+                             {% endif %}
+                             
+                             {% if is_granted("viw_referral") %}
+                                       <li>
+                                        <a href="#">
+                                            <i class="ace-icon fa fa-institution"></i>
+                                            &nbsp;
+                                            <span class="black"> Referrals </span>
+                                        </a>
+                                    </li>
+                            {% endif %}
+
+                           
+
+                              {% if is_granted("edit_student") %}
+
+                                         <li>
+                                        <a href="{{ path('app_student_edit', {'id': student.id}) }}"  title="Edit">
+                                            <i class="ace-icon fa fa-edit"></i>
+                                            &nbsp;
+                                            <span class="black">  Edit Profile </span>
+                                        </a>
+                                           </li>
+
+                                          {% endif %}
+                                   
+                                </ul>
+                            </div>
+
+                    </div>
+
+            
+                 
+
+                    <div class="profile-user-info profile-user-info-striped" style="border-top:3px solid #438EB9; ">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Full Name</div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="username">
+                                    {{ student.firstName |capitalize}}
+                                    {{ student.fatherName |capitalize}}
+                                    {{ student.lastName |capitalize}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Address
+                            </div>
+                            <div class="profile-info-value">
+                                <!--  <i class="fa fa-map-marker light-orange bigger-110"></i> -->
+                                <span class="editable" id="country">{{ student.woreda}}</span>
+
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Gender
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="age">{{ student.gender }}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Program
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable"
+                                    id="signup">{{ student.program }}</span>
+                            </div>
+                        </div>
+                       
+                       
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Phone
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">{{ student.phone }}</span>
+                            </div>
+                        </div>
+
+                             <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                program Level
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">{{ student.programLevel }}</span>
+                            </div>
+                        </div>
+
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                            Modality
+                            </div>
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                    {{ student.modality }}
+                                    
+                                    
+                            </div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Registered by
+                            </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">{{ student.createdBy  }}</span>
+                            </div>
+                        </div>
+
+                    
+                                 <div class="profile-info-row">
+                            <div class="profile-info-name">
+                             Created at
+                            </div>
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                             {{ student.createdAt ? student.createdAt| date('Y:m:d') }}   
+                                   </span>
+                                   
+                            </div>
+                        </div>
+
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Academic year
+                            </div>
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                         {{ student.academicYear }}  </span>
+                            </div>
+                        </div>
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Nationality
+                            </div>
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                    {{ student.nationality }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-20"></div>
+                </div>
+            </div>
+        </div>
+ 
+{# <div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(encounters) }}</div>
+
+
+          <!-- ///////////////////////////-->
+    </div><!-- /.col --> #}
+
+
+<i class="fa fa-user"></i> <u> {{ student.firstName |capitalize}} {{ student.fatherName |capitalize}}</u>'s Academic records
+
+
+    <div class="hr hr10 hr-double" ></div> 
+
+
+   <div class="widget-box widget-color-white ui-sortable-handle" style="border-left:3px solid #438EB9;">
+
+   <h5 class="alert alert-success"> <i class="fa fa-list"> </i><b> <u> Student Information </u></b> </h5>
+
+      <div class="widget-body">
+
+<div id="accordion" >
+
+
+
+  {% if is_granted("view_vital") %}
+
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <i class="fa fa-heartbeat"></i>   Grade
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+
+        <div class="widget-header widget-header-flat">
+      <div class="widget-body">
+
+<!-- ////////////////////////////////////////////////////////-->
+ 
+
+<!-- ///////////////////////////////////////////////////////-->
+      </div>
+      </div>
+      
+
+      </div>
+    </div>
+  </div>
+
+
+{% endif %}
+
+  {% if is_granted("vw_admsion") %}
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+       <i class="fa fa-bed"></i>  Grade
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+      <!--- /////////////////////////////////////////// -->
+<div class="widget-header widget-header-flat">
+<div class="widget-body">
+ <table id="dynamic-table" style="border-top:3px solid #438EB9; " class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th colspan="5">
+                        <b>
+                            <i class="fa fa-user"></i>
+                            Student information </b>
+                    </th>
+
+                    <th colspan="8">
+                        <b>
+                            <i class="fa fa-bed"></i>
+                            Academic Information</b>
+                    </th>
+                </tr>
+                <tr style="background-color:lightblue;">
+                    <th>#</th>
+                    <th>MRN</th>
+                    <th>Date</th>
+                    <th>Age </th>
+                    <th>Type</th>
+
+                    <th>Location </th>
+                
+                    <th>Outcome</th>
+                    <th>Status </th>
+                    <th>Duration </th>
+                    <th>Cost </th>
+                     <th>O<sub>2</sub> </th>
+
+                    <th>
+                        <i class="ace-icon fa fa-wrench bigger-110"></i>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# {% for admimssion in admimssions %} #}
+                <tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>
+                     -
+                    </td>
+                    <td>-</td>
+                    <td>
+                     -
+                    </td>
+                    <td>-</td>
+
+                    <td>-</td>
+
+                    <td>
+                   -
+                      </td>
+
+                    <td>
+                      -
+                    </td>
+
+                        <td> 
+                 -
+                         </td>
+
+
+                                    
+                       <td> Yes  </td>
+
+                  
+                    <td>
+                        <div class="widget-toolbar no-border">
+                            <div class="inline dropdown-hover">
+                                <button class="btn btn-sm btn-primary btn-white btn-round">
+
+                                    <b>
+                                        <i class="ace-icon fa fa-list bigger-110">&nbsp;</i>
+                                        More actions
+                                    </b>
+                                    <i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
+                                
+                               
+                                       <li>
+                                        <a href="#update-modal" data-toggle='modal'>
+                                            <i class="ace-icon fa fa-pencil bigger-110 ">&nbsp;</i>
+                                            Edit
+                                        </a>
+                                      </li>
+                               
+                               
+                               
+                                    <li>
+                                        <a href="#" onclick="{{ path('app_student_edit', {'id': student.id}) }}">
+                                            <i class="ace-icon fa fa-trash bigger-110 ">&nbsp;</i>
+                                            Delete
+                                        </a>
+                                    </li>
+                                   
+
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            </tbody>
+            </tr>
+            {# {% else %} #}
+            <tr>
+                <td colspan="11" style="color:red;">No admimssions record found !</td>
+            </tr>
+            {# {% endfor %} #}
+            </tbody>
+        </table>
+    {# <div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(admimssions) }}</div> #}
+    <div>
+    </div>
+</div>
+
+</div>
+      <!-- ///////////////////////////////////////////////////-->
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+
+
+
+
+
+  <!--//////////////////////////////////////////////-->
+<div>
+</div>
+</div>
+</div> 
+</div>
+</div>
+    <!--  the table block -->
+<div id="my-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="smaller lighter blue no-margin">Add new admimssion</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form id="formAddmission" method="POST" action="{{ path('app_student_edit', {'id': student.id}) }}">
+                        <div class="row">
+                            <div>
+                                <input type="hidden" name="student_id" value="{{student.id}}">
+                                <input type="hidden" name="re_admission" id="re_admission" value="none"/>
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+                            </div>
+                            <div class="col-md-12">
+                                <label>Ward</label>
+                                <select class="select2 form-control" required name="ward" id="selectWard"
+                                    style="width:100%;">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Unit</label>
+                                <select class="select2 form-control" required name="unit" id="selectUnit"
+                                    style="width:100%;"></select>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Room</label>
+                                <select class="select2 form-control" required name="room" id="selectRoom"
+                                    style="width:100%;">
+									</select>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Bed</label>
+                                <select class="select2 form-control" required name="bed" id="selectBed"
+                                    style="width:100%;"></select>
+                            </div>
+                            {# <div class="col-md-12">
+                                <label>Emergency Type</label>
+                                <select class="select2 form-control" required name="type" id="selectType" style="width:100%;">
+                                    {% for type in types %}
+                                        <option value="{{type.id}}">{{type.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div> #}
+
+						<div class="col-md-12">
+							<label> Need oxgen?</label>
+							<select class="select2 form-control" required name="oxgen" id="selectType" style="width:100%;">
+							
+									<option value="0"> No</option>
+                                    <option value="1"> Yes</option>
+							
+							</select>
+						</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-info pull-right" data-dismiss="modal">
+                    <i class="ace-icon fa fa-times"></i>
+                    Close
+                </button>
+            {% if is_granted("nw_adm") %}
+                <button class="btn btn-sm btn-success pull-right" onclick="submitAdmissionForm()">
+                    <i class="ace-icon fa fa-save"></i>
+                    Save
+                </button>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="update-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="smaller lighter blue no-margin">Update admimssion</h3>
+            </div>
+           
+           <div class="modal-body">
+                <div>
+                    <form id="formUpdateAdmission" method="POST" action="{{ path('app_student_edit', {'id': student.id}) }}">
+                        <div class="row">
+                            <div>
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+                            </div>
+                            <div class="col-md-12">
+                                <label>Ward</label>
+                                <select class="select2 form-control" required name="ward" id="selectUpdateWard"
+                                    style="width:100%;">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Unit</label>
+                                <select class="select2 form-control" required name="unit" id="selectUpdateUnit"
+                                    style="width:100%;"></select>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Room</label>
+                                <select class="select2 form-control" required name="room" id="selectUpdateRoom"
+                                    style="width:100%;">
+									</select>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Bed</label>
+                                <select class="select2 form-control" required name="bed" id="selectUpdateBed"
+                                    style="width:100%;"></select>
+                            </div>
+                            {# <div class="col-md-12">
+                                <label>Emergency Type</label>
+                                <select class="select2 form-control" required name="type" id="selectUpdateType" style="width:100%;">
+                                    {% for type in types %}
+                                        <option value="{{type.id}}">{{type.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div> #}
+
+						<div class="col-md-12">
+							<label> Need oxgen?</label>
+							<select class="select2 form-control" required name="oxgen" id="selectType" style="width:100%;">
+							
+									<option value="0"> No</option>
+                                    <option value="1"> Yes</option>
+							
+							</select>
+						</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-info pull-right" data-dismiss="modal">
+                    <i class="ace-icon fa fa-times"></i>
+                    Close
+                </button>
+                <button class="btn btn-sm btn-success pull-right" onclick="submitAdmissionUpdateForm()">
+                    <i class="ace-icon fa fa-save"></i>
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="discharge-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="smaller lighter blue no-margin"> student Discharge form </h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form id="formDischarge" method="POST" action="">
+                        <div class="row">
+                            {# <div class="col-md-12">
+                                <label>Outcome</label>
+                                <select class="select2 form-control" required name="outcome" id="selectOutcome"
+                                    style="width:100%;">
+                                    {% for outcome in outcomes %}
+                                    <option value="{{outcome.id}}">{{outcome.name}}</option>                                        
+                                    {% endfor %}
+                                </select>
+                            </div> #}
+                           
+
+{#                                 
+                            <div class="col-md-12 fade">
+                                <label> Referral type </label>
+                                <select class="select2 form-control" required name="referal_type" id="xcx" style="width:100%;">
+                                        <option value=""> select referral type </option>
+                                        <option value="1"> Higher referral</option>
+                                        <option value="2"> Back referral</option>
+                                </select>
+                            </div> #}
+
+                            
+                           <br><br>  <br><br>
+                            {# <div class="col-md-12 fade">
+                                <label>Where student is referring to?</label>
+                                <select class="select2 form-control" required name="referal" id="selectReferal" style="width:100%;">
+                                    <option value=""></option>
+                                    {% for referal in referals %}
+                                        <option value="{{referal.id}}">{{referal.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div> #}
+
+
+                               <br><br>  <br><br>
+     <!-- ////////////////////////////////////////////////////////////////// -->                      
+                              {# <div class="col-md-12">
+                                <label>Select reason of referral</label>
+                                <select class="select2 form-control" required name="reason" id="selectReason" style="width:100%;">
+                                 {% for reason_of_referral in reason_of_referrals %}
+                                        <option value="{{reason_of_referral.id}}">{{reason_of_referral.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div> #}
+                            <br><br><br><br>
+						<div class="col-md-12">
+						<label> Please specify the reason to referral out</label> 
+                        <br>
+						<textarea  cols="50" rows="5" name="specify" id="selectSpecify"/> </textarea>
+						</div>
+                        </div>
+
+             <!--- ////////////////////////////////////////////////////////// -->
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-info pull-right" data-dismiss="modal">
+                    <i class="ace-icon fa fa-times"></i>
+                    Close
+                </button>
+                <button class="btn btn-sm btn-success pull-right" onclick="submitDischargeForm()">
+                    <i class="ace-icon fa fa-save"></i>
+                    Save 
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.col --></div><div id="my-modal" class="modal fade" tabindex="-1">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3 class="smaller lighter blue no-margin">Add new admimssion</h3>
+		</div>
+		<div class="modal-body">
+			<div>
+				<form id="formAddmission" method="POST" action="{{ path('app_student_edit', {'id': student.id}) }}">
+					<div class="row">
+						<div>
+							<input type="hidden" name="student_id" value="{{student.id}}">
+							<input type="hidden" name="re_admission" id="re_admission" value="none"/>
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+						</div>
+						<div class="col-md-12">
+							<label>Ward</label>
+							<select class="select2 form-control" required name="ward" id="selectWard" style="width:100%;">
+								<option value=""></option>
+							</select>
+						</div>
+						<div class="col-md-12">
+							<label>Unit</label>
+							<select class="select2 form-control" required name="unit" id="selectUnit" style="width:100%;"></select>
+						</div>
+						<div class="col-md-12">
+							<label>Room</label>
+							<select class="select2 form-control" required name="room" id="selectRoom" style="width:100%;"></select>
+						</div>
+						<div class="col-md-12">
+							<label>Bed</label>
+							<select class="select2 form-control" required name="bed" id="selectBed" style="width:100%;"></select>
+						</div>
+
+						{# <div class="col-md-12">
+							<label>Emergency Type</label>
+							<select class="select2 form-control" required name="type" id="selectType" style="width:100%;">
+								{% for type in types %}
+									<option value="{{type.id}}">{{type.name}}</option>
+								{% endfor %}
+							</select>
+						</div> #}
+
+
+
+						<div class="col-md-12">
+							<label> Need oxgen?</label>
+							<select class="select2 form-control" required name="oxgen" id="selectType" style="width:100%;">
+							
+									<option value="0"> No</option>
+                                    <option value="1"> Yes</option>
+							
+							</select>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn btn-sm btn-info pull-right" data-dismiss="modal">
+				<i class="ace-icon fa fa-times"></i>
+				Close
+			</button>
+			<button class="btn btn-sm btn-success pull-right" onclick="submitAdmissionForm()">
+				<i class="ace-icon fa fa-save"></i>
+				Save
+			</button>
+		</div>
+	</div>
+</div></div><div id="update-modal" class="modal fade" tabindex="-1">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3 class="smaller lighter blue no-margin">Add new admimssion</h3>
+		</div>
+		<div class="modal-body">
+			<div>
+				<form id="formUpdateAdmission" method="POST" action="">
+					<div class="row">
+						<div>
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+						</div>
+						<div class="col-md-12">
+							<label>Ward</label>
+							<select class="select2 form-control" required name="ward" id="selectUpdateWard" style="width:100%;">
+								<option value=""></option>
+							</select>
+						</div>
+						<div class="col-md-12">
+							<label>Unit</label>
+							<select class="select2 form-control" required name="unit" id="selectUpdateUnit" style="width:100%;"></select>
+						</div>
+						<div class="col-md-12">
+							<label>Room</label>
+							<select class="select2 form-control" required name="room" id="selectUpdateRoom" style="width:100%;"></select>
+						</div>
+						<div class="col-md-12">
+							<label>Bed</label>
+							<select class="select2 form-control" required name="bed" id="selectUpdateBed" style="width:100%;"></select>
+						</div>
+						{# <div class="col-md-12">
+							<label>Emergency Type</label>
+							<select class="select2 form-control" required name="type" id="selectUpdateType" style="width:100%;">
+								{% for type in types %}
+									<option value="{{type.id}}">{{type.name}}</option>
+								{% endfor %}
+							</select>
+						</div> #}
+
+
+						<div class="col-md-12">
+							<label> Need oxgen?</label>
+							<select class="select2 form-control" required name="oxgen" id="selectType" style="width:100%;">
+							
+									<option value="0"> No</option>
+                                    <option value="1"> Yes</option>
+							
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn btn-sm btn-info pull-right" data-dismiss="modal">
+				<i class="ace-icon fa fa-times"></i>
+				Close
+			</button>
+			<button class="btn btn-sm btn-success pull-right" onclick="submitAdmissionForm()">
+				<i class="ace-icon fa fa-save"></i>
+				Save
+			</button>
+		</div>
+	</div>
+</div>
+</div>
+
+
+
+<!-- ////////////////////////////-->
+
+
+   <!-- ////////////////////////////-->
+<div id="my-encounter" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="smaller lighter blue no-margin">New check in</h3>
+            </div>
+            <div class="modal-body">
+            				<input type="hidden" name="student_id" value="{{student.id}}">
+							
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+                <div>
+                    <form id="formEncounter" method="POST" action="{{ path('app_student_edit', {'id': student.id}) }}">
+                        <div class="row">
+                            <div>
+                                <input type="hidden" name="student_id" value="{{student.id}}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+                            </div>
+{#                          
+                            <div class="col-md-12">
+                                <label>Encounter Type</label>
+                                <select class="select2 form-control" required name="type" id="encounterType" style="width:100%;">
+                                     {% for encounter_type in encounter_types %}
+                                        <option value="{{encounter_type.id}}">{{encounter_type.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div> #}
+                           
+                            <br><br><br><br>
+						{# <div class="col-md-12">
+						<label> Which department the student's distination?</label>
+						 <select class="select2 form-control" required name="dept" id="dept" style="width:100%;">
+                                     {% for department in departments %}
+                                        <option value="{{department.id}}">{{department.name}}</option>
+                                    {% endfor %}
+                                </select>
+						</div> #}
+                    
+
+                            <br><br><br><br>
+						{# <div class="col-md-12">
+						<label> Disease Category?</label>
+						 <select class="select2 form-control" required name="disease" id="disease" style="width:100%;">
+                                     {% for disease_category in disease_categorys %}
+                                        <option value="{{disease_category.id}}">{{disease_category.name}}</option>
+                                    {% endfor %}
+                                </select>
+						</div> #}
+                           <br><br><br><br>
+                        	<div class="col-md-12">
+						<label> Emergency?</label>
+					        <input type="checkbox" name="emergency" value="Emergency"/>
+						</div>
+                        
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-info pull-right" data-dismiss="modal"> <i class="ace-icon fa fa-times"></i>
+                    Close
+                </button>
+                <button class="btn btn-sm btn-success pull-right" onclick="submitEncounterForm()">
+                    <i class="ace-icon fa fa-save"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/////////////-->
+
+<script>
+   function submitEncounterForm(){
+       if ($('#encounterType').val()) {
+            $('#formEncounter').addClass('fade');
+            $('#formEncounter').removeClass('show');
+            document.getElementById('formEncounter').submit();
+         }
+    }
+    </script>
+<!--/////////////-->
+
+<div id="discharge-modal" class="modal fade" tabindex="-1">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3 class="smaller lighter blue no-margin">student Discharge form  </h3>
+		</div>
+		<div class="modal-body">
+			<div>
+				<form id="formDischarge" method="POST" action="">
+					<div class="row">
+						{# <div class="col-md-12">
+							<label>Outcome</label>
+							<select class="select2 form-control" required name="outcome" id="selectOutcome" style="width:100%;">
+								{% for outcome in outcomes %}
+									<option value="{{outcome.id}}">{{outcome.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+                        <br>  <br>
+						<div class="col-md-12 fade">
+							<label>Where student is referring to?</label>
+							<select class="select2 form-control" required name="referal" id="selectReferral" style="width:100%;">
+								<option value=""></option>
+								{% for referal in referals %}
+									<option value="{{referal.id}}">{{referal.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+                              <br>  <br>
+                     <!-- ////////////////////////////////////////////////////////////////// -->                      
+                              <div class="col-md-12">
+                                <label>Select reason of referral</label>
+                                <select class="select2 form-control" required name="reason" id="selectReason" style="width:100%;">
+                                 {% for reason_of_referral in reason_of_referrals %}
+                                        <option value="{{reason_of_referral.id}}">{{reason_of_referral.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div> #}
+                            <br><br><br><br>
+						<div class="col-md-12">
+						<label> Please specify the reason to referral out</label> 
+                        <br>
+						<textarea  cols="50" rows="5" name="specify" id="selectSpecify"> </textarea>
+						</div>
+                        </div>
+
+                  <!--- ////////////////////////////////////////////////////////// -->
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+{% endblock %}
+

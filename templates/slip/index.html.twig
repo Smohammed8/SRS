@@ -3,31 +3,30 @@
 {% block title %}Slip {% endblock %}
 
 {% block body %}
-    <h4> Patient Adminssion Slip </h4>
+    <h4> Student Registration Slip </h4>
 
     <table class="table">
         <thead>
             <tr>
                 <th>#</th>
-                 <th>Patient </th>
-                <th>Seen Date</th>
-                <th>Diagnosis</th>
-                <th>AdmittingTeam</th>
-                <th>EvaluatingResident</th>
-                <th>SeniorSurgeon</th>
-                <th>actions</th>
+                <th> Department </th>
+                <th> Course </th>
+                <th> Semester</th>
+                <th> Modality</th>
+                <th> Year </th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for slip in slips %}
             <tr>
                 <td>{{  loop.index }}</td>
-                  <td> <a href="{{ path('patient_show', {'id': slip.patient.id}) }}"> {{ slip.patient  }} </a></td>
-                <td>{{ slip.seenDate ? slip.seenDate| eth_date  }}</td>
-                <td>{{ slip.diagnosis }}</td>
-                <td>{{ slip.admittingTeam }}</td>
-                <td>{{ slip.evaluatingResident }}</td>
-                <td>{{ slip.seniorSurgeon }}</td>
+                <td> <a href="#"> {{ slip.department  }} </a></td>
+                <td>{{ slip.course }} ({{ slip.course.ccode }})</td>
+                <td>{{ slip.semester }}</td>
+                <td>{{ slip.modality }}</td>
+                <td>{{ slip.year }}</td>
+             
                 <td>
 
 

@@ -98,20 +98,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $admimssions;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Bed::class, mappedBy="registeredBy", orphanRemoval=true)
-     */
-    private $beds;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Appointment::class, mappedBy="user", orphanRemoval=true)
      */
     private $appointments;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Visitor::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $visitors;
 
     /**
      * @ORM\OneToMany(targetEntity=Slip::class, mappedBy="approvedBy")
@@ -128,10 +121,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $userGroups;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Ward::class, inversedBy="users")
-     */
-    private $ward;
+  
 
     /**
      * @ORM\Column(type="integer",nullable=true)
@@ -178,14 +168,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $assignedEncounters;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Student::class, mappedBy="createdBy")
+     */
+    private $students;
+
     public function __construct()
     {
         $this->userGroup = new ArrayCollection();
         $this->patients = new ArrayCollection();
         $this->admimssions = new ArrayCollection();
-        $this->beds = new ArrayCollection();
+     
         $this->appointments = new ArrayCollection();
-        $this->visitors = new ArrayCollection();
         $this->slips = new ArrayCollection();
         $this->createdBy = new ArrayCollection();
         $this->userGroups = new ArrayCollection();
@@ -194,6 +188,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->encounterUpdates = new ArrayCollection();
         $this->refferedbyusers = new ArrayCollection();
         $this->assignedEncounters = new ArrayCollection();
+        $this->students = new ArrayCollection();
     }
     
     public function __toString()
@@ -489,36 +484,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Bed[]
-     */
-    public function getBeds(): Collection
-    {
-        return $this->beds;
-    }
-
-    public function addBed(Bed $bed): self
-    {
-        if (!$this->beds->contains($bed)) {
-            $this->beds[] = $bed;
-            $bed->setRegisteredBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBed(Bed $bed): self
-    {
-        if ($this->beds->removeElement($bed)) {
-            // set the owning side to null (unless already changed)
-            if ($bed->getRegisteredBy() === $this) {
-                $bed->setRegisteredBy(null);
-            }
-        }
-
-        return $this;
-    }
-
+   
     /**
      * @return Collection|Appointment[]
      */
@@ -549,35 +515,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Visitor>
-     */
-    public function getVisitors(): Collection
-    {
-        return $this->visitors;
-    }
 
-    public function addVisitor(Visitor $visitor): self
-    {
-        if (!$this->visitors->contains($visitor)) {
-            $this->visitors[] = $visitor;
-            $visitor->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVisitor(Visitor $visitor): self
-    {
-        if ($this->visitors->removeElement($visitor)) {
-            // set the owning side to null (unless already changed)
-            if ($visitor->getUser() === $this) {
-                $visitor->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Slip>
@@ -647,17 +585,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->userGroups;
     }
 
-    public function getWard(): ?Ward
-    {
-        return $this->ward;
-    }
-
-    public function setWard(?Ward $ward): self
-    {
-        $this->ward = $ward;
-
-        return $this;
-    }
+ 
 
     public function getStatus(): ?int
     {
@@ -851,6 +779,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($assignedEncounter->getAssignedTo() === $this) {
                 $assignedEncounter->setAssignedTo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students[] = $student;
+            $student->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getCreatedBy() === $this) {
+                $student->setCreatedBy(null);
             }
         }
 

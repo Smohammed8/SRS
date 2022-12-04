@@ -36,22 +36,11 @@ class Admimssion
     private $dischargedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Bed::class, inversedBy="admimssions")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $bed;
-
-    /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $duration;
 
 
-
-    /**
-     * @ORM\OneToMany(targetEntity=Visitor::class, mappedBy="admission", orphanRemoval=true)
-     */
-    private $visitors;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
@@ -64,11 +53,6 @@ class Admimssion
      */
     private $user;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Outcome::class, inversedBy="admimssions")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $outcome;
 
 
     /**
@@ -87,10 +71,7 @@ class Admimssion
      */
     private $type;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Referrals::class, inversedBy="admimssions")
-     */
-    private $referOut;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -107,16 +88,13 @@ class Admimssion
      */
     private $needOxgen;
 
-    /**
-     * @ORM\OneToMany(targetEntity=BedTransferHistory::class, mappedBy="admission", orphanRemoval=true)
-     */
-    private $bedTransferHistories;
+
 
     public function __construct()
     {
-        $this->visitors = new ArrayCollection();
+      
         $this->admimssions = new ArrayCollection();
-        $this->bedTransferHistories = new ArrayCollection();
+     
     }
 
     public function getId(): ?int
@@ -160,17 +138,7 @@ class Admimssion
         return $this;
     }
 
-    public function getBed(): ?Bed
-    {
-        return $this->bed;
-    }
-
-    public function setBed(?Bed $bed): self
-    {
-        $this->bed = $bed;
-
-        return $this;
-    }
+ 
 
     public function getDuration(): ?string
     {
@@ -185,39 +153,7 @@ class Admimssion
     }
 
 
-
-
-
-    /**
-     * @return Collection|Visitor[]
-     */
-    public function getVisitors(): Collection
-    {
-        return $this->visitors;
-    }
-
-    public function addVisitor(Visitor $visitor): self
-    {
-        if (!$this->visitors->contains($visitor)) {
-            $this->visitors[] = $visitor;
-            $visitor->setAdmission($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVisitor(Visitor $visitor): self
-    {
-        if ($this->visitors->removeElement($visitor)) {
-            // set the owning side to null (unless already changed)
-            if ($visitor->getAdmission() === $this) {
-                $visitor->setAdmission(null);
-            }
-        }
-
-        return $this;
-    }
-
+ 
     public function getStatus(): ?string
     {
         return $this->status;
@@ -238,18 +174,6 @@ class Admimssion
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getOutcome(): ?Outcome
-    {
-        return $this->outcome;
-    }
-
-    public function setOutcome(?Outcome $outcome): self
-    {
-        $this->outcome = $outcome;
 
         return $this;
     }
@@ -310,17 +234,7 @@ class Admimssion
         return $this;
     }
 
-    public function getReferOut(): ?Referrals
-    {
-        return $this->referOut;
-    }
-
-    public function setReferOut(?Referrals $referOut): self
-    {
-        $this->referOut = $referOut;
-
-        return $this;
-    }
+  
 
     public function getRemark(): ?string
     {
@@ -358,33 +272,5 @@ class Admimssion
         return $this;
     }
 
-    /**
-     * @return Collection<int, BedTransferHistory>
-     */
-    public function getBedTransferHistories(): Collection
-    {
-        return $this->bedTransferHistories;
-    }
 
-    public function addBedTransferHistory(BedTransferHistory $bedTransferHistory): self
-    {
-        if (!$this->bedTransferHistories->contains($bedTransferHistory)) {
-            $this->bedTransferHistories[] = $bedTransferHistory;
-            $bedTransferHistory->setAdmission($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBedTransferHistory(BedTransferHistory $bedTransferHistory): self
-    {
-        if ($this->bedTransferHistories->removeElement($bedTransferHistory)) {
-            // set the owning side to null (unless already changed)
-            if ($bedTransferHistory->getAdmission() === $this) {
-                $bedTransferHistory->setAdmission(null);
-            }
-        }
-
-        return $this;
-    }
 }

@@ -24,7 +24,7 @@ class SlipRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('a');
         //$qb->andWhere("a.name like '%$search%'");
-        $qb ->andWhere("a.status = 1");
+        //$qb ->andWhere("a.status = 1");
         $qb->orderBy('a.id', 'DESC');
         return  $qb->getQuery();
     }

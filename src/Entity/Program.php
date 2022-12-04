@@ -24,11 +24,6 @@ class Program
      */
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=FieldOfStudy::class, inversedBy="programs")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $fieldOfStudy;
 
     /**
      * @ORM\OneToMany(targetEntity=ProgramLevel::class, mappedBy="program", orphanRemoval=true)
@@ -40,10 +35,20 @@ class Program
      */
     private $students;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Department::class, inversedBy="programs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $department;
+
     public function __construct()
     {
         $this->programLevels = new ArrayCollection();
         $this->students = new ArrayCollection();
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -59,18 +64,6 @@ class Program
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getFieldOfStudy(): ?FieldOfStudy
-    {
-        return $this->fieldOfStudy;
-    }
-
-    public function setFieldOfStudy(?FieldOfStudy $fieldOfStudy): self
-    {
-        $this->fieldOfStudy = $fieldOfStudy;
 
         return $this;
     }
@@ -131,6 +124,18 @@ class Program
                 $student->setProgram(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self
+    {
+        $this->department = $department;
 
         return $this;
     }

@@ -12,6 +12,8 @@ class CampusType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
+        ->add('college')
             ->add('name')
             ->add('woreda')
             ->add('dean')

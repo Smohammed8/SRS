@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Semester index{% endblock %}
+
+{% block body %}
+    <h1>Semester index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for semester in semesters %}
+            <tr>
+                <td>{{ semester.id }}</td>
+                <td>{{ semester.name }}</td>
+                <td>{{ semester.description }}</td>
+                <td>
+                    <a href="{{ path('app_semester_show', {'id': semester.id}) }}">show</a>
+                    <a href="{{ path('app_semester_edit', {'id': semester.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_semester_new') }}">Create new</a>
+{% endblock %}

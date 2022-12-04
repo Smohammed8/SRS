@@ -49,26 +49,13 @@ class Appointment
      */
     private $status;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Unit::class, inversedBy="appointments")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $unit;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Priority::class, inversedBy="appointments")
-     */
-    private $priorityLevel;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $totalDays;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=ReasonOfAppointment::class, inversedBy="appointments")
-     */
-    private $whyAppointed;
+ 
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -154,30 +141,9 @@ class Appointment
         return $this;
     }
 
-    public function getUnit(): ?Unit
-    {
-        return $this->unit;
-    }
 
-    public function setUnit(?Unit $unit): self
-    {
-        $this->unit = $unit;
 
-        return $this;
-    }
-
-    public function getPriorityLevel(): ?Priority
-    {
-        return $this->priorityLevel;
-    }
-
-    public function setPriorityLevel(?Priority $priorityLevel): self
-    {
-        $this->priorityLevel = $priorityLevel;
-
-        return $this;
-    }
-
+  
     public function getTotalDays(): ?int
     {
         return $this->totalDays;
@@ -186,18 +152,6 @@ class Appointment
     public function setTotalDays(?int $totalDays): self
     {
         $this->totalDays = $totalDays;
-
-        return $this;
-    }
-
-    public function getWhyAppointed(): ?ReasonOfAppointment
-    {
-        return $this->whyAppointed;
-    }
-
-    public function setWhyAppointed(?ReasonOfAppointment $whyAppointed): self
-    {
-        $this->whyAppointed = $whyAppointed;
 
         return $this;
     }

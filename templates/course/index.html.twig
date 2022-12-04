@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course {% endblock %}
+
+{% block body %}
+    <h4> List of Course </h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Couse name</th>
+                <th>Department </th>
+                <th>Ccode</th>
+                <th>Credit hour</th>
+                <th>ECTS </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td title=" Dept: {{ course.department }} Year:{{ course.year }} Semster:{{ course.semester }}"> {{ course.name }}</td>
+                <td>{{ course.department }}</td>
+                <td>{{ course.ccode }}</td>
+                <td>{{ course.creditHour }}</td>
+                <td>{{ course.ects }}</td>
+                <td>
+                    <a href="{{ path('app_course_show', {'id': course.id}) }}">Show</a>
+                    <a href="{{ path('app_course_edit', {'id': course.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_course_new') }}">Create new</a>
+{% endblock %}

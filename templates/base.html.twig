@@ -68,7 +68,7 @@
 					<a href="#" class="navbar-brand">
 						<small>
 							<!--	<i class="fa fa-leaf"></i> -->
-							<img class="nav-user-photo" width="30" height="30" src="{{ asset('assets/logo/logo.png')}}" alt="Logo"> {{ "Inpatient Managment System"}}
+							<img class="nav-user-photo" width="30" height="30" src="{{ asset('assets/logo/logo.png')}}" alt="Logo"> {{ " College Registrar System "}}
 						</small>
 					</a>
 				</div>
@@ -105,11 +105,13 @@ ace.settings.loadState('main-container')
 											<form method="POST" action="{{ path('search_result') }}">
 												<div class="input-group">
 													<span class="input-group-addon">
-														<i class="ace-icon fa fa-user"></i>
+											
+
+														<i class="ace-icon fa fa fa-graduation-cap bigger-120"></i>
 
 													</span>
 
-													<input type="text" class="form-control search-query" name="search" autocomplete="off" placeholder="Enter card number or phone" required/>
+													<input type="text" class="form-control search-query" name="search" autocomplete="off" placeholder="Enter ID number or phone" required/>
 													<span class="input-group-btn">
 													<i class="ace-icon fa fa-search"></i>
 													<input type="submit" class="btn btn-inverse btn-white" value="Search"/>
@@ -120,14 +122,14 @@ ace.settings.loadState('main-container')
 												</div>
 											</form>
 										</div>
-
+{# 
 		                                  <div class="col-xs-12 col-sm-2">
 											<div class="input-group">
 											 	<a class="btn btn-sm btn-primary btn-white btn-round" href="{{ path('app_advanced_search')}}" title="Edit">
 						                        <i class="ace-icon fa fa-search bigger-120"></i> Advanced Search
 				                               </a>
                                           </div>
-										  </div>
+										  </div> #}
 
 									</div>
 								</div>

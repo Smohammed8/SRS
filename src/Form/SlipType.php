@@ -12,14 +12,14 @@ class SlipType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-          //  ->add('seenDate')
-            ->add('diagnosis')
-            ->add('admittingTeam')
-            ->add('evaluatingResident')
-            ->add('seniorSurgeon')
-           // ->add('patient')
+        
+            ->add('department')
+            ->add('course')
+            ->add('semester')
+            ->add('modality')
+             ->add('year')
             ->add('priority')
-          //  ->add('approvedBy')
+         
         ;
     }
 

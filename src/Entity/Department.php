@@ -34,9 +34,27 @@ class Department
      */
     private $encounters;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Slip::class, mappedBy="department", orphanRemoval=true)
+     */
+    private $slips;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Program::class, mappedBy="department", orphanRemoval=true)
+     */
+    private $programs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Course::class, mappedBy="department")
+     */
+    private $courses;
+
     public function __construct()
     {
         $this->encounters = new ArrayCollection();
+        $this->slips = new ArrayCollection();
+        $this->programs = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     public function __toString()
@@ -99,6 +117,96 @@ class Department
             // set the owning side to null (unless already changed)
             if ($encounter->getDestination() === $this) {
                 $encounter->setDestination(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Slip>
+     */
+    public function getSlips(): Collection
+    {
+        return $this->slips;
+    }
+
+    public function addSlip(Slip $slip): self
+    {
+        if (!$this->slips->contains($slip)) {
+            $this->slips[] = $slip;
+            $slip->setDepartment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlip(Slip $slip): self
+    {
+        if ($this->slips->removeElement($slip)) {
+            // set the owning side to null (unless already changed)
+            if ($slip->getDepartment() === $this) {
+                $slip->setDepartment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Program>
+     */
+    public function getPrograms(): Collection
+    {
+        return $this->programs;
+    }
+
+    public function addProgram(Program $program): self
+    {
+        if (!$this->programs->contains($program)) {
+            $this->programs[] = $program;
+            $program->setDepartment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgram(Program $program): self
+    {
+        if ($this->programs->removeElement($program)) {
+            // set the owning side to null (unless already changed)
+            if ($program->getDepartment() === $this) {
+                $program->setDepartment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->setDepartment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->courses->removeElement($course)) {
+            // set the owning side to null (unless already changed)
+            if ($course->getDepartment() === $this) {
+                $course->setDepartment(null);
             }
         }
 

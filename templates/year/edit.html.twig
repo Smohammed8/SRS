@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Year{% endblock %}
+
+{% block body %}
+    <h1>Edit Year</h1>
+
+    {{ include('year/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_year_index') }}">back to list</a>
+
+    {{ include('year/_delete_form.html.twig') }}
+{% endblock %}

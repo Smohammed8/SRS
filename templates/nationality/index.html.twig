@@ -3,12 +3,12 @@
 {% block title %}Nationality index{% endblock %}
 
 {% block body %}
-    <h1>Nationality index</h1>
+    <h4>Nationality </h4>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Name</th>
                 <th>actions</th>
             </tr>
@@ -16,11 +16,11 @@
         <tbody>
         {% for nationality in nationalities %}
             <tr>
-                <td>{{ nationality.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ nationality.name }}</td>
                 <td>
-                    <a href="{{ path('app_nationality_show', {'id': nationality.id}) }}">show</a>
-                    <a href="{{ path('app_nationality_edit', {'id': nationality.id}) }}">edit</a>
+                    <a class="btn btn-sm btn-info btn-white btn-round"  href="{{ path('app_nationality_show', {'id': nationality.id}) }}"> <i class="ace-icon fa fa-eye bigger-120"></i> Show</a>
+                    <a class="btn btn-sm btn-warning btn-white btn-round"  href="{{ path('app_nationality_edit', {'id': nationality.id}) }}"> <i class="ace-icon fa fa-pencil bigger-120"></i>Edit</a>
                 </td>
             </tr>
         {% else %}
