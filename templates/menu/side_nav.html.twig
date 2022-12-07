@@ -132,27 +132,38 @@
 							</li>
 						{% endif %}
 
-						  {# {% if is_granted("viw_encter") %} 
+				  {# {% if is_granted("viw_encter") %}  #}
 					<li class="">
-						<a href="{{path('encounter_view')}}">
+						<a href="{{path('app_hight_school_index')}}">
 							<i class="menu-icon fa fa-caret-right"></i>
-							<span class="menu-text"> Encounters </span>
+							<span class="menu-text">  High school </span>
 						</a>
 
 						<b class="arrow"></b>
 					</li>
-	            {% endif %} #}
-{# 
-		  {% if is_granted("view_apnt") %} 
+	            {# {% endif %} 
+
+		  {% if is_granted("view_apnt") %}  #}
 					<li class="">
-						<a href="{{path('appointment_index')}}">
+						<a href="{{path('app_preparatory_index')}}">
 							<i class="menu-icon fa fa-caret-right"></i>
-							<span class="menu-text"> Today Appointment </span>
+							<span class="menu-text">  Preparatory</span>
 						</a>
 
 						<b class="arrow"></b>
 					</li>
-	     {% endif %} #}
+	     {# {% endif %}
+
+		 	  {% if is_granted("view_apnt") %}  #}
+					<li class="">
+						<a href="{{path('app_diploma_index')}}">
+							<i class="menu-icon fa fa-caret-right"></i>
+							<span class="menu-text">  Diploma </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+	     {# {% endif %} #}
 	 						
 						</ul>
 					</li>
@@ -183,6 +194,21 @@
 								<b class="arrow"></b>
 							</li>
 							{# {% endif %}
+
+
+						  {# {% if is_granted("ad_new_pnt") %}  #}
+							<li class="">
+								<a href="{{path('app_grading_index')}}">
+									<i class="menu-icon fa fa-caret-right"></i>
+								    Grade setting
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							{# {% endif %}
+
+
+							
                    {% if is_granted("viw_patient") %}  #}
 							<li class="">
 								<a href="{{path('slip_index')}}">

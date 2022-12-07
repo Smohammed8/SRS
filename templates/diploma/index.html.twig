@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diploma {% endblock %}
+
+{% block body %}
+    <h4> <i class="fa fa-user"> </i>
+  <a href="{{ path('app_student_show', {'id': student.id }) }}"> {{ student }} 
+  </a>'s diploma data
+   </h4>
+
+   	<div class="pull-right tableTools-container">
+
+
+      
+
+         <a href="{{ path('add_diploma_new', {'id': student.id}) }}" class="btn btn-success btn-sm float-right">  <i class="fa fa-plus"></i> Add  diploma  </a>
+	              
+	
+                         
+		<a href="{{ path('app_student_show', {'id': student.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Back </a>
+	              
+						
+
+         
+
+	                        </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Start Year</th>
+                <th>End year</th>
+                <th>Result</th>
+                <th>College Name</th>
+                <th>Field of study</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for diploma in diplomas %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ diploma.startYear }}</td>
+                <td>{{ diploma.endyear }}</td>
+                <td>{{ diploma.result }}</td>
+                <td>{{ diploma.collegeName }}</td>
+                <td>{{ diploma.fieldOfStudy }}</td>
+                <td>
+                    <a  class="btn btn-sm btn-info btn-white btn-round" href="{{ path('app_diploma_show', {'id': diploma.id}) }}"> <i class=" fa fa-eye"> </i> Show</a>
+                    <a  class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('app_diploma_edit', {'id': diploma.id}) }}"> <i class=" fa fa-edit"> </i> Edit</a>
+
+
+</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div class="pull-right" style="margin-right:10px; display:inline;" id="custompaginator">{{ knp_pagination_render(diplomas) }}</div>
+
+
+    {# <a href="{{ path('app_diploma_new') }}">Create new</a> #}
+{% endblock %}

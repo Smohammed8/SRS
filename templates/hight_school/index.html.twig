@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Hight school {% endblock %}
+
+{% block body %}
+
+
+
+
+    <h4> <i class="fa fa-user"> </i>
+  <a href="{{ path('app_student_show', {'id': student.id }) }}"> {{ student }} 
+  </a>'s Hight school data
+   </h4>
+
+   	<div class="pull-right tableTools-container">
+
+
+      
+
+         <a href="{{ path('app_highschool_new', {'id': student.id}) }}" class="btn btn-success btn-sm float-right">  <i class="fa fa-user-plus"></i> Add highschool </a>
+	              
+	
+                         
+		<a href="{{ path('app_student_show', {'id': student.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Back </a>
+	              
+						
+
+         
+
+	                        </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>StartYear</th>
+                <th>EndYear</th>
+                <th>Result</th>
+                <th>High school Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hight_school in hight_schools %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ hight_school.startYear }}</td>
+                <td>{{ hight_school.endYear }}</td>
+                <td>{{ hight_school.result }}</td>
+                <td>{{ hight_school.schoolName }}</td>
+                <td>
+                    <a class="btn btn-sm btn-info btn-white btn-round"  href="{{ path('app_hight_school_show', {'id': hight_school.id}) }}"><i class=" fa fa-eye"> </i>  Show</a>
+                    <a class="btn btn-sm btn-info btn-white btn-round" href="{{ path('app_hight_school_edit', {'id': hight_school.id}) }}"><i class=" fa fa-edit"> </i>  Edit</a>
+               
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+<div class="pull-right" style="margin-right:10px; display:inline;" id="custompaginator">{{ knp_pagination_render(hight_schools) }}</div>
+
+
+    {# <a href="{{ path('app_hight_school_new') }}">Create new</a> #}
+{% endblock %}

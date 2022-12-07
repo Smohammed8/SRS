@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Preparatory  {% endblock %}
+
+{% block body %}
+
+
+    <h4> <i class="fa fa-user"> </i>
+  <a href="{{ path('app_student_show', {'id': student.id }) }}"> {{ student }} 
+  </a>'s Preparatory data
+   </h4>
+
+   	<div class="pull-right tableTools-container">
+
+
+      
+
+         <a href="{{ path('add_preparatory_new', {'id': student.id}) }}" class="btn btn-success btn-sm float-right">  <i class="fa fa-plus"></i> Add  preparatory data  </a>
+	              
+	
+                         
+		<a href="{{ path('app_student_show', {'id': student.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-close"></i> Back </a>
+	              
+						
+
+         
+
+	                        </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Start Year</th>
+                <th>End Year</th>
+                <th>Result</th>
+                <th>School Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for preparatory in preparatories %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ preparatory.startYear }}</td>
+                <td>{{ preparatory.endYear }}</td>
+                <td>{{ preparatory.result }}</td>
+                <td>{{ preparatory.schoolName }}</td>
+                <td>
+                    <a  class="btn btn-sm btn-info btn-white btn-round" href="{{ path('app_preparatory_show', {'id': preparatory.id}) }}"> <i class=" fa fa-eye"> </i> Show</a>
+                    <a  class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('app_preparatory_edit', {'id': preparatory.id}) }}"> <i class=" fa fa-edit"> </i> Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('app_preparatory_new') }}">Create new</a> #}
+
+
+<div class="pull-right" style="margin-right:10px; display:inline;" id="custompaginator">{{ knp_pagination_render(preparatories) }}</div>
+
+{% endblock %}

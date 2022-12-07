@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New HightSchool{% endblock %}
+
+{% block body %}
+    <h4> Add HightSchool data </h4>
+
+    {{ include('hight_school/_form.html.twig') }}
+
+    <a href="{{ path('app_student_show', {'id': student.id }) }}">back to list</a>
+{% endblock %}

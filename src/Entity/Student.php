@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StudentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -86,6 +88,39 @@ class Student
      * @ORM\ManyToOne(targetEntity=Nationality::class, inversedBy="students")
      */
     private $nationality;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Diploma::class, mappedBy="student")
+     */
+    private $diplomas;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Preparatory::class, mappedBy="student")
+     */
+    private $preparatories;
+
+    /**
+     * @ORM\OneToMany(targetEntity=HightSchool::class, mappedBy="student")
+     */
+    private $hightSchools;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $status;
+
+    public function __construct()
+    {
+        $this->diplomas = new ArrayCollection();
+        $this->preparatories = new ArrayCollection();
+        $this->hightSchools = new ArrayCollection();
+    }
+
+
+    public function __toString()
+    {
+        return $this->firstName. " ".$this->fatherName." ".$this->lastName; 
+    }
 
     public function getId(): ?int
     {
@@ -268,6 +303,108 @@ class Student
     public function setNationality(?Nationality $nationality): self
     {
         $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Diploma>
+     */
+    public function getDiplomas(): Collection
+    {
+        return $this->diplomas;
+    }
+
+    public function addDiploma(Diploma $diploma): self
+    {
+        if (!$this->diplomas->contains($diploma)) {
+            $this->diplomas[] = $diploma;
+            $diploma->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiploma(Diploma $diploma): self
+    {
+        if ($this->diplomas->removeElement($diploma)) {
+            // set the owning side to null (unless already changed)
+            if ($diploma->getStudent() === $this) {
+                $diploma->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Preparatory>
+     */
+    public function getPreparatories(): Collection
+    {
+        return $this->preparatories;
+    }
+
+    public function addPreparatory(Preparatory $preparatory): self
+    {
+        if (!$this->preparatories->contains($preparatory)) {
+            $this->preparatories[] = $preparatory;
+            $preparatory->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removePreparatory(Preparatory $preparatory): self
+    {
+        if ($this->preparatories->removeElement($preparatory)) {
+            // set the owning side to null (unless already changed)
+            if ($preparatory->getStudent() === $this) {
+                $preparatory->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HightSchool>
+     */
+    public function getHightSchools(): Collection
+    {
+        return $this->hightSchools;
+    }
+
+    public function addHightSchool(HightSchool $hightSchool): self
+    {
+        if (!$this->hightSchools->contains($hightSchool)) {
+            $this->hightSchools[] = $hightSchool;
+            $hightSchool->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHightSchool(HightSchool $hightSchool): self
+    {
+        if ($this->hightSchools->removeElement($hightSchool)) {
+            // set the owning side to null (unless already changed)
+            if ($hightSchool->getStudent() === $this) {
+                $hightSchool->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

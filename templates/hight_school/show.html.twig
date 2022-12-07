@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HightSchool{% endblock %}
+
+{% block body %}
+    <h1>HightSchool</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ hight_school.id }}</td>
+            </tr>
+            <tr>
+                <th>StartYear</th>
+                <td>{{ hight_school.startYear }}</td>
+            </tr>
+            <tr>
+                <th>EndYear</th>
+                <td>{{ hight_school.endYear }}</td>
+            </tr>
+            <tr>
+                <th>Result</th>
+                <td>{{ hight_school.result }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ hight_school.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_hight_school_index') }}">back to list</a>
+
+    <a href="{{ path('app_hight_school_edit', {'id': hight_school.id}) }}">edit</a>
+
+    {{ include('hight_school/_delete_form.html.twig') }}
+{% endblock %}

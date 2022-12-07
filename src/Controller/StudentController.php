@@ -23,7 +23,7 @@ use DateTime;
 use Andegna\DateTimeFactory;
 use Andegna\DateTime as et_date;
 use Andegna\DateTimeInterface;
-
+use App\Helper\Constants;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 
@@ -135,6 +135,34 @@ class StudentController extends AbstractController
         ]);
     }
 
+    function getPrefix($studentId,$ayear){
+        
+     if($studentId <=10 && $studentId > 0 ){
+        $prefix1 = 0000;
+        $studentID = trim($prefix1.''.$studentId.'/'.$ayear);
+       }
+     elseif($studentId <=100 && $studentId > 9){
+        $prefix2 = 000;
+        $studentID = trim($prefix2.''.$studentId.'/'.$ayear);
+
+       }
+     elseif($studentId <=100 && $studentId > 99){
+          $prefix3 = 00;
+          $studentID = trim($prefix3.''.$studentId.'/'.$ayear);
+       }
+     elseif($studentId <=10000 && $studentId > 1000){
+         $prefix4 = 0;
+         $studentID = trim($prefix4.''.$studentId.'/'.$ayear);
+        }
+     else{
+         $prefix5 = null;
+         $studentID = trim($prefix5.''.$studentId.'/'.$ayear);
+        }
+    
+            return    $studentID ; 
+
+       }
+
     #[Route('/new', name: 'app_student_new', methods: ['GET', 'POST'])]
     public function new(Request $request, StudentRepository $studentRepository): Response
     {
@@ -143,9 +171,23 @@ class StudentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $academic_year  = $form->get('academic_year ')->getData(); 
+           //  0000  if less than 10   > 0
+           //  10 011  if less than 100 and  > 9
+           //  00  id less than 1000 and >99
+           //  0 less than 10,000 and >1000
+           //  0 if less than 99,999 and >10,000
+           //  null if greater than 100,000
 
+            // Regular student  RU0001/academic_year         //  000001/15
+            // Extension student  ET0001/academic_year     //  000002/15
+            // Distance Student   DT0002/academic_year    // 000002/15
+            // Weekend Student     WK0003/academic_year  // 000004/15
+            $prefix = 0000;
             $student->setCreatedBy($this->getUser());
+            $student->setStudentId($this->getPrefix($student->getId(),$academic_year));
             $student->setCreatedAt(new \DateTimeImmutable());
+            $student->setStatus(Constants::ADMITTED_STUDENT);
             $studentRepository->add($student);
             $this->addFlash('success', "The student has been successfully registered!");
             return $this->redirectToRoute('app_student_index', [], Response::HTTP_SEE_OTHER);
@@ -198,6 +240,8 @@ class StudentController extends AbstractController
 
             $student->setCreatedBy($this->getUser());
           //  $student->setCreatedAt(new \DateTimeImmutable();
+
+             $student->setStatus(Constants::ADMITTED_STUDENT);
 
             $studentRepository->add($student);
             return $this->redirectToRoute('app_student_index', [], Response::HTTP_SEE_OTHER);

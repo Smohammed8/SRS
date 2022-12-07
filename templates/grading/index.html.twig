@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Grading index{% endblock %}
+
+{% block body %}
+    <h4>Grading setting</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+           
+                <th> Mark Interval </th>
+               
+                <th>Fixed mark </th>
+                <th>Letter</th>
+                <th>Remark </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for grading in gradings %}
+            <tr>
+                <td>{{ loop.index }}</td>
+           
+                <td>[{{ grading.startMark }} ,   {% if grading.endMark < 100 %} {{ grading.endMark +1 }} {% else %}  {{ grading.endMark  }} {%endif %})</td>
+                <td>{{ grading.fixedMark  }}</td>
+                     <td>{{ grading.letter }}</td>
+                <td>{{ grading.description }}</td>
+                <td>
+                    <a class="btn btn-sm btn-info btn-white btn-round" href="{{ path('app_grading_show', {'id': grading.id}) }}"> <i class=" fa fa-eye"> </i> Show</a>
+                    <a class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('app_grading_edit', {'id': grading.id}) }}"> <i class=" fa fa-edit"> </i>  Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No records found! </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_grading_new') }}">Create new</a>
+{% endblock %}

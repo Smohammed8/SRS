@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Preparatory{% endblock %}
+
+{% block body %}
+    <h4>Add Prep inof </h4>
+
+    {{ include('preparatory/_form.html.twig') }}
+
+    <a href="{{ path('app_student_show', {'id': student.id }) }}">back to list</a>
+{% endblock %}

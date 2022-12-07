@@ -389,7 +389,7 @@ admissionButton = '\
 
 
                             <center>
-                                Student Numbe: {{ student.studentId }}
+                                Student ID: {{ student.studentId }}
                             </center>
                             {# <i class="ace-icon fa fa-envelope bigger-125 blue"></i>  {{ student.kebele }} #}
 
@@ -443,7 +443,7 @@ admissionButton = '\
                         <a href="#my-modal" title="Create adminssion"  onclick="event.preventDefault();setAdmissionType('none');" role="button" class=" btn btn-sm btn-primary btn-white btn-round"
                             data-toggle="modal">
                             <i class="ace-icon fa fa-bed bigger-120"></i>
-                            Admit
+                            Admission
                         </a>
                    
            {% endif %}   
@@ -458,138 +458,76 @@ admissionButton = '\
                         </a>
      {% endif %}
 
- {% if is_granted("add_vital") %}  
-                        <a class="btn btn-sm btn-primary btn-white btn-round" title="Make Appointment"
-                            href="" title="Vital sign">
-                            <i class="ace-icon fa fa-heartbeat bigger-120"></i>
-                           Vital Sign
-                        </a>
-   {% endif %}
 
-    {% if is_granted("add_prescription") %}  
-                        <a class="btn btn-sm btn-primary btn-white btn-round"
-                            href="" title="Edit">
-                            <i class="ace-icon fa fa-medkit bigger-120"></i>
-                              Prescription
-                         </a>
-
-                      
-   {% endif %}
-     {% if is_granted("add_lab") %}  
-                        <a class="btn btn-sm btn-primary btn-white btn-round"
-                            href="" title="Laboratory">
-                            <i class="ace-icon fa fa-flask bigger-120"></i>
-                             Lab
-                        </a>
-
-
-      {% endif %}
         
     
              <div class="inline position-relative">
 
                            
-                          {% if is_granted("viw_student_acction") %}  
-                            <a href="#"  class="btn btn-sm btn-primary btn-blue btn-round user-title-label dropdown-toggle" data-toggle="dropdown" title="Edit">
+                          {# {% if is_granted("viw_student_acction") %}   #}
+                            <a href="#"  class="btn btn-sm btn-primary btn-blue btn-round user-title-label dropdown-toggle" data-toggle="dropdown" title="More ">
                              <i class="ace-icon fa fa-list bigger-120"></i>   
                               More Details
                               </a>
-                           {% endif %}
+                           {# {% endif %} #}
                                  <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
                                  
 
-                       {% if is_granted("viw_encter") %}  
+                       {# {% if is_granted("viw_encter") %}   #}
                                    <li>
-                                        <a href="">
-                                            <i class="ace-icon fa fa-user-plus"></i>
+                                        <a href="{{ path('app_hight_school_view',{'id': student.id}) }}">
+                                            <i class="ace-icon fa fa-flag"></i>
                                             &nbsp;
-                                            <span class="black">Encounters</span>
+                                            <span class="black"> High School</span>
                                         </a>
                                     </li>
-                          {% endif %}
+                          {# {% endif %}
 
-                            {% if is_granted("vw_admsion") %}  
+                            {% if is_granted("vw_admsion") %}   #}
                                       <li>
-                                        <a href="">
-                                            <i class="ace-icon fa fa-bed"></i>
+                                        <a href="{{ path('app_preparatory_view',{'id': student.id}) }} ">
+                                            <i class="ace-icon fa fa-flag"></i>
                                             &nbsp;
-                                            <span class="black">Admimssions </span>
+                                            <span class="black"> Preparatory </span>
                                         </a>
                                     </li>
 
-                            {% endif %}
-                               {% if is_granted("viw_diagnosis") %}  
+                            {# {% endif %}
+                               {% if is_granted("viw_diagnosis") %}   #}
                                       <li>
-                                        <a href="">
-                                            <i class="ace-icon fa fa-file"></i>
+                                        <a href="{{ path('app_diploma_view',{'id': student.id}) }}  ">
+                                            <i class="ace-icon fa fa-flag"></i>
                                             &nbsp;
-                                            <span class="black">  Diagnosis</span>
+                                            <span class="black"> Colleg Diploma </span>
                                         </a>
                                     </li>
-                                {% endif %}
-                                   {% if is_granted("viw_apoint") %}  
+                                {# {% endif %}
+                                   {% if is_granted("viw_apoint") %}   #}
                                     <li>
                                         <a href="">
-                                            <i class="ace-icon fa fa-calendar"></i>
+                                            <i class="ace-icon fa fa-flag"></i>
                                             &nbsp;
-                                            <span class="black">Appointments</span>
+                                            <span class="black"> slip</span>
                                         </a>
                                     </li>
-                                   {% endif %}
+                                   {# {% endif %}
 
-                                     {% if is_granted("viw_atendt") %}  
-                                    <li>
+                                     {% if is_granted("viw_atendt") %}  #}
+                                    <li> 
                                         <a href="">
                                             <i class="ace-icon fa fa-users"></i>
                                             &nbsp;
-                                            <span class="black">Atendants</span>
+                                            <span class="black"> Familiy </span>
                                         </a>
                                     </li>
-                                       {% endif %}
+                                       {# {% endif %}
 
-                               {% if is_granted("view_vital") %}  
-                                     <li>
-                                        <a href="">
-                                            <i class="ace-icon fa fa-list"></i>
-                                            &nbsp;
-                                            <span class="black">Vital signs </span>
-                                        </a>
-                                    </li>
-                                  {% endif %}
+                       
 
-                                {% if is_granted("view_lab_order") %}  
-                                     <li>
-                                        <a href="">
-                                            <i class="ace-icon fa fa-medkit"></i>
-                                            &nbsp;
-                                            <span class="black">Laboratory</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
+ 	                  
+                         
 
- 	                         {% if is_granted("viw_slip") %}
-                                    <li>
-                                        <a href="">
-                                            <i class="ace-icon fa fa-file"></i>
-                                            &nbsp;
-                                            <span class="black">Slips </span>
-                                        </a>
-                                    </li>
-                             {% endif %}
-                             
-                             {% if is_granted("viw_referral") %}
-                                       <li>
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-institution"></i>
-                                            &nbsp;
-                                            <span class="black"> Referrals </span>
-                                        </a>
-                                    </li>
-                            {% endif %}
-
-                           
-
-                              {% if is_granted("edit_student") %}
+                              {% if is_granted("edit_student") %} #}
 
                                          <li>
                                         <a href="{{ path('app_student_edit', {'id': student.id}) }}"  title="Edit">
@@ -599,7 +537,7 @@ admissionButton = '\
                                         </a>
                                            </li>
 
-                                          {% endif %}
+                                          {# {% endif %} #}
                                    
                                 </ul>
                             </div>
@@ -661,13 +599,24 @@ admissionButton = '\
                             </div>
 
                             <div class="profile-info-value">
-                                <span class="editable" id="about">{{ student.phone }}</span>
+                                <span class="editable" id="about">
+                                
+                                   {% if  student.phone == null %} 
+                                         {{ '-' }}
+                                          {% else %} 
+                                   {{ student.phone }}
+
+                                         {% endif %} 
+
+                              
+                                
+                                </span>
                             </div>
                         </div>
 
                              <div class="profile-info-row">
                             <div class="profile-info-name">
-                                program Level
+                                Program Level
                             </div>
 
                             <div class="profile-info-value">
@@ -700,7 +649,7 @@ admissionButton = '\
                     
                                  <div class="profile-info-row">
                             <div class="profile-info-name">
-                             Created at
+                          Date of registration
                             </div>
                             <div class="profile-info-value">
                                 <span class="editable" id="about">
@@ -713,13 +662,14 @@ admissionButton = '\
 
                         <div class="profile-info-row">
                             <div class="profile-info-name">
-                                Academic year
+                                Admission year 
                             </div>
                             <div class="profile-info-value">
                                 <span class="editable" id="about">
-                                         {{ student.academicYear }}  </span>
+                                         {{ student.academicYear }} E.C </span>
                             </div>
                         </div>
+                       
                         <div class="profile-info-row">
                             <div class="profile-info-name">
                                 Nationality
@@ -729,6 +679,39 @@ admissionButton = '\
                                     {{ student.nationality }}</span>
                             </div>
                         </div>
+
+
+                               <div class="profile-info-row">
+                            <div class="profile-info-name">
+                               Current Status
+                            </div>
+                            <div class="profile-info-value">
+                                <span class="editable" id="about">
+                                  {%  if student.status ==1 %} 
+                                  
+                                   {{ 'Admitted' }}
+                                   {% elseif  student.status ==2 %} 
+                                     {{ 'Dismissed' }}
+                                    {% elseif  student.status ==3 %} 
+                                      {{ 'Dropout' }}
+
+                                      {% elseif  student.status ==4 %} 
+                                         {{ 'Withdrawal' }}
+                                      
+
+                                   {% elseif  student.status == null %} 
+                                         {{ '-' }}
+                                          {% else %} 
+                                     {{ 'Graduated' }}
+
+                                         {% endif %} 
+                                   
+                                   </span>
+                            </div>
+                        </div>
+
+
+
                     </div>
                     <div class="space-20"></div>
                 </div>
