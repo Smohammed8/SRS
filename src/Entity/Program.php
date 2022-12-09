@@ -41,10 +41,21 @@ class Program
      */
     private $department;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $totalSemester;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Course::class, mappedBy="program")
+     */
+    private $courses;
+
     public function __construct()
     {
         $this->programLevels = new ArrayCollection();
         $this->students = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
     public function __toString()
     {
@@ -136,6 +147,48 @@ class Program
     public function setDepartment(?Department $department): self
     {
         $this->department = $department;
+
+        return $this;
+    }
+
+    public function getTotalSemester(): ?int
+    {
+        return $this->totalSemester;
+    }
+
+    public function setTotalSemester(int $totalSemester): self
+    {
+        $this->totalSemester = $totalSemester;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->setProgram($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->courses->removeElement($course)) {
+            // set the owning side to null (unless already changed)
+            if ($course->getProgram() === $this) {
+                $course->setProgram(null);
+            }
+        }
 
         return $this;
     }

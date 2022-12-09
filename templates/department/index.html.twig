@@ -21,9 +21,9 @@
                 <td>{{ department.name }}</td>
                 <td>{{ department.description }}</td>
                 <td>
-                        <a  class="btn btn-sm btn-primary btn-info btn-round" href="{{ path('app_department_show', {'id': department.id}) }}">
+                        <a  class="btn btn-sm btn-primary btn-info btn-round" href="{{ path('app_view_program', {'id': department.id}) }}">
                     
-                    <i class="ace-icon fa fa-eye bigger-120"></i> Show</a>
+                    <i class="ace-icon fa fa-list bigger-120"></i> Programs </a>
                    
                     <a  class="btn btn-sm btn-primary btn-warning btn-round" href="{{ path('app_department_edit', {'id': department.id}) }}">
                     

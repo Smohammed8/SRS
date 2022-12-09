@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Course;
 //use App\Entity\CourseType;
 use App\Entity\Department;
+use App\Entity\Program;
 use App\Entity\Semester;
 use App\Entity\Year;
 use Symfony\Component\Form\AbstractType;
@@ -24,8 +25,8 @@ class CourseType extends AbstractType
             ->add('creditHour')
             ->add('ects')
           
-            ->add('department', EntityType::class, [
-                'class' =>Department::class,
+            ->add('program', EntityType::class, [
+                'class' =>Program::class,
                 'query_builder' => function (EntityRepository $err) {
                     $result = $err->createQueryBuilder('e')
                  
@@ -35,7 +36,7 @@ class CourseType extends AbstractType
                     return $result;
                 },
             
-                'placeholder' => "Select department...",
+                'placeholder' => "Select program...",
             ])
 
             ->add('year', EntityType::class, [

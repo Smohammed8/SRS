@@ -35,6 +35,17 @@ class CourseRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function getCourse($prog)
+
+    {
+        $qb= $this->createQueryBuilder('h');
+        $qb->andWhere('h.program=:program')->setParameter('program', $prog);
+        $qb->orderBy('h.id', 'DESC');
+       // $qb->setMaxResults(3);
+        return  $qb->getQuery()->getResult();
+    }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException

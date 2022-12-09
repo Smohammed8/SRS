@@ -9,6 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Department as EntityDepartmentType;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Helper\DomPrint;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/program')]
 class ProgramController extends AbstractController
@@ -18,6 +24,23 @@ class ProgramController extends AbstractController
     {
         return $this->render('program/index.html.twig', [
             'programs' => $programRepository->findAll(),
+        ]);
+    }
+
+
+    #[Route('/{id}', name: 'app_view_program', methods: ['GET'])]
+    public function view_program(PaginatorInterface $paginator, EntityDepartmentType $entityDepartmentType,ProgramRepository $programRepository,Request $request): Response
+    {
+
+        $queryBuilder =  $programRepository->getProgram($entityDepartmentType, $request->query->get('search'));
+        $data = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            10
+        );
+            return $this->render('program/view_program.html.twig', [
+                'programs' => $data,
+                'deprtment' =>$entityDepartmentType
         ]);
     }
 

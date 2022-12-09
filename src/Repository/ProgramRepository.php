@@ -35,6 +35,17 @@ class ProgramRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function getProgram($dept)
+
+    {
+        $qb= $this->createQueryBuilder('h');
+        $qb->andWhere('h.department=:department')->setParameter('department', $dept);
+        $qb->orderBy('h.id', 'DESC');
+       // $qb->setMaxResults(3);
+        return  $qb->getQuery()->getResult();
+    }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException

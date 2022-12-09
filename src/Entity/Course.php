@@ -54,11 +54,6 @@ class Course
      */
     private $slips;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Department::class, inversedBy="courses")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $department;
 
     /**
      * @ORM\ManyToOne(targetEntity=Year::class, inversedBy="courses")
@@ -76,6 +71,11 @@ class Course
      * @ORM\ManyToOne(targetEntity=CourseType::class, inversedBy="courses")
      */
     private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="courses")
+     */
+    private $program;
 
 
 
@@ -215,17 +215,7 @@ class Course
         return $this;
     }
 
-    public function getDepartment(): ?Department
-    {
-        return $this->department;
-    }
 
-    public function setDepartment(?Department $department): self
-    {
-        $this->department = $department;
-
-        return $this;
-    }
 
     public function getYear(): ?Year
     {
@@ -259,6 +249,18 @@ class Course
     public function setType(?CourseType $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getProgram(): ?Program
+    {
+        return $this->program;
+    }
+
+    public function setProgram(?Program $program): self
+    {
+        $this->program = $program;
 
         return $this;
     }

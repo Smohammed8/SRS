@@ -44,17 +44,14 @@ class Department
      */
     private $programs;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Course::class, mappedBy="department")
-     */
-    private $courses;
+
 
     public function __construct()
     {
-        $this->encounters = new ArrayCollection();
+    
         $this->slips = new ArrayCollection();
         $this->programs = new ArrayCollection();
-        $this->courses = new ArrayCollection();
+      
     }
 
     public function __toString()
@@ -93,35 +90,7 @@ class Department
         return $this;
     }
 
-    /**
-     * @return Collection<int, Encounter>
-     */
-    public function getEncounters(): Collection
-    {
-        return $this->encounters;
-    }
 
-    public function addEncounter(Encounter $encounter): self
-    {
-        if (!$this->encounters->contains($encounter)) {
-            $this->encounters[] = $encounter;
-            $encounter->setDestination($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEncounter(Encounter $encounter): self
-    {
-        if ($this->encounters->removeElement($encounter)) {
-            // set the owning side to null (unless already changed)
-            if ($encounter->getDestination() === $this) {
-                $encounter->setDestination(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Slip>
@@ -183,33 +152,5 @@ class Department
         return $this;
     }
 
-    /**
-     * @return Collection<int, Course>
-     */
-    public function getCourses(): Collection
-    {
-        return $this->courses;
-    }
 
-    public function addCourse(Course $course): self
-    {
-        if (!$this->courses->contains($course)) {
-            $this->courses[] = $course;
-            $course->setDepartment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCourse(Course $course): self
-    {
-        if ($this->courses->removeElement($course)) {
-            // set the owning side to null (unless already changed)
-            if ($course->getDepartment() === $this) {
-                $course->setDepartment(null);
-            }
-        }
-
-        return $this;
-    }
 }

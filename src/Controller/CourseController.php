@@ -10,6 +10,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Helper\DomPrint;
+use Knp\Component\Pager\PaginatorInterface;
+
+use App\Entity\Program as EntityProgramType;
+
 #[Route('/course')]
 class CourseController extends AbstractController
 {
@@ -19,6 +26,28 @@ class CourseController extends AbstractController
         return $this->render('course/index.html.twig', [
             'courses' => $courseRepository->findAll(),
         ]);
+    }
+
+
+
+
+
+    #[Route('/{id}', name: 'app_course_view', methods: ['GET'])]
+    public function view_course(PaginatorInterface $paginator, EntityProgramType $entityProgramType,CourseRepository $courseRepository,Request $request): Response
+    {
+
+        $queryBuilder =  $courseRepository->getCourse($entityProgramType, $request->query->get('search'));
+        $data = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            10
+        );
+            return $this->render('course/view_course.html.twig', [
+                'courses' => $data,
+                'program' =>$entityProgramType
+        ]);
+    
+
     }
 
     #[Route('/new', name: 'app_course_new', methods: ['GET', 'POST'])]

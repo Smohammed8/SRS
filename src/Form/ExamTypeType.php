@@ -2,26 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Program;
+use App\Entity\ExamType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProgramType extends AbstractType
+class ExamTypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
-            ->add('totalSemester')
-            ->add('department')
+            ->add('min')
+            ->add('max')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Program::class,
+            'data_class' => ExamType::class,
         ]);
     }
 }

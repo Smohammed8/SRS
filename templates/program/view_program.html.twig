@@ -3,28 +3,30 @@
 {% block title %}Program {% endblock %}
 
 {% block body %}
-    <h4>List of programs</h4>
+    <h4>List of programs in Department of <a href="{{ path('app_program_index') }}"> {{ deprtment }} </a> program </h4>
 
     <table class="table">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Program name</th>
-                <th> Department </th>
-                   <th> Study year  </th>
+             
+                <th> Total semseter </th>
                 <th> Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for program in programs %}
             <tr>
-                <td>{{ program.id }}</td>
+                <td>{{ loop.index}}</td>
                 <td>{{ program.name }}</td>
-                   <td>{{ program.department }}</td>
+                   <td>{{ program.totalSemester }}</td>
+             
+             
                       <td>-</td>
                 <td>
-                    <a class="btn btn-sm btn-info btn-white btn-round"  href="{{ path('app_program_show', {'id': program.id}) }}"> <i class" fa fa-list"> </i>Show</a>
-                    <a class="btn btn-sm btn-warning btn-white btn-round"  href="{{ path('app_program_edit', {'id': program.id}) }}"> <i class" fa fa-edit"> </i>Edit</a>
+                    <a class="btn btn-sm btn-info btn-white btn-round"  href="{{ path('app_course_view', {'id': program.id}) }}">     <i class="ace-icon fa fa-list bigger-120"></i> Courses </a>
+                    <a class="btn btn-sm btn-warning btn-white btn-round" href="{{ path('app_program_edit', {'id': program.id}) }}">     <i class="ace-icon fa fa-edit bigger-120"></i> Edit</a>
                 </td>
             </tr>
         {% else %}

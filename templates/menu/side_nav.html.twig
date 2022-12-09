@@ -115,7 +115,7 @@
 							<li class="">
 								<a href="{{path('app_student_new')}}">
 									<i class="menu-icon fa fa-caret-right"></i>
-								    New student
+								    New admission
 								</a>
 
 								<b class="arrow"></b>
@@ -136,38 +136,29 @@
 					<li class="">
 						<a href="{{path('app_hight_school_index')}}">
 							<i class="menu-icon fa fa-caret-right"></i>
-							<span class="menu-text">  High school </span>
+							<span class="menu-text">   Student ID</span>
 						</a>
 
 						<b class="arrow"></b>
 					</li>
-	            {# {% endif %} 
+	            {# {% endif %} #}
 
-		  {% if is_granted("view_apnt") %}  #}
+					  {# {% if is_granted("viw_encter") %}  #}
 					<li class="">
-						<a href="{{path('app_preparatory_index')}}">
+						<a href="{{path('app_hight_school_index')}}">
 							<i class="menu-icon fa fa-caret-right"></i>
-							<span class="menu-text">  Preparatory</span>
+							<span class="menu-text">   Promotion </span>
 						</a>
 
 						<b class="arrow"></b>
 					</li>
-	     {# {% endif %}
+	            {# {% endif %} #}
 
-		 	  {% if is_granted("view_apnt") %}  #}
-					<li class="">
-						<a href="{{path('app_diploma_index')}}">
-							<i class="menu-icon fa fa-caret-right"></i>
-							<span class="menu-text">  Diploma </span>
-						</a>
 
-						<b class="arrow"></b>
-					</li>
-	     {# {% endif %} #}
 	 						
 						</ul>
 					</li>
-                    {% endif %}
+   {% endif %}
 
 
 
@@ -221,7 +212,7 @@
 						{# {% endif %} #}
 						</ul>
 					</li>
-                    {# {% endif %} #}
+          {# {% endif %} #}
 
         	{% if is_granted('manage_usr') %} 
 

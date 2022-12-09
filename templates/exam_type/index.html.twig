@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ExamType index{% endblock %}
+
+{% block body %}
+    <h4>Exam type </h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for exam_type in exam_types %}
+            <tr>
+                <td>{{  loop.index }}</td>
+                <td>{{ exam_type.name }}</td>
+                <td>{{ exam_type.min }}</td>
+                <td>{{ exam_type.max }}</td>
+                <td>
+                    <a href="{{ path('app_exam_type_show', {'id': exam_type.id}) }}">Show</a>
+                    <a href="{{ path('app_exam_type_edit', {'id': exam_type.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_exam_type_new') }}">Create new</a>
+{% endblock %}

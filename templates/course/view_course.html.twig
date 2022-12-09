@@ -3,14 +3,17 @@
 {% block title %}Course {% endblock %}
 
 {% block body %}
-    <h4> List of Course </h4>
+
+
+
+       <h4> List of Course  in <a href="{{ path('app_program_index') }}">  {{ program }} </a> program</h4>
 
     <table class="table">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Couse name</th>
-                <th>Program </th>
+                <th>Department </th>
                 <th>Ccode</th>
                 <th>Credit hour</th>
                 <th>ECTS </th>
@@ -21,16 +24,14 @@
         {% for course in courses %}
             <tr>
                 <td>{{ loop.index }}</td>
-                <td title=" Program: {{ course.program}} Year:{{ course.year }} Semster:{{ course.semester }}"> {{ course.name }}</td>
+                <td title=" Dept: {{ course.program }} Year:{{ course.year }} Semster:{{ course.semester }}"> {{ course.name }}</td>
                 <td>{{ course.program }}</td>
-
-
                 <td>{{ course.ccode }}</td>
                 <td>{{ course.creditHour }}</td>
                 <td>{{ course.ects }}</td>
                 <td>
                     <a class="btn btn-sm btn-info btn-white btn-round"  href="{{ path('app_course_show', {'id': course.id}) }}">Show</a>
-                    <a class="btn btn-sm btn-warning btn-white btn-round"   href="{{ path('app_course_edit', {'id': course.id}) }}">Edit</a>
+                    <a class="btn btn-sm btn-warning btn-white btn-round"  href="{{ path('app_course_edit', {'id': course.id}) }}">Edit</a>
                 </td>
             </tr>
         {% else %}

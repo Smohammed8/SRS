@@ -32,8 +32,6 @@ class AppointmentController extends AbstractController
     {
 
 
-       
-        
         $queryBuilder =  $appointmentRepository->getAppointments($request->query->get('search'));
         $data = $paginator->paginate(
          $queryBuilder,
