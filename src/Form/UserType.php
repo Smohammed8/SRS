@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Form;
+
+use App\Entity\Campus;
 use App\Entity\User;
-use App\Entity\Ward;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,13 +22,12 @@ class UserType extends AbstractType
    public function buildForm(FormBuilderInterface $builder, array $options)
     {
              $role=[
-            "System Adminstrator"=>"ROLE_ADMIN",
-            "Gate Keeper"=>"ROLE_GATE_KEEPER",
-            'Checkpoint' => 'ROLE_CHECKPOINT',
-            'Liaison Officer' => 'ROLE_LIAISON',
-            'Physician' => 'ROLE_PHYSICIAN',
-            'Nurse' => 'ROLE_NURSE',
-            'Card worker' => 'ROLE_DATA_ENCODER'
+      
+                "System Adminstrator"=>"ROLE_ADMIN",
+                "Student"=>"ROLE_STUDENT",
+                'Instructure' => 'ROLE_INSTRUCTURE',
+                'Registrar Officer' => 'ROLE_REGISTRAR_OFFICER',
+                'Data encoder' => 'ROLE_DATA_ENCODER'
            
         ];
 
@@ -50,8 +50,8 @@ class UserType extends AbstractType
             ->add('phone')
            
 
-               ->add('ward', EntityType::class, [
-            'class' =>Ward::class,
+               ->add('campus', EntityType::class, [
+            'class' =>Campus::class,
             'required'=>false,
             'query_builder' => function (EntityRepository $err) {
                 $result = $err->createQueryBuilder('e')
@@ -62,7 +62,7 @@ class UserType extends AbstractType
                 return $result;
             },
         
-            'placeholder' => "All wards...",
+            'placeholder' => "Head office...",
         ])
 
         ;

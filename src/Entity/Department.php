@@ -28,21 +28,10 @@ class Department
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
-
     /**
-     * @ORM\OneToMany(targetEntity=Encounter::class, mappedBy="destination")
+     * @ORM\OneToMany(targetEntity=ProgramLevel::class, mappedBy="department")
      */
-    private $encounters;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Slip::class, mappedBy="department", orphanRemoval=true)
-     */
-    private $slips;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Program::class, mappedBy="department", orphanRemoval=true)
-     */
-    private $programs;
+    private $programLevels;
 
 
 
@@ -50,7 +39,8 @@ class Department
     {
     
         $this->slips = new ArrayCollection();
-        $this->programs = new ArrayCollection();
+    
+        $this->programLevels = new ArrayCollection();
       
     }
 
@@ -91,61 +81,30 @@ class Department
     }
 
 
-
     /**
-     * @return Collection<int, Slip>
+     * @return Collection<int, ProgramLevel>
      */
-    public function getSlips(): Collection
+    public function getProgramLevels(): Collection
     {
-        return $this->slips;
+        return $this->programLevels;
     }
 
-    public function addSlip(Slip $slip): self
+    public function addProgramLevel(ProgramLevel $programLevel): self
     {
-        if (!$this->slips->contains($slip)) {
-            $this->slips[] = $slip;
-            $slip->setDepartment($this);
+        if (!$this->programLevels->contains($programLevel)) {
+            $this->programLevels[] = $programLevel;
+            $programLevel->setDepartment($this);
         }
 
         return $this;
     }
 
-    public function removeSlip(Slip $slip): self
+    public function removeProgramLevel(ProgramLevel $programLevel): self
     {
-        if ($this->slips->removeElement($slip)) {
+        if ($this->programLevels->removeElement($programLevel)) {
             // set the owning side to null (unless already changed)
-            if ($slip->getDepartment() === $this) {
-                $slip->setDepartment(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Program>
-     */
-    public function getPrograms(): Collection
-    {
-        return $this->programs;
-    }
-
-    public function addProgram(Program $program): self
-    {
-        if (!$this->programs->contains($program)) {
-            $this->programs[] = $program;
-            $program->setDepartment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgram(Program $program): self
-    {
-        if ($this->programs->removeElement($program)) {
-            // set the owning side to null (unless already changed)
-            if ($program->getDepartment() === $this) {
-                $program->setDepartment(null);
+            if ($programLevel->getDepartment() === $this) {
+                $programLevel->setDepartment(null);
             }
         }
 

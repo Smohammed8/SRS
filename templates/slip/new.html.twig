@@ -3,7 +3,9 @@
 {% block title %}New Slip{% endblock %}
 
 {% block body %}
-   <h4> Create admission slip for <a href="{{ path('patient_show', {'id': patientID }) }}"> {{ patient }} </a> </h4>
+    {# {% if is_granted("check_in") %} #}
+    <h4> List of adminssion slip for -<a href="{{ path('app_student_show', {'id': student.id }) }}"> {{ student }}  </a> &nbsp;  Program: <a href=""> {{ student.program }} </a>  &nbsp;  Admission Year: <a href=""> {{ student.academicYear }} E.C </a>   </h4>
+      {# {% endif %} #}	
 
     {{ include('slip/_form.html.twig') }}
 

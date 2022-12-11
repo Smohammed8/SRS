@@ -30,18 +30,40 @@ class SlipRepository extends ServiceEntityRepository
     }
 
   
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function add(Slip $entity, bool $flush = true): void
+    {
+        $this->_em->persist($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(Slip $entity, bool $flush = true): void
+    {
+        $this->_em->remove($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
 
-    public function getSlips(Patient $patient,$search=null)
+    public function getSlips($student,$search=null)
 
     {
        // $today = new \DateTime();
         $qb= $this->createQueryBuilder('h');
-        $qb->andWhere("h.status = '1'");
-        $qb->andWhere('h.patient= :patient')->setParameter('patient', $patient);
+      //  $qb->andWhere("h.status = '1'");
+        $qb->andWhere('h.student= :student')->setParameter('student', $student);
        // $qb->andWhere('h.appointedAt like :appointedAt')->setParameter('appointedAt', $today->format("Y-m-d")."%");
         $qb->orderBy('h.id', 'DESC');
-        return  $qb->getQuery();
+        return  $qb->getQuery()->getResult();
     }
     // /**
     //  * @return Slip[] Returns an array of Slip objects

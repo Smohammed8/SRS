@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course {% endblock %}
+
+{% block body %}
+
+ <div class="widget-box">
+ <div class="widget-header widget-header-flat">
+ <h5 class="widget-title"> <i class="ace-icon fa fa-graduation-cap" aria-hidden="true"></i>
+ Student Slip  Summary</h5>  <a class="btn btn-sm btn-info btn-white btn-round pull-right"  href="{{ path('print_slip', {'id': slip.id }) }}">  <i class="ace-icon fa fa-print"> </i> Print</a>
+  <hr>
+<div class="widget-body">
+
+        <h5> <i class="ace-icon fa fa-caret-right blue"> </i> Student: <a href="{{ path('app_student_show', {'id': student.id }) }}">  {{ student }} </a> </h5>
+        <h5> <i class="ace-icon fa fa-caret-right blue"> </i> Department:<a href="#">  {{ program.programLevel.department??null }} </a> </h5>
+         <h5> <i class="ace-icon fa fa-caret-right blue"> </i> Program:<a href="#">  {{ program }} </a> </h5>
+         <h5> <i class="ace-icon fa fa-caret-right blue"> </i> Year: <a href="#">  {{ year }} </a> </h5>
+         <h5> <i class="ace-icon fa fa-caret-right blue"> </i> Semester: <a href="#">  {{ semester }} </a> </h5>
+          <p> <i class="ace-icon fa fa-caret-right blue"> </i>Academic Year: <a href="#">  {{ student.academicYear  }}  </a> </p>
+
+         <h5> <i class="ace-icon fa fa-caret-right blue"> </i> Modality: <a href="#">  {{ student.modality }} </a> </h5>
+        
+
+<h5> <Center><b>Remark:</b> if the student should drop the a specific course, please uncheck left side checkbox </Center> </h5>
+</div>
+ </div>
+ </div>
+
+
+
+ 
+  
+
+    <table class="table" id="simple-table" >
+        <thead>
+            <tr>
+            
+
+            <th class="center">
+           <label class="pos-rel">
+            All<input type="checkbox" id="select-all" class="ace" />   
+                    <span class="lbl"> </span>
+                </label>
+            </th>
+
+                <th>Course Title </th>
+                <th>Course Code</th>
+                <th>Credit hour</th>
+                <th>ECTS </th>
+                <th>Has prerequisite? </th>
+           
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+            <tr>
+
+
+                             <td class="center">
+                             <label class="pos-rel">
+                             {{ loop.index }}
+															<input type="checkbox" id="select-all" name="checkBox[]" class="ace" />
+															<span class="lbl"></span>
+														</label>
+                                                </td>
+
+           {# <td> 
+            <input type="checkbox" name="checkBox[]"  name="course" value="{{ course.id }}" /></td> #}
+                {# <td>{{ loop.index }}</td> #}
+                <td>{{ course.name }}</td>
+                <td>{{ course.ccode }}</td>
+                <td>{{ course.creditHour }}</td>
+                <td>{{ course.ects }}</td>
+               <td>
+               {% if course.courses| length >0 %}
+
+              <a href="{{ path('app_course_show', {'id': course.id}) }}">    {{ macros.link_tree(course.course) }} </a>
+               {% else %}
+                  {{ '-' }}
+                 {% endif %}
+               </td>
+              
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+<script>
+
+document.getElementById('select-all').onclick = function() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+    }
+}
+</script>
+    {# <a href="{{ path('app_course_new') }}">Create new</a> #}
+{% endblock %}

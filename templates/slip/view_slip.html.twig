@@ -1,52 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Slip index{% endblock %}
+{% block title %}Slip {% endblock %}
 
 {% block body %}
-    <h4> List of adminssion Slip-<a href="{{ path('patient_show', {'id': patient.id }) }}"> {{ patient }}  </a> </h4>
- 	<div class="pull-right tableTools-container">
-     <a href="{{ path('slip_new', {'id': patient.id}) }}" class="btn btn-success btn-sm float-right">  <i class="fa fa-file"></i> Add slip </a>             
-    <a href="{{ path('patient_show', {'id': patient.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-user"></i> Back </a>             
+
+                                    
+
+    {# {% if is_granted("check_in") %} #}
+    <h4> List of adminssion slip for -<a href="{{ path('app_student_show', {'id': student.id }) }}"> {{ student }}  </a> &nbsp;  Program: <a href=""> {{ student.program }} </a>  &nbsp;  Admission Year: <a href=""> {{ student.academicYear }} E.C </a>   </h4>
+      {# {% endif %}	 #}
+    <div class="pull-right tableTools-container">
+     {# <a href="#" onclick="createSlip('{{path("create_slip",{"id":student.id})}}')" class="btn btn-success btn-sm float-right">  <i class="fa fa-plus"></i> Create slip </a>   #}
+
+      <a href=" {{ path('slip_new', {'id': student.id}) }} " class="btn btn-success btn-sm float-right">  <i class="fa fa-plus"></i> Create slip </a>                        
+   
+  
+    <a href="{{ path('app_student_show', {'id': student.id }) }}" class="btn btn-info btn-sm float-right">  <i class="fa fa-user"></i> Back </a>             
     </div>
     <table class="table">
         <thead>
             <tr>
                 <th>#</th>
-                 <th>Patient </th>
-                <th>Seen Date</th>
-                <th>Diagnosis</th>
-                <th>Admitting Team</th>
-                <th>Evaluating Resident</th>
-                <th>Senior Surgeon</th>
+                <th>Program </th>
+          
+                <th>Modality</th>
+                 <th> Year</th>
+                <th>Semester</th>
+        
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for slip in slips %}
             <tr>
-                <td>{{  loop.index }}</td>
-                  <td> <a href="{{ path('patient_show', {'id': slip.patient.id}) }}"> {{ slip.patient  }} </a></td>
-                <td>{{ slip.seenDate ? slip.seenDate| eth_date  }} ( {{ slip.seenDate ? slip.seenDate| ago }} ) </td>
-                <td>{{ slip.diagnosis }}</td>
-                <td>{{ slip.admittingTeam }}</td>
-                <td>{{ slip.evaluatingResident }}</td>
-                <td>{{ slip.seniorSurgeon }}</td>
+                <td>{{ loop.index }}</td>
+                <td>{{ slip.program}}</td>
+            
+                <td>{{ slip.modality}}</td>
+                {# {% set acdemicYear = slip.student.academicYear + slip.year  %} #}
+
+                <td>  {{ slip.year }}</td>
+                <td>{{ slip.semester }}</td>
                 <td>
-                  <a class="btn btn-xs btn-info" href="{{ path('slip_show', {'id': slip.id}) }}" title="Edit">
-						<i class="ace-icon fa fa-eye bigger-120"></i> 
+                  <a class="btn btn-xs btn-info" href="{{ path('course_view', {'id': slip.id}) }}" title="View course">
+						<i class="ace-icon fa fa-list bigger-120"></i>  Detail
 				    </a>
 
-                    <a class="btn btn-xs btn-warning" href="{{ path('slip_edit', {'id': slip.id}) }}" title="Edit">
-						<i class="ace-icon fa fa-pencil bigger-120"></i> 
+                   <a class="btn btn-xs btn-info" href="{{ path('print_slip', {'id': slip.id }) }}" title="Print">
+						<i class="ace-icon fa fa-print bigger-120"></i>  Print slip
 				    </a>
-                    <a class="btn btn-xs btn-success" href="" title="Print out">
-						<i class="ace-icon fa fa-print bigger-120"></i> 
+
+                    <a class="btn btn-xs btn-warning" href="{{ path('slip_delete', {'id': slip.id}) }}" title="Delete">
+						<i class="ace-icon fa fa-danger bigger-120"></i>  Delete
 				    </a>
+ 
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">No patien's slip found</td>
+                <td colspan="7" style="color:red;"> No student's slip found</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -54,5 +66,34 @@
 
     <div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(slips) }}</div>
 
+
+
+
+    <script>
+
+    function createSlip(route) {
+swal.fire({
+title: "Are you sure to create registration slip?",
+text: "You won't be able to revert this!",
+type: "warning",
+showCancelButton: true,
+confirmButtonText: "Yes, Slip is created!"
+
+}).then(function (result) {
+$.ajax({
+type: "POST",
+url: route,
+data: {},
+dataType: 'json',
+success: function (data) {
+swal.fire("New slip is created!", "Slip has been created!", "success").then(function (result) {
+location.reload();
+})
+}
+});
+});
+ }
+
+    </script>
 
 {% endblock %}

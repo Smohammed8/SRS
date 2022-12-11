@@ -60,7 +60,7 @@
 					
 						<th>Email
 						</th>
-						<th>Ward </th>
+						<th>Campus </th>
 						{# <th> Role </th> #}
 					 
 						<th>Status 
@@ -83,11 +83,11 @@
 
 							<td>{{ user.email }}</td>
 
-							<td> {% if user.ward is null %}
+							<td> {% if user.campus is null %}
 							
-						      	 <span> All </span>
+						      	 <span> Head office </span>
 								  {% else %}
-								 {{  user.Ward }}
+								 {{  user.campus }}
 								  {% endif %}
 								  </td>
 							{# <td>

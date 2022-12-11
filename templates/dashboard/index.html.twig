@@ -133,13 +133,13 @@
 			         <div class="col-lg-3 col-sm-6">
                 <div class="card-box bg-red">
                     <div class="inner">
-                        <h3> {{ total_wards }}</h3>
+                        <h3> {{ '0' }}</h3>
                         <p> Total wards </p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-institution"></i>
                     </div>
-                    <a href="{{ path('ward_index')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
@@ -148,7 +148,7 @@
 			         <div class="col-lg-3 col-sm-6">
                 <div class="card-box bg-green">
                     <div class="inner">
-                        <h3> {{ total_units }} </h3>
+                        <h3> {{ '0' }} </h3>
                         <p> Total Units </p>
                     </div>
                     <div class="icon">
@@ -160,7 +160,7 @@
 			         <div class="col-lg-3 col-sm-6">
                 <div class="card-box bg-blue">
                     <div class="inner">
-                        <h3> {{ free_beds}} </h3>
+                        <h3> {{ '0'}} </h3>
                         <p> Free Beds </p>
                     </div>
                     <div class="icon">
@@ -172,7 +172,7 @@
             <div class="col-lg-3 col-sm-6">
                 <div class="card-box bg-red">
                     <div class="inner">
-                        <h3> {{ total_beds }} </h3>
+                        <h3> {{ '0' }} </h3>
                         <p> Total Beds
                     </div>
                     <div class="icon">
@@ -269,7 +269,7 @@
 																<i class="ace-icon fa fa-users fa-2x red"></i>
 																&nbsp;Deaths
 															</span>
-															<h4 class="bigger pull-right">{{ total_deaths }}</h4>
+															<h4 class="bigger pull-right">{{ ' '}}</h4>
 														</div>
 
 														<div class="grid3">
@@ -277,7 +277,7 @@
 																<i class="ace-icon fa fa-users fa-2x green"></i>
 																&nbsp;Improves
 															</span>
-															<h4 class="bigger pull-right">{{ total_improves}}</h4>
+															<h4 class="bigger pull-right">{{ ' '}}</h4>
 														</div>
 
 														<div class="grid3">
@@ -285,7 +285,7 @@
 																<i class="ace-icon fa fa-users fa-2x blue"></i>
 																&nbsp;Referrals
 															</span>
-															<h4 class="bigger pull-right">{{ total_referrals }}</h4>
+															<h4 class="bigger pull-right">{{ '' }}</h4>
 														</div>
 
 
@@ -294,7 +294,7 @@
 																<i class="ace-icon fa fa-users fa-2x blue"></i>
 																&nbsp;Transfers
 															</span>
-															<h4 class="bigger pull-right"> {{total_transfers }}</h4>
+															<h4 class="bigger pull-right"> {{''}}</h4>
 														</div>
 	                                                     
                                                          <div class="grid3">
@@ -302,7 +302,7 @@
 																<i class="ace-icon fa fa-users fa-2x blue"></i>
 																&nbsp; No changes
 															</span>
-															<h4 class="bigger pull-right"> {{ total_nochangs }}</h4>
+															<h4 class="bigger pull-right"> {{ '' }}</h4>
 														</div>
 
                                                         	<div class="grid3">
@@ -310,7 +310,7 @@
 																<i class="ace-icon fa fa-users fa-2x blue"></i>
 																&nbsp;Absoconds
 															</span>
-															<h4 class="bigger pull-right"> {{ total_absoconds }}</h4>
+															<h4 class="bigger pull-right"> {{ '' }}</h4>
 														</div>
 
 
@@ -319,7 +319,7 @@
 																<i class="ace-icon fa fa-users fa-2x blue"></i>
 																&nbsp;Self-discharges
 															</span>
-															<h4 class="bigger pull-right"> {{ total_self_discharges }}</h4>
+															<h4 class="bigger pull-right"> {{ '' }}</h4>
 														</div>
 
 													</div>
@@ -356,7 +356,7 @@
 																<i class="ace-icon fa fa-institution fa-2x blue"></i>
 																&nbsp; Meducal Ward :
 															</span>
-															<h5 class="pull-right">	<span class="grey"> {{units_in_surgical_ward}} Units,&nbsp;{{beds_in_surgical_ward}} Beds </span></h5>
+															<h5 class="pull-right">	<span class="grey"> {{'0'}} Units,&nbsp;{{'0'}} Beds </span></h5>
 														</div>
 
 														<div class="grid3">
@@ -364,14 +364,14 @@
 																<i class="ace-icon fa fa-institution fa-2x purple"></i>
 																&nbsp; Surgical Ward :
 															</span>
-															<h5 class="pull-right"> <span class="grey"> {{units_in_surgical_ward}} Units,&nbsp;{{beds_in_surgical_ward}} Beds	</span> </h5>
+															<h5 class="pull-right"> <span class="grey"> {{'0'}} Units,&nbsp;{{'0'}} Beds	</span> </h5>
 														</div>
                                                         <div class="grid3">
 															<span class="grey">
 																<i class="ace-icon fa fa-institution fa-2x red"></i>
 																&nbsp; Matharnity Ward :
 															</span>
-															<h5 class="pull-right"> <span class="grey"> {{units_in_mathernity_ward}} Units,&nbsp;{{beds_in_mathernity_ward}} Beds 	</span></h5>
+															<h5 class="pull-right"> <span class="grey"> {{'0'}} Units,&nbsp;{{'0'}} Beds 	</span></h5>
 														</div>
 
 
@@ -380,7 +380,7 @@
 																<i class="ace-icon fa fa-institution fa-2x red"></i>
 																&nbsp; Pediatrices Ward :
 															</span>
-															<h5 class="pull-right"> <span class="grey"> {{units_in_pediatrics_ward}} Units,&nbsp; {{beds_in_pediatrics_ward}}  Beds 	</span></h5>
+															<h5 class="pull-right"> <span class="grey"> {{'0'}} Units,&nbsp; {{'0'}}  Beds 	</span></h5>
 														</div>
 
 														<div class="grid3">
@@ -388,7 +388,7 @@
 																<i class="ace-icon fa fa-institution fa-2x red"></i>
 																&nbsp; Gynaecology Ward :
 															</span>
-															<h5 class=" pull-right"> <span class="grey"> {{ units_in_gyne_ward }} Units,&nbsp;{{ beds_in_gyne_ward }}  Beds </span> </h5>
+															<h5 class=" pull-right"> <span class="grey"> {{'0' }} Units,&nbsp;{{ '0'}}  Beds </span> </h5>
                                                         
 														</div>
 
@@ -400,16 +400,16 @@
 
                                                                 
 															</span>
-															<h5 class=" pull-right"> <span class="grey"> {{ units_in_psychiatric_ward}} Units,&nbsp; {{ beds_in_psychiatric_ward }} Beds </span> </h5>
+															<h5 class=" pull-right"> <span class="grey"> {{ '0'}} Units,&nbsp; {{ '0' }} Beds </span> </h5>
                                                         
 														</div>
 
                                                         		<div class="grid3">
-															<span class="grey">
+															<span class="grey"
 																<i class="ace-icon fa fa-institution fa-2x red"></i>
 																&nbsp; Ophthalmology ward :
 															</span>
-															<h5 class=" pull-right"> <span class="grey"> {{ units_in_ophtha_ward }} Units,&nbsp;  {{ beds_in_ophtha_ward }} Beds </span> </h5>
+															<h5 class=" pull-right"> <span class="grey"> {{ '0' }} Units,&nbsp;  {{ '0' }} Beds </span> </h5>
                                                         
 														</div>
 
@@ -421,7 +421,7 @@
 																<i class="ace-icon fa fa-institution fa-2x red"></i>
 																&nbsp; NICU Ward :
 															</span>
-															<h5 class=" pull-right"> <span class="grey"> {{ units_in_nicu_ward }} Units,&nbsp; {{ beds_in_nicu_ward }}Beds </span> </h5>
+															<h5 class=" pull-right"> <span class="grey"> {{ '0' }} Units,&nbsp; {{ '0' }}Beds </span> </h5>
                                                         
 														</div>
 
@@ -431,7 +431,7 @@
 																<i class="ace-icon fa fa-institution fa-2x red"></i>
 																&nbsp; Orthopedics Ward :
 															</span>
-															<h5 class=" pull-right"> <span class="grey"> {{units_in_orthopedics_ward }} Units,&nbsp;  {{ beds_in_orthopedics_ward }} Beds </span> </h5>
+															<h5 class=" pull-right"> <span class="grey"> {{'0' }} Units,&nbsp;  {{ '0' }} Beds </span> </h5>
                                                         
 														</div>
 

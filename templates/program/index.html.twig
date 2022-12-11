@@ -10,8 +10,8 @@
             <tr>
                 <th>#</th>
                 <th>Program name</th>
-                <th> Department </th>
-                   <th> Study year  </th>
+                <th> Program level </th>
+                <th> Study year  </th>
                 <th> Actions</th>
             </tr>
         </thead>
@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ program.id }}</td>
                 <td>{{ program.name }}</td>
-                   <td>{{ program.department }}</td>
+                   <td>{{ program.programLevel }}</td>
                       <td>-</td>
                 <td>
                     <a class="btn btn-sm btn-info btn-white btn-round"  href="{{ path('app_program_show', {'id': program.id}) }}"> <i class" fa fa-list"> </i>Show</a>

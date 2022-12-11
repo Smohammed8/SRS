@@ -35,11 +35,6 @@ class Program
      */
     private $students;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Department::class, inversedBy="programs")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $department;
 
     /**
      * @ORM\Column(type="integer")
@@ -51,11 +46,22 @@ class Program
      */
     private $courses;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Slip::class, mappedBy="program")
+     */
+    private $slips;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProgramLevel::class, inversedBy="programs")
+     */
+    private $programLevel;
+
     public function __construct()
     {
         $this->programLevels = new ArrayCollection();
         $this->students = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->slips = new ArrayCollection();
     }
     public function __toString()
     {
@@ -79,35 +85,35 @@ class Program
         return $this;
     }
 
-    /**
-     * @return Collection<int, ProgramLevel>
-     */
-    public function getProgramLevels(): Collection
-    {
-        return $this->programLevels;
-    }
+    // /**
+    //  * @return Collection<int, ProgramLevel>
+    //  */
+    // public function getProgramLevels(): Collection
+    // {
+    //     return $this->programLevels;
+    // }
 
-    public function addProgramLevel(ProgramLevel $programLevel): self
-    {
-        if (!$this->programLevels->contains($programLevel)) {
-            $this->programLevels[] = $programLevel;
-            $programLevel->setProgram($this);
-        }
+    // public function addProgramLevel(ProgramLevel $programLevel): self
+    // {
+    //     if (!$this->programLevels->contains($programLevel)) {
+    //         $this->programLevels[] = $programLevel;
+    //         $programLevel->setProgram($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeProgramLevel(ProgramLevel $programLevel): self
-    {
-        if ($this->programLevels->removeElement($programLevel)) {
-            // set the owning side to null (unless already changed)
-            if ($programLevel->getProgram() === $this) {
-                $programLevel->setProgram(null);
-            }
-        }
+    // public function removeProgramLevel(ProgramLevel $programLevel): self
+    // {
+    //     if ($this->programLevels->removeElement($programLevel)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($programLevel->getProgram() === $this) {
+    //             $programLevel->setProgram(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Student>
@@ -139,17 +145,7 @@ class Program
         return $this;
     }
 
-    public function getDepartment(): ?Department
-    {
-        return $this->department;
-    }
 
-    public function setDepartment(?Department $department): self
-    {
-        $this->department = $department;
-
-        return $this;
-    }
 
     public function getTotalSemester(): ?int
     {
@@ -189,6 +185,48 @@ class Program
                 $course->setProgram(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Slip>
+     */
+    public function getSlips(): Collection
+    {
+        return $this->slips;
+    }
+
+    public function addSlip(Slip $slip): self
+    {
+        if (!$this->slips->contains($slip)) {
+            $this->slips[] = $slip;
+            $slip->setProgram($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlip(Slip $slip): self
+    {
+        if ($this->slips->removeElement($slip)) {
+            // set the owning side to null (unless already changed)
+            if ($slip->getProgram() === $this) {
+                $slip->setProgram(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getProgramLevel(): ?ProgramLevel
+    {
+        return $this->programLevel;
+    }
+
+    public function setProgramLevel(?ProgramLevel $programLevel): self
+    {
+        $this->programLevel = $programLevel;
 
         return $this;
     }

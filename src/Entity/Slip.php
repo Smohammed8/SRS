@@ -25,18 +25,6 @@ class Slip
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Department::class, inversedBy="slips")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $department;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Course::class, inversedBy="slips")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $course;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Semester::class, inversedBy="slips")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -52,6 +40,16 @@ class Slip
      * @ORM\ManyToOne(targetEntity=Year::class, inversedBy="slips")
      */
     private $year;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Student::class, inversedBy="slips")
+     */
+    private $student;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="slips")
+     */
+    private $program;
 
     public function getId(): ?int
     {
@@ -72,29 +70,7 @@ class Slip
         return $this;
     }
 
-    public function getDepartment(): ?Department
-    {
-        return $this->department;
-    }
 
-    public function setDepartment(?Department $department): self
-    {
-        $this->department = $department;
-
-        return $this;
-    }
-
-    public function getCourse(): ?Course
-    {
-        return $this->course;
-    }
-
-    public function setCourse(?Course $course): self
-    {
-        $this->course = $course;
-
-        return $this;
-    }
 
     public function getSemester(): ?Semester
     {
@@ -128,6 +104,30 @@ class Slip
     public function setYear(?Year $year): self
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    public function getStudent(): ?Student
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?Student $student): self
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    public function getProgram(): ?Program
+    {
+        return $this->program;
+    }
+
+    public function setProgram(?Program $program): self
+    {
+        $this->program = $program;
 
         return $this;
     }

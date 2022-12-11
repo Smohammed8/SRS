@@ -496,21 +496,61 @@ admissionButton = '\
                                {% if is_granted("viw_diagnosis") %}   #}
                                       <li>
                                         <a href="{{ path('app_diploma_view',{'id': student.id}) }}  ">
-                                            <i class="ace-icon fa fa-flag"></i>
+                                            <i class="ace-icon fa fa-university"></i>
                                             &nbsp;
                                             <span class="black"> Colleg Diploma </span>
                                         </a>
                                     </li>
                                 {# {% endif %}
+                              
                                    {% if is_granted("viw_apoint") %}   #}
                                     <li>
-                                        <a href="">
-                                            <i class="ace-icon fa fa-flag"></i>
+                                
+                                        <a href="{{ path('slip_view',{'id': student.id}) }}">
+                                            <i class="ace-icon fa fa-file"></i>
                                             &nbsp;
-                                            <span class="black"> slip</span>
+                                            <span class="black">Registration slip</span>
                                         </a>
                                     </li>
                                    {# {% endif %}
+
+
+                                    
+                                   {% if is_granted("viw_apoint") %}   #}
+                                    <li>
+                                
+                                        <a href="{{ path('slip_view',{'id': student.id}) }}">
+                                            <i class="ace-icon fa fa-graduation-cap"></i>
+                                            &nbsp;
+                                            <span class="black">Student grade </span>
+                                        </a>
+                                    </li>
+                                   {# {% endif %}
+
+
+                                   {% if is_granted("viw_apoint") %}   #}
+                                    <li>
+                                
+                                        <a href="{{ path('slip_view',{'id': student.id}) }}">
+                                            <i class="ace-icon fa fa-map-o"></i>
+                                            &nbsp;
+                                            <span class="black">Student copy </span>
+                                        </a>
+                                    </li>
+                                   {# {% endif %}
+
+                                          {% if is_granted("viw_apoint") %}   #}
+                                    <li>
+                                
+                                        <a href="{{ path('slip_view',{'id': student.id}) }}">
+                                            <i class="ace-icon fa fa-certificate"></i>
+                                            &nbsp;
+                                            <span class="black">Certification </span>
+                                        </a>
+                                    </li>
+                                   {# {% endif %}
+
+
 
                                      {% if is_granted("viw_atendt") %}  #}
                                     <li> 
@@ -620,7 +660,7 @@ admissionButton = '\
                             </div>
 
                             <div class="profile-info-value">
-                                <span class="editable" id="about">{{ student.programLevel }}</span>
+                                <span class="editable" id="about">{{ student.program.programLevel }}</span>
                             </div>
                         </div>
 

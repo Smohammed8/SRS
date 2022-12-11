@@ -24,20 +24,31 @@ class ProgramLevel
      */
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="programLevels")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $program;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="programLevels")
+    //  * @ORM\JoinColumn(nullable=false)
+    //  */
+    // private $program;
 
     /**
      * @ORM\OneToMany(targetEntity=Student::class, mappedBy="programLevel")
      */
     private $students;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Department::class, inversedBy="programLevels")
+     */
+    private $department;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Program::class, mappedBy="programLevel")
+     */
+    private $programs;
+
     public function __construct()
     {
         $this->students = new ArrayCollection();
+        $this->programs = new ArrayCollection();
     }
 
     public function __toString()
@@ -62,17 +73,17 @@ class ProgramLevel
         return $this;
     }
 
-    public function getProgram(): ?Program
-    {
-        return $this->program;
-    }
+    // public function getProgram(): ?Program
+    // {
+    //     return $this->program;
+    // }
 
-    public function setProgram(?Program $program): self
-    {
-        $this->program = $program;
+    // public function setProgram(?Program $program): self
+    // {
+    //     $this->program = $program;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Student>
@@ -82,22 +93,64 @@ class ProgramLevel
         return $this->students;
     }
 
-    public function addStudent(Student $student): self
+    // public function addStudent(Student $student): self
+    // {
+    //     if (!$this->students->contains($student)) {
+    //         $this->students[] = $student;
+    //         $student->setProgramLevel($this);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeStudent(Student $student): self
+    // {
+    //     if ($this->students->removeElement($student)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($student->getProgramLevel() === $this) {
+    //             $student->setProgramLevel(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    public function getDepartment(): ?Department
     {
-        if (!$this->students->contains($student)) {
-            $this->students[] = $student;
-            $student->setProgramLevel($this);
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Program>
+     */
+    public function getPrograms(): Collection
+    {
+        return $this->programs;
+    }
+
+    public function addProgram(Program $program): self
+    {
+        if (!$this->programs->contains($program)) {
+            $this->programs[] = $program;
+            $program->setProgramLevel($this);
         }
 
         return $this;
     }
 
-    public function removeStudent(Student $student): self
+    public function removeProgram(Program $program): self
     {
-        if ($this->students->removeElement($student)) {
+        if ($this->programs->removeElement($program)) {
             // set the owning side to null (unless already changed)
-            if ($student->getProgramLevel() === $this) {
-                $student->setProgramLevel(null);
+            if ($program->getProgramLevel() === $this) {
+                $program->setProgramLevel(null);
             }
         }
 

@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Modality;
 use App\Entity\Nationality;
-use App\Entity\ProgramLevel;
+
 use App\Entity\Student;
 use App\Entity\Woreda;
 use App\Entity\Program;
@@ -70,19 +70,19 @@ class StudentType extends AbstractType
             ])
 
 
-            ->add('programLevel', EntityType::class, [
-                'class' =>ProgramLevel::class,
-                'query_builder' => function (EntityRepository $err) {
-                    $result = $err->createQueryBuilder('e')
+            // ->add('programLevel', EntityType::class, [
+            //     'class' =>ProgramLevel::class,
+            //     'query_builder' => function (EntityRepository $err) {
+            //         $result = $err->createQueryBuilder('e')
                  
-                           ->orderBy('e.name', 'ASC');   
+            //                ->orderBy('e.name', 'ASC');   
         
                      
-                    return $result;
-                },
+            //         return $result;
+            //     },
             
-                'placeholder' => "Select program level...",
-            ])
+            //     'placeholder' => "Select program level...",
+            // ])
 
 
            
@@ -122,19 +122,19 @@ class StudentType extends AbstractType
 
             ->add('academicYear', ChoiceType::class, array(  
                 'choices'  => array(
-              //  'Select cademic year..' =>'',
-                '2015' =>'2015',
-                '2016' =>'2016',
-                '2017' =>'2019',
-                '2018' =>'2018',
-                '2019' =>'2019',
-                '2020' =>'2020',
-                '2021' =>'2021'
+               'Select admission year..' =>'',
+              '2015' =>2015,
+              '2016' =>2016,
+              '2017' =>2019,
+              '2018' =>2018,
+              '2019' =>2019,
+              '2020' =>2020,
+              '2021' =>2021
             
             
             ),
                  'required'=>true,
-                // 'mapped'=>false,
+                 //'mapped'=>false,
                  'attr'=> array(
                   'class'=>'form-control select2'
     

@@ -35,6 +35,19 @@ class CourseRepository extends ServiceEntityRepository
         }
     }
 
+        
+    public function getCourses($year,$semseter,$program, )
+
+    {
+        $qb= $this->createQueryBuilder('h');
+        $qb->andWhere('h.program=:program')->setParameter('program', $program);
+        $qb->andWhere('h.semester=:semester')->setParameter('semester', $semseter);
+        $qb->andWhere('h.year =:year')->setParameter('year', $year);
+        $qb->orderBy('h.id', 'DESC');
+       // $qb->setMaxResults(3);
+        return  $qb->getQuery()->getResult();
+    }
+
 
     public function getCourse($prog)
 

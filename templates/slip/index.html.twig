@@ -44,11 +44,15 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">No patien's slip found</td>
+               <td colspan="7" style="color:red;"> No student's slip found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+ 
+
+      <a href="{{ path('slip_new',{'id': student.id}) }}">Create new</a>
 
     <div class="pull-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(slips) }}</div>
 

@@ -4,10 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Admimssion;
 use App\Entity\Patient;
-use App\Entity\Ward;
-use App\Entity\Unit;
-use App\Entity\Room;
-use App\Entity\Bed;
+// use App\Entity\Ward;
+// use App\Entity\Unit;
+// use App\Entity\Room;
+// use App\Entity\Bed;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -24,13 +24,13 @@ class AdmimssionRepository extends ServiceEntityRepository
         parent::__construct($registry, Admimssion::class);
     }
 
-    public function getAdmissionBaseOnWard(Ward $ward)
-    {
+    // public function getAdmissionBaseOnWard(Ward $ward)
+    // {
         
-        $qb= $this->createQueryBuilder('a');
-        $qb->where('a.bed = :bed')->setParameter('bed',$$ard);
-        $qb->getQuery()->getResult();
-    }
+    //     $qb= $this->createQueryBuilder('a');
+    //     $qb->where('a.bed = :bed')->setParameter('bed',$$ard);
+    //     $qb->getQuery()->getResult();
+    // }
 
     public function getQuery($search=null)
     {
@@ -156,11 +156,6 @@ public function non_emergency($sdate,$edate) {
         return $qb;
         
    }
-
-
-
-
-
    public function total_death()
    {
        $qb = $this->createQueryBuilder('a')

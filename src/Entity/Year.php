@@ -20,7 +20,7 @@ class Year
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="integer", length=50)
      */
     private $name;
 
@@ -50,12 +50,12 @@ class Year
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): ?int
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(int $name): self
     {
         $this->name = $name;
 

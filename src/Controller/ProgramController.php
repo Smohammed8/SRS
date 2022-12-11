@@ -44,7 +44,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_program_new', methods: ['GET', 'POST'])]
+    #[Route('/add/new_program', name: 'app_program_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProgramRepository $programRepository): Response
     {
         $program = new Program();
@@ -53,6 +53,7 @@ class ProgramController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->add($program);
+            $this->addFlash('success','Program successfully saved');
             return $this->redirectToRoute('app_program_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -78,6 +79,7 @@ class ProgramController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->add($program);
+            $this->addFlash('success','Program successfully saved');
             return $this->redirectToRoute('app_program_index', [], Response::HTTP_SEE_OTHER);
         }
 

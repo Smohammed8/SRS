@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Course;
+use App\Entity\Slip;
 use App\Form\CourseType;
 use App\Repository\CourseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,7 @@ use App\Helper\DomPrint;
 use Knp\Component\Pager\PaginatorInterface;
 
 use App\Entity\Program as EntityProgramType;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/course')]
 class CourseController extends AbstractController
@@ -50,8 +52,54 @@ class CourseController extends AbstractController
 
     }
 
-    #[Route('/new', name: 'app_course_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CourseRepository $courseRepository): Response
+
+    #[Route('/course_view/{id}', name: 'course_view', methods: ['GET'])]
+    public function courseShow( Request $request, Slip $slip, PaginatorInterface $paginator,CourseRepository $courseRepositor): Response
+    {
+        
+        $queryBuilder =  $courseRepositor->getCourses($slip->getYear(),$slip->getSemester(), $slip->getProgram());
+        $data = $paginator->paginate(
+         $queryBuilder,
+         $request->query->getInt('page', 1),
+         15
+      );
+
+      
+      return $this->render('course/slip_course.html.twig', [
+            'courses' => $data,
+            'slip' =>$slip,
+            'student' =>$slip->getStudent(),
+            'semester' =>$slip->getSemester(),
+            'year' =>$slip->getYear(),
+            'program' =>$slip->getProgram()
+          
+        
+        ]);
+    }
+
+    // #[Route('/addNew/{id}', name: 'app_add_course_new', methods: ['GET', 'POST'])]
+    // public function addNew( EntityProgramType $entityProgramType, Request $request, CourseRepository $courseRepository): Response
+    // {
+    //     $course = new Course();
+    //     $form = $this->createForm(CourseType::class, $course);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $courseRepository->add($course);
+    //       //  return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
+
+    //         return $this->redirectToRoute('app_course_index',["id"=>$entityProgramType->getId()]);
+    //     }
+
+    //     return $this->renderForm('course/new.html.twig', [
+    //         'course' => $course,
+    //         'form' => $form,
+    //         'program' =>$entityProgramType
+    //     ]);
+    // }
+
+    #[Route('/add/new_course', name: 'app_course_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, CourseRepository $courseRepository, EntityManagerInterface $entityManager): Response
     {
         $course = new Course();
         $form = $this->createForm(CourseType::class, $course);
@@ -59,6 +107,8 @@ class CourseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $courseRepository->add($course);
+            $this->addFlash('success','Course successfully saved');
+
             return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -84,6 +134,7 @@ class CourseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $courseRepository->add($course);
+            $this->addFlash('success','Course successfully edited');
             return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
         }
 

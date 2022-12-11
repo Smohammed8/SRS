@@ -54,17 +54,12 @@ class Student
     private $program;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ProgramLevel::class, inversedBy="students")
-     */
-    private $programLevel;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Modality::class, inversedBy="students")
      */
     private $modality;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="integer", length=50)
      */
     private $academicYear;
 
@@ -109,11 +104,17 @@ class Student
      */
     private $status;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Slip::class, mappedBy="student")
+     */
+    private $slips;
+
     public function __construct()
     {
         $this->diplomas = new ArrayCollection();
         $this->preparatories = new ArrayCollection();
         $this->hightSchools = new ArrayCollection();
+        $this->slips = new ArrayCollection();
     }
 
 
@@ -127,12 +128,12 @@ class Student
         return $this->id;
     }
 
-    public function getStudentId(): ?int
+    public function getStudentId(): ?string
     {
         return $this->studentId;
     }
 
-    public function setStudentId(int $studentId): self
+    public function setStudentId(string $studentId): self
     {
         $this->studentId = $studentId;
 
@@ -211,17 +212,6 @@ class Student
         return $this;
     }
 
-    public function getProgramLevel(): ?ProgramLevel
-    {
-        return $this->programLevel;
-    }
-
-    public function setProgramLevel(?ProgramLevel $programLevel): self
-    {
-        $this->programLevel = $programLevel;
-
-        return $this;
-    }
 
     public function getModality(): ?Modality
     {
@@ -405,6 +395,36 @@ class Student
     public function setStatus(?int $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Slip>
+     */
+    public function getSlips(): Collection
+    {
+        return $this->slips;
+    }
+
+    public function addSlip(Slip $slip): self
+    {
+        if (!$this->slips->contains($slip)) {
+            $this->slips[] = $slip;
+            $slip->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlip(Slip $slip): self
+    {
+        if ($this->slips->removeElement($slip)) {
+            // set the owning side to null (unless already changed)
+            if ($slip->getStudent() === $this) {
+                $slip->setStudent(null);
+            }
+        }
 
         return $this;
     }

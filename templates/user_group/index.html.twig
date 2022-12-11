@@ -84,7 +84,7 @@
 
 										<form class="d-inline" method="post" action="{{ path('user_group_action',{'id':user_group.id})}}" onsubmit="return confirm('Are you sure you want to {{ user_group.isActive ? 'DeActivate':'Activate'}} this User Group?');">
 											<input name="activateUserGroup" value="{{ user_group.isActive ? 0 : 1}}" hidden>
-											{{ user_group.isActive ?  '<button class="btn btn-sm badge badge-danger"> <i class="fa fa-check-circle" style="font-size:16px;color:green"></i>&nbsp; Deactivate </button>': '<button class="btn btn-sm btn-success"> <i class="fa fa-check-circle" style="font-size:16px;color:red"></i>&nbsp; Activate </button>' }}
+											{{ user_group.isActive ?  '<button class="btn btn-sm btn-warning btn-white btn-round"> <i class="fa fa-check-circle" style="font-size:16px;color:green"></i>&nbsp; Deactivate </button>': '<button class="btn btn-sm btn-success"> <i class="fa fa-check-circle" style="font-size:16px;color:red"></i>&nbsp; Activate </button>' }}
 
 										</form>
 								
@@ -95,18 +95,18 @@
                 <td>
 		                       	{% if is_granted('ad_prmsn_to_grp') %}
 
-                                  <a href="{{ path('user_group_permission', {'id': user_group.id}) }}" class="btn btn-info btn-sm" title="add permissions">
+                                  <a href="{{ path('user_group_permission', {'id': user_group.id}) }}" class="btn btn-sm btn-info btn-white btn-round" title="add permissions">
 									<i class="fa fa-list"></i>&nbsp;Permissions
 								</a>
 			                 	  {% endif %}
 
                              	{% if is_granted('ad_usr_to_grp') %}
-								<a href="{{ path('user_group_users', {'id': user_group.id}) }}" class="btn btn-success btn-sm" title="add users">
+								<a href="{{ path('user_group_users', {'id': user_group.id}) }}" class="btn btn-sm btn-info btn-white btn-round" title="add users">
 									<i class="fa fa-users"></i>&nbsp;Users
 								</a>
 								{% endif %}
 								{% if is_granted('edt_grp') %}
-												<a href="{{ path('user_group_edit', {'id': user_group.id}) }}" class="btn btn-warning btn-sm" title="edit">
+												<a href="{{ path('user_group_edit', {'id': user_group.id}) }}" class="btn btn-sm btn-warning btn-white btn-round" title="edit">
 									<i class="fa fa-pen"></i> Edit
 								</a>
 			               	 {% endif %}

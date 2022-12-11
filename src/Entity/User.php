@@ -173,6 +173,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $students;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="users")
+     */
+    private $campus;
+
     public function __construct()
     {
         $this->userGroup = new ArrayCollection();
@@ -811,6 +816,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $student->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }

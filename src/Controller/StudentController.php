@@ -163,16 +163,8 @@ class StudentController extends AbstractController
 
        }
 
-    #[Route('/new', name: 'app_student_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, StudentRepository $studentRepository): Response
-    {
-        $student = new Student();
-        $form = $this->createForm(StudentType::class, $student);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $academic_year  = $form->get('academic_year ')->getData(); 
-           //  0000  if less than 10   > 0
+                //  0000  if less than 10   > 0
            //  10 011  if less than 100 and  > 9
            //  00  id less than 1000 and >99
            //  0 less than 10,000 and >1000
@@ -183,12 +175,30 @@ class StudentController extends AbstractController
             // Extension student  ET0001/academic_year     //  000002/15
             // Distance Student   DT0002/academic_year    // 000002/15
             // Weekend Student     WK0003/academic_year  // 000004/15
-            $prefix = 0000;
+    #[Route('/new', name: 'app_student_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, StudentRepository $studentRepository): Response
+    {
+        $student = new Student();
+        $form = $this->createForm(StudentType::class, $student);
+        $form->handleRequest($request);
+     
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $ayear  = $form->get('academicYear')->getData();
             $student->setCreatedBy($this->getUser());
-            $student->setStudentId($this->getPrefix($student->getId(),$academic_year));
+     
+           // $student->setStudentId($this->getPrefix($student->getId(),$ayear));
             $student->setCreatedAt(new \DateTimeImmutable());
             $student->setStatus(Constants::ADMITTED_STUDENT);
+    
+               //  dd($student->getId());
+           // $student->setStudentId($this->getPrefix($student->getId(),$ayear));
+
+            // $student->setStudentId('000'.$student->getId().'/'.$ayear);
+
             $studentRepository->add($student);
+         
+
             $this->addFlash('success', "The student has been successfully registered!");
             return $this->redirectToRoute('app_student_index', [], Response::HTTP_SEE_OTHER);
         }
